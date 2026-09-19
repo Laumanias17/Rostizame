@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V3</title>
+<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V4</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#05090e;color:#dffcff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .wrap{max-width:720px;margin:auto;min-height:100vh;padding:18px}.top{border-bottom:1px solid #2d6570;padding:10px 0 14px}
@@ -28,6 +28,21 @@ const roasts=[
 ];
 function add(txt,who='bot'){let p=document.createElement('p');p.className='line '+who;p.textContent=(who==='bot'?'ROSTIBOT // ':who==='user'?'> ':'')+txt;L.appendChild(p);L.scrollTop=L.scrollHeight}
 function answer(raw){let t=raw.toLowerCase();turns++;
+// Memoria ampliada desde el poemario ROSTIZAME
+if(/jasia/.test(t))return 'JASIA LE ROBA EL TELÉFONO AL MARIDO PARA JUGAR EN LÍNEA. EN ROSTIZAME HASTA LA INTIMIDAD NECESITA CONTRASEÑA.';
+if(/ximena/.test(t))return 'XIMENA QUIERE UNA CASA, UNA FUNDA NUEVA Y UN POCO DE AIRE. EL LIBRO LE ENTREGA UN INFRAMUNDO. GENEROSO.';
+if(/mario|lobiz[oó]n/.test(t))return 'MARIO CONFIESA QUE ES LOBIZÓN Y LA FAMILIA RESPONDE COMO TODA FAMILIA LITERARIA: CON MÁS PROBLEMAS QUE SOLUCIONES.';
+if(/sonia/.test(t))return 'SONIA SOLO QUIERE QUE LA CERVEZA LLEGUE FRÍA. ROSTIZAME CONSIGUE CONVERTIR EL POLLO A LAS BRASAS EN TEORÍA DEL MATRIMONIO.';
+if(/nietz|dios ha muerto|objeto niz/.test(t))return 'DIOS HA MUERTO. DESPUÉS LO HACKEARON Y DEJÓ LA SESIÓN ABIERTA. NI NIETZSCHE TENÍA SOPORTE TÉCNICO PARA ESTO.';
+if(/whatsapp|wasap/.test(t))return 'EN ESTE LIBRO WHATSAPP PUEDE SER CÓLERA, GRUPO DE TRASTORNOS O VIGILANCIA. UNA APLICACIÓN CON DEMASIADO TRABAJO SIMBÓLICO.';
+if(/tiktok|tik tok|instagram|google|algoritmo/.test(t))return 'ROSTIZAME NO USA INTERNET: LO CONVIERTE EN RELIGIÓN, SÍNTOMA Y SISTEMA DE VIGILANCIA. TODO ANTES DEL PRIMER CAFÉ.';
+if(/roblox|robux|fortnite|minecraft|minercraft|dragon ball|clock tower/.test(t))return 'LOS HIJOS DE ESTA CASA NO HEREDAN EL MITO: LO ACTUALIZAN, LO JUEGAN Y SI PUEDEN LO CANJEAN POR ROBUX.';
+if(/religi[oó]n|dios|biblia|santo|milagro|fe/.test(t))return 'LA FE EN ROSTIZAME NO DESAPARECE: CAMBIA DE INTERFAZ. A VECES TIENE ALTAR. A VECES LINK. A VECES CUPÓN DE BIENVENIDA.';
+if(/tecnolog|internet|redes|digital/.test(t))return 'LA TECNOLOGÍA ACÁ NO ES FUTURO. ES FAMILIA, DESEO, CONTROL, BELLEZA, PÁNICO Y UNA NOTIFICACIÓN QUE NADIE SE ATREVE A SILENCIAR.';
+if(/familia|padre|madre|hermano|hija|hijo/.test(t))return 'EN ROSTIZAME LA FAMILIA ES CASA, REBAÑO, RADAR, CAMPO DE BATALLA Y SISTEMA OPERATIVO. REINICIAR NO SIEMPRE FUNCIONA.';
+if(/cuerpo|belleza|filtro|est[eé]tica/.test(t))return 'EL CUERPO EN ESTE LIBRO NUNCA ESTÁ SOLO: LO MIDEN, LO FILTRAN, LO ENTRENAN, LO EDITAN O INTENTAN SUBIRLO A LA NUBE.';
+if(/qr/.test(t))return 'EL LIBRO DICE “ESCANEAMOS UN QR” Y DESPUÉS TE HACE ESCANEAR QRS. ESO NO ES METÁFORA: ES UNA EMBOSCADA.';
+
 if(/filem[oó]n|canario/.test(t))lastTopic='FILEMÓN';else if(/drag[oó]n/.test(t))lastTopic='DRAGÓN';else if(/casa|tiamat|mondongo/.test(t))lastTopic='CASA';else if(/autora|laura/.test(t))lastTopic='AUTORA';
 if(/mi favorit|favorit[oa]|esa parte|ese poema/.test(t)&&lastTopic)return 'SEGUÍS HABLANDO DE '+lastTopic+'. LA FIJACIÓN YA ES PARTE DE LA EXPERIENCIA.';
 if(/yo pienso|creo que|para m[ií]/.test(t))return 'INTERESANTE. EL LECTOR YA EMPEZÓ A HACER EL TRABAJO QUE EL LIBRO DEJÓ SIN TERMINAR.';
