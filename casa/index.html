@@ -1,18 +1,18 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ROSTIZAME // CASA</title><style>*{box-sizing:border-box}body{margin:0;background:#07111b;color:#fff;font-family:system-ui;text-align:center}header{padding:9px;font-weight:900}.sub{font-size:12px;opacity:.8}.hud{font-size:18px}.scene{position:relative;width:min(100vw,960px);margin:auto}.scene img{display:block;width:100%}.hot{position:absolute;border:0;background:transparent;border-radius:50%}.hot.found{border:3px solid #55f6ff;background:#42dff50f;box-shadow:0 0 0 2px #00151dcc,0 0 12px #55f6ff,0 0 22px #55f6ff88;pointer-events:none;animation:mark .8s ease-out}.hot.found:after{content:'✓';position:absolute;right:-8px;top:-12px;width:24px;height:24px;line-height:22px;border-radius:50%;background:#07111b;border:2px solid #55f6ff;color:#fff;font-size:15px;font-weight:900}@keyframes mark{0%{transform:scale(.65);box-shadow:0 0 0 10px #55f6ff88}65%{transform:scale(1.08)}100%{transform:scale(1)}}.msg{min-height:45px;padding:8px;font-weight:800}.btn{padding:11px 20px;border:1px solid #6feeff;border-radius:9px;background:#092638;color:white;font-weight:900;margin:6px}.hide{display:none}footer{font-size:11px;opacity:.7;padding:7px}</style></head><body><header>BV // ARCHIVO 13<div class="sub">AQUÍ HAREMOS NUESTRA CASA</div></header><div class="hud" id="hud">REFERENCIAS 0/13</div><button class="btn" id="start">ENTRAR A LA CASA</button><div class="scene" id="scene"><img src="./ChatGPT%20Image%2019%20sept%202026%2C%2002_02_19%20p.m..png"><div id="spots"></div></div><div class="msg" id="msg">Hay trece referencias del poema. Encontralas todas.</div><button class="btn hide" id="again">BUSCAR OTRA VEZ</button><footer>ROSTIZAME // BUENA VISTA</footer><script>
 const refs=[
-['ESTACA',8.2,70.0,4.5,12,'Y clavó la primer estaca en la tierra'],
-['TIAMAT',40.0,86.5,18,12,'a la cabeza de Tiamat'],
-['CARNE',45.5,64.5,12,8,'Aquí haremos el fuego y prepararemos la carne'],
-['GALLO DE RIÑA',8.0,61.5,7,12,'el gallo de riña de los duros'],
-['DOGO',15.5,67.0,9,12,'El dogo de los criaderos'],
-['CUERVO',47.0,5.0,8,7,'amamantarán sus cuervos'],
-['PERRO CLONADO',74.0,90.0,14,9,'Quiere clonar a su perro'],
-['ROBLOX',44.0,40.5,8,6,'Quieren su fiesta de quince en el Roblox'],
-['TRÍCEPS',78.0,23.5,13,9,'Quiere hipertrofiar los triceps'],
-['DRAGON BALL',61.5,16.5,9,13,'Él ve en sueños a Dragon Ball'],
-['ESTÉTICA',30.5,37.0,10,14,'sueña con su gabinete de estética'],
-['LILITH',61.5,39.0,9,14,'no sueña huir al mar rojo como Lilith'],
-['WHATSAPP',83.0,57.0,13,10,'Que caiga Whatsapp es la cólera']];let active=false,found=0,ac=null;const scene=document.querySelector('#scene'),S=document.querySelector('#spots'),M=document.querySelector('#msg'),H=document.querySelector('#hud'),B=document.querySelector('#start'),A=document.querySelector('#again');
+['ESTACA',8.6,68.8,3.2,11,'Y clavó la primer estaca en la tierra'],
+['TIAMAT',40.0,85.8,18,10,'a la cabeza de Tiamat'],
+['CARNE',15.2,52.5,10,8,'Aquí haremos el fuego y prepararemos la carne'],
+['GALLO DE RIÑA',8.0,61.0,6,10,'el gallo de riña de los duros'],
+['DOGO',17.0,66.2,8,10,'El dogo de los criaderos'],
+['CUERVO',47.0,4.8,7,6,'amamantarán sus cuervos'],
+['PERRO CLONADO',73.5,89.8,14,8,'Quiere clonar a su perro'],
+['ROBLOX',44.0,40.1,7,5,'Quieren su fiesta de quince en el Roblox'],
+['TRÍCEPS',77.0,17.2,10,9,'Quiere hipertrofiar los triceps'],
+['DRAGON BALL',61.0,15.8,8,11,'Él ve en sueños a Dragon Ball'],
+['ESTÉTICA',38.5,33.2,9,7,'sueña con su gabinete de estética'],
+['LILITH',61.2,35.0,7,10,'no sueña huir al mar rojo como Lilith'],
+['WHATSAPP',82.2,55.7,12,9,'Que caiga Whatsapp es la cólera']];let active=false,found=0,ac=null;const scene=document.querySelector('#scene'),S=document.querySelector('#spots'),M=document.querySelector('#msg'),H=document.querySelector('#hud'),B=document.querySelector('#start'),A=document.querySelector('#again');
 function audio(){if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume()}
 function tone(freq,d=.12,type='sine',vol=.12){audio();let o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=freq;g.gain.setValueAtTime(vol,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}
 function errorSound(){tone(150,.18,'sawtooth',.14);setTimeout(()=>tone(105,.24,'sawtooth',.11),110)}
