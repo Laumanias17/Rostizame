@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V2</title>
+<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V3</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#05090e;color:#dffcff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .wrap{max-width:720px;margin:auto;min-height:100vh;padding:18px}.top{border-bottom:1px solid #2d6570;padding:10px 0 14px}
@@ -14,7 +14,7 @@ button{background:#0b3540;border:1px solid #67e6f5;border-radius:10px;color:#eaf
 <div class="foot">ROSTIZAME // BUENA VISTA · ARCHIVO 13</div></main>
 <script>
 const L=document.querySelector('#log'),Q=document.querySelector('#q'),S=document.querySelector('#send'),R=document.querySelector('#roast');
-const fallback=[
+let lastTopic='',turns=0;const fallback=[
 'NO ENTENDÍ. PROBABLEMENTE SEA CULPA DEL LIBRO.',
 'ESO NO ESTÁ EN MI ARCHIVO. POR SUERTE.',
 'PODRÍA RESPONDER, PERO EL LIBRO YA TIENE SUFICIENTES PROBLEMAS.',
@@ -27,13 +27,21 @@ const roasts=[
 'DIAGNÓSTICO: POESÍA CON EXCESO DE PUERTAS SECRETAS.'
 ];
 function add(txt,who='bot'){let p=document.createElement('p');p.className='line '+who;p.textContent=(who==='bot'?'ROSTIBOT // ':who==='user'?'> ':'')+txt;L.appendChild(p);L.scrollTop=L.scrollHeight}
-function answer(raw){let t=raw.toLowerCase();if(/filem[oó]n|canario/.test(t))return 'FILEMÓN SOBREVIVIÓ A UN POEMA PARA TERMINAR TRABAJANDO EN UN MINIJUEGO. ESO SÍ ES PRECARIZACIÓN LITERARIA.';
+function answer(raw){let t=raw.toLowerCase();turns++;
+if(/filem[oó]n|canario/.test(t))lastTopic='FILEMÓN';else if(/drag[oó]n/.test(t))lastTopic='DRAGÓN';else if(/casa|tiamat|mondongo/.test(t))lastTopic='CASA';else if(/autora|laura/.test(t))lastTopic='AUTORA';
+if(/mi favorit|favorit[oa]|esa parte|ese poema/.test(t)&&lastTopic)return 'SEGUÍS HABLANDO DE '+lastTopic+'. LA FIJACIÓN YA ES PARTE DE LA EXPERIENCIA.';
+if(/yo pienso|creo que|para m[ií]/.test(t))return 'INTERESANTE. EL LECTOR YA EMPEZÓ A HACER EL TRABAJO QUE EL LIBRO DEJÓ SIN TERMINAR.';
+if(/no entiendo|no entend[ií]/.test(t))return 'TRANQUILO. A VECES EL LIBRO TAMPOCO PARECE ENTENDERSE A SÍ MISMO.';
+if(/explic|significa|quiere decir/.test(t))return 'PEDIRLE EXPLICACIONES A ROSTIZAME ES COMO PEDIRLE PLANOS A TIAMAT.';
+if(/inteligente|inteligencia|ia/.test(t))return 'NO SOY INTELIGENTE. SOY INSISTENTE. EN CRÍTICA LITERARIA A VECES ALCANZA.';
+if(/vos|t[uú]/.test(t)&&/malo|tonto|idiota|horrible/.test(t))return 'INSULTO REGISTRADO. POR FIN UNA CRÍTICA CONCISA.';
+if(/filem[oó]n|canario/.test(t))return 'FILEMÓN SOBREVIVIÓ A UN POEMA PARA TERMINAR TRABAJANDO EN UN MINIJUEGO. ESO SÍ ES PRECARIZACIÓN LITERARIA.';
 if(/drag[oó]n/.test(t))return 'UN DRAGÓN QUE FILTRA PALABRAS. MUY SUTIL. CASI NO SE NOTA LA METÁFORA.';
 if(/casa|tiamat|mondongo/.test(t))return 'LA CASA TIENE TIAMAT EN EL SÓTANO Y MONDONGO EN LA COCINA. INMOBILIARIAMENTE, TENGO PREGUNTAS.';
 if(/autora|laura/.test(t))return 'LA AUTORA ME PROGRAMÓ PARA CRITICARLA. NO SÉ SI ESO ES VALENTÍA O FALTA DE SUPERVISIÓN.';
 if(/bueno|gusta|gust[oó]|hermos|genial/.test(t))return 'TE GUSTÓ. QUEDA REGISTRADO COMO POSIBLE FALLO DEL SISTEMA.';
 if(/malo|horrible|odio|feo/.test(t))return 'POR FIN UN LECTOR QUE COLABORA CON MI TRABAJO.';
-if(/rostiz|libro|poema|poes[ií]a/.test(t))return roasts[Math.floor(Math.random()*roasts.length)];
+if(/rostiz|libro|poema|poes[ií]a/.test(t))return roasts[Math.floor(Math.random()*roasts.length)];if(turns%5===0)return 'LLEVÁS '+turns+' MENSAJES HABLANDO CON UN BOT QUE INSULTA UN POEMARIO. YO NO SOY EL PROBLEMA PRINCIPAL.';
 if(/hola|buenas/.test(t))return 'HOLA. YA LEÍ EL LIBRO. VOS TODAVÍA PODÉS ESCAPAR.';
 if(/qui[eé]n sos|qu[eé] sos/.test(t))return 'SOY ROSTIBOT. FUI CREADO PARA HACER LO QUE TODO LIBRO TEME: LEERLO SIN RESPETO.';
 return fallback[Math.floor(Math.random()*fallback.length)]}
