@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROTIBOT V1</title>
+<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V2</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#05090e;color:#dffcff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .wrap{max-width:720px;margin:auto;min-height:100vh;padding:18px}.top{border-bottom:1px solid #2d6570;padding:10px 0 14px}
@@ -9,7 +9,7 @@
 .row{display:flex;gap:8px;border-top:1px solid #204550;padding-top:13px}input{flex:1;min-width:0;background:#02080d;border:1px solid #356875;border-radius:10px;color:#fff;padding:13px;font:inherit}
 button{background:#0b3540;border:1px solid #67e6f5;border-radius:10px;color:#eaffff;font:900 13px inherit;padding:0 14px;min-height:48px}
 .roast{width:100%;margin-top:10px;border-color:#d36d55;background:#3a1713}.foot{text-align:center;color:#607e85;font-size:11px;margin-top:14px}
-</style></head><body><main class="wrap"><div class="top"><div class="k">BV // ROTIBOT</div><div class="mut">SISTEMA DE CRÍTICA LITERARIA NO SOLICITADA</div></div>
+</style></head><body><main class="wrap"><div class="top"><div class="k">BV // ROSTIBOT</div><div class="mut">SISTEMA DE CRÍTICA LITERARIA NO SOLICITADA</div></div>
 <section class="term"><div id="log" class="log"></div><div class="row"><input id="q" maxlength="120" autocomplete="off" placeholder="ESCRIBÍ ALGO..."><button id="send">ENVIAR</button></div><button id="roast" class="roast">ROSTIZAR LIBRO</button></section>
 <div class="foot">ROSTIZAME // BUENA VISTA · ARCHIVO 13</div></main>
 <script>
@@ -26,7 +26,7 @@ const roasts=[
 'EL LIBRO USA A NIETZSCHE, ROBLOX Y MONDONGO EN EL MISMO UNIVERSO. NO PRESENTARÉ MÁS PRUEBAS.',
 'DIAGNÓSTICO: POESÍA CON EXCESO DE PUERTAS SECRETAS.'
 ];
-function add(txt,who='bot'){let p=document.createElement('p');p.className='line '+who;p.textContent=(who==='bot'?'ROTIBOT // ':who==='user'?'> ':'')+txt;L.appendChild(p);L.scrollTop=L.scrollHeight}
+function add(txt,who='bot'){let p=document.createElement('p');p.className='line '+who;p.textContent=(who==='bot'?'ROSTIBOT // ':who==='user'?'> ':'')+txt;L.appendChild(p);L.scrollTop=L.scrollHeight}
 function answer(raw){let t=raw.toLowerCase();if(/filem[oó]n|canario/.test(t))return 'FILEMÓN SOBREVIVIÓ A UN POEMA PARA TERMINAR TRABAJANDO EN UN MINIJUEGO. ESO SÍ ES PRECARIZACIÓN LITERARIA.';
 if(/drag[oó]n/.test(t))return 'UN DRAGÓN QUE FILTRA PALABRAS. MUY SUTIL. CASI NO SE NOTA LA METÁFORA.';
 if(/casa|tiamat|mondongo/.test(t))return 'LA CASA TIENE TIAMAT EN EL SÓTANO Y MONDONGO EN LA COCINA. INMOBILIARIAMENTE, TENGO PREGUNTAS.';
@@ -35,7 +35,7 @@ if(/bueno|gusta|gust[oó]|hermos|genial/.test(t))return 'TE GUSTÓ. QUEDA REGIST
 if(/malo|horrible|odio|feo/.test(t))return 'POR FIN UN LECTOR QUE COLABORA CON MI TRABAJO.';
 if(/rostiz|libro|poema|poes[ií]a/.test(t))return roasts[Math.floor(Math.random()*roasts.length)];
 if(/hola|buenas/.test(t))return 'HOLA. YA LEÍ EL LIBRO. VOS TODAVÍA PODÉS ESCAPAR.';
-if(/qui[eé]n sos|qu[eé] sos/.test(t))return 'SOY ROTIBOT. FUI CREADO PARA HACER LO QUE TODO LIBRO TEME: LEERLO SIN RESPETO.';
+if(/qui[eé]n sos|qu[eé] sos/.test(t))return 'SOY ROSTIBOT. FUI CREADO PARA HACER LO QUE TODO LIBRO TEME: LEERLO SIN RESPETO.';
 return fallback[Math.floor(Math.random()*fallback.length)]}
 function send(){let v=Q.value.trim();if(!v)return;add(v,'user');Q.value='';setTimeout(()=>add(answer(v)),260)}
 S.onclick=send;Q.addEventListener('keydown',e=>{if(e.key==='Enter')send()});R.onclick=()=>{add('ROSTIZAR LIBRO','user');setTimeout(()=>add('ESCANEANDO ROSTIZAME...','sys'),150);setTimeout(()=>add(roasts[Math.floor(Math.random()*roasts.length)]),850)};
