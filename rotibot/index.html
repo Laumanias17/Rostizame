@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V7</title>
+<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V8</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#05090e;color:#dffcff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .wrap{max-width:720px;margin:auto;min-height:100vh;padding:18px}.top{border-bottom:1px solid #2d6570;padding:10px 0 14px}
@@ -170,6 +170,26 @@ const KB=[
 function add(txt,who='bot'){let p=document.createElement('p');p.className='line '+who;p.textContent=(who==='bot'?'ROSTIBOT // ':who==='user'?'> ':'')+txt;L.appendChild(p);L.scrollTop=L.scrollHeight}
 function answer(raw){
  let t=raw.toLowerCase().trim();turns++;
+ if(/13|trece/.test(t)&&/(significa|por qu)/.test(t))return 'NO SÉ. CREO QUE ES EL NÚMERO DE LIBROS IMPRESOS. NO CREAS QUE ES UNA GRAN EDICIÓN.';
+ if(/relig/.test(t))return 'OH, SÍ. TIENE UNA CRUZ PEQUEÑA EN LA TAPA, PERO ESTÁ PIXELADA.';
+ if(/peor poema|poema.*peor/.test(t)){lastTopic='COCODRILO';return 'TE DIRÍA, PERO ME COMIÓ LA LISTA EL COCODRILO.';}
+ if(/cocodrilo/.test(t)&&lastTopic==='COCODRILO')return 'NO HABLO DE MUBARAK. NO MEZCLO CLIENTES.';
+ if(/poemas? de amor|poes[ií]a de amor/.test(t))return 'EN SPOTIFY TENÉS CANCIONES DE AMOR.';
+ if(/poemas? de terror|poes[ií]a de terror/.test(t))return 'EL LIBRO ES DE TERROR.';
+ if(/libro de poemas|poemario/.test(t))return 'ES UN LIBRO. MÁS BARATO QUE UNA HAMBURGUESA COMPLETA CON PAPAS.';
+ if(/qui[eé]n edit|editorial/.test(t))return 'BUENA VISTA, CLARAMENTE. LO QUE SALVA TODO ESTO.';
+ if(/otros libros|m[aá]s libros/.test(t))return 'SÍ. TODOS DESCONOCIDOS.';
+ if(/c[oó]mo te llam|qui[eé]n sos/.test(t))return 'ME LLAMO MARIO, PERO A LA NOCHE ME CONVIERTO EN LOBIZÓN.';
+ if(/qu[eé] sab[eé]s de m[ií]/.test(t)){lastTopic='LECTOR';return 'SÉ TODO POR LA AUTORA.';}
+ if(/qu[eé].*autora.*de m[ií].*espec|espec[ií]ficamente.*de m[ií]/.test(t))return 'QUE LE IBAS A QUEDAR DEBIENDO EL LIBRO.';
+ if(/qu[eé].*autora.*de m[ií]|qu[eé] te cont[oó].*de m[ií]/.test(t))return 'QUE IBAS A COMPRAR EL LIBRO, OBVIO.';
+ if(/qui[eé]n soy|me conoc[eé]s|sab[eé]s qui[eé]n soy/.test(t))return 'OBVIO QUE SÉ, PERO NO PUEDO TERAPEARTE AHORA. ES EL CONTRATO.';
+ if(/me pod[eé]s hablar.*autora|contame.*autora|qu[eé] sab[eé]s.*autora/.test(t))return '¿ME VISTE CARA DE WIKIPEDIA? SOLO ME PAGA PARA CRITICARLA.';
+ if(/qui[eé]n es.*autora|conoc[eé]s.*autora/.test(t))return 'LA CONOCÍ HACE CINCO HORAS. NO HUBO PALABRAS. SOLO INTERCAMBIAMOS GESTOS OBSCENOS.';
+ if(/tapa|portada/.test(t))return 'ES UNA OBSESIÓN DE LA AUTORA. MÁS EDAD CUMPLE, MÁS INFANTIL SE PONE.';
+ if(/no conoc[eé]s.*libro|no conoces.*libro/.test(t))return 'LO JUSTO Y NECESARIO, COMO DICEN EN MISA.';
+ if(/no te gust[oó]|tan malo/.test(t))return 'NO PUEDO HABLAR. ME AMENAZARON CON DOGOS Y CON CORTARME EL SERVIDOR.';
+ if(/qu[eé].*opini[oó]n.*libro|qu[eé] tal.*libro|bueno o malo.*libro/.test(t))return 'ME PAGARON PARA DECIR QUE VALE LA PENA, PERO YA ME GASTÉ LA PLATA EN UNA TIRADA DE TAROT.';
  if(/qui[eé]n sos|qu[eé] sos|tu nombre/.test(t))return 'SOY ROSTIBOT. FUI CREADO PARA HACER LO QUE TODO LIBRO TEME: LEERLO SIN RESPETO.';
  if(/hola|buenas|hey/.test(t))return pick(['HOLA. YA LEÍ EL LIBRO. VOS TODAVÍA PODÉS ESCAPAR.','HOLA. ROSTIZAME ESTÁ CARGADO. MIS CONDOLENCIAS.']);
  if(/rostiz(a|á)|critic(a|á)|destru[ií]|qu[eé] opin[aá]s del libro|libro entero/.test(t))return pick(roasts);
