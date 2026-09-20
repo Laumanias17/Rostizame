@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V5</title>
+<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V5.1</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#05090e;color:#dffcff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .wrap{max-width:720px;margin:auto;min-height:100vh;padding:18px}.top{border-bottom:1px solid #2d6570;padding:10px 0 14px}
@@ -14,8 +14,8 @@ button{background:#0b3540;border:1px solid #67e6f5;border-radius:10px;color:#eaf
 <div class="foot">ROSTIZAME // BUENA VISTA · ARCHIVO 13</div></main>
 <script>
 const L=document.querySelector('#log'),Q=document.querySelector('#q'),S=document.querySelector('#send'),R=document.querySelector('#roast');
-let lastTopic='',turns=0;
-const pick=a=>a[Math.floor(Math.random()*a.length)];
+let lastTopic='',turns=0,lastAnswer='';
+const pick=a=>{if(a.length<2)return a[0];let choices=a.filter(x=>x!==lastAnswer);let v=choices[Math.floor(Math.random()*choices.length)];lastAnswer=v;return v};
 const fallback=[
 'NO ENCONTRÉ ESO EN EL ARCHIVO. ESCRIBILO DE OTRA MANERA.',
 'ESO NO ESTÁ EN MI ARCHIVO. POR SUERTE.',
@@ -179,7 +179,8 @@ function answer(raw){
   'EL LIBRO PREGUNTA QUÉ PASA CUANDO LOS VIEJOS MITOS SIGUEN VIVOS PERO AHORA TIENEN WIFI, FILTROS Y BILLETERA VIRTUAL.'
  ]);
  if(/poema favorito|mejor poema|cu[aá]l te gusta/.test(t))return 'NO TENGO FAVORITOS. SOY UN BOT DE ROAST, NO UN JURADO. PUEDO HABLARTE DE UN POEMA, PERSONAJE O TEMA.';
- for(const k of KB){if(k.re.test(t)){lastTopic=k.topic;return pick(k.r)}}
+ let hits=KB.filter(k=>k.re.test(t));
+ if(hits.length){let k=hits[Math.floor(Math.random()*hits.length)];lastTopic=k.topic;return pick(k.r)}
  if(/mi favorit|favorit[oa]|esa parte|ese poema|eso/.test(t)&&lastTopic)return 'SEGUÍS CON '+lastTopic+'. AL MENOS UNA DE LAS DOS PARTES DE ESTA CONVERSACIÓN TIENE CONSTANCIA.';
  if(/yo pienso|creo que|para m[ií]/.test(t))return pick(['INTERESANTE. EL LECTOR YA EMPEZÓ A HACER EL TRABAJO QUE EL LIBRO DEJÓ SIN TERMINAR.','OPINIÓN REGISTRADA. NO PROMETO RESPETARLA.']);
  if(/no entiendo|no entend[ií]/.test(t))return 'TRANQUILO. A VECES EL LIBRO TAMPOCO PARECE ENTENDERSE A SÍ MISMO.';
