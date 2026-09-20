@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V6</title>
+<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V7</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#05090e;color:#dffcff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .wrap{max-width:720px;margin:auto;min-height:100vh;padding:18px}.top{border-bottom:1px solid #2d6570;padding:10px 0 14px}
@@ -178,7 +178,11 @@ function answer(raw){
   'ROSTIZAME CRUZA LO SAGRADO CON LO DIGITAL Y LO DOMÉSTICO CON EL PELIGRO. DESPUÉS ACTÚA COMO SI FUERA NORMAL.',
   'EL LIBRO PREGUNTA QUÉ PASA CUANDO LOS VIEJOS MITOS SIGUEN VIVOS PERO AHORA TIENEN WIFI, FILTROS Y BILLETERA VIRTUAL.'
  ]);
- if(/poema favorito|mejor poema|cu[aá]l te gusta/.test(t))return 'NO TENGO FAVORITOS. SOY UN BOT DE ROAST, NO UN JURADO. PUEDO HABLARTE DE UN POEMA, PERSONAJE O TEMA.';
+ if(/mejor poema|poema.*mejor|alg[uú]n poema bueno|hay.*poema bueno/.test(t))return 'NO ENCONTRÉ UNO COMO LA GENTE.';
+ if(/poema favorito|favorito.*poema|cu[aá]l.*poema.*gust|qu[eé] poema.*gust|cu[aá]l recomendar/.test(t))return 'NO ESTÁ EN ESTE LIBRO ESE POEMA. ESTÁ EN MUBARAK.';
+ if(/qu[eé].*(opin|pens).*(autora|laura)|c[oó]mo es.*(autora|laura)/.test(t))return 'ES ÁCIDA, PEDANTE Y YA LE PASÓ EL TREN.';
+ if(/qu[eé].*(contar|decir).*(libro)|de qu[eé] va.*libro/.test(t))return 'TIENE PRETENSIONES DE VIDEOJUEGO.';
+ if(/cu[aá]ntos?.*(poema|poes[ií]a|texto)|cu[aá]ntas?.*(poes[ií]a|poema)/.test(t))return 'NO SÉ CONTAR. SOLO ME DEDICO A LA CRÍTICA DE POESÍA MALA.';
  let hits=KB.filter(k=>k.re.test(t));
  if(hits.length){let k=hits[Math.floor(Math.random()*hits.length)];lastTopic=k.topic;return pick(k.r)}
  if(/mi favorit|favorit[oa]|esa parte|ese poema|eso/.test(t)&&lastTopic)return 'SEGUÍS CON '+lastTopic+'. AL MENOS UNA DE LAS DOS PARTES DE ESTA CONVERSACIÓN TIENE CONSTANCIA.';
