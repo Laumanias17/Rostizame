@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V8.1</title>
+<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V9</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#05090e;color:#dffcff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .wrap{max-width:720px;margin:auto;min-height:100vh;padding:18px}.top{border-bottom:1px solid #2d6570;padding:10px 0 14px}
@@ -169,35 +169,37 @@ const KB=[
 ];
 function add(txt,who='bot'){let p=document.createElement('p');p.className='line '+who;p.textContent=(who==='bot'?'ROSTIBOT // ':who==='user'?'> ':'')+txt;L.appendChild(p);L.scrollTop=L.scrollHeight}
 function answer(raw){
- let t=raw.toLowerCase().trim();turns++;
- const has=(...xs)=>xs.some(x=>t.includes(x));
- if((has('13','trece'))&&has('significa','por qué','por que'))return 'NO SÉ. CREO QUE ES EL NÚMERO DE LIBROS IMPRESOS. NO CREAS QUE ES UNA GRAN EDICIÓN.';
- if(has('religión','religion','religioso','religiosa'))return 'OH, SÍ. TIENE UNA CRUZ PEQUEÑA EN LA TAPA, PERO ESTÁ PIXELADA.';
- if(has('peor poema','poema peor','poema más malo','poema mas malo')){lastTopic='COCODRILO';return 'TE DIRÍA, PERO ME COMIÓ LA LISTA EL COCODRILO.';}
- if(has('cuál cocodrilo','cual cocodrilo','qué cocodrilo','que cocodrilo','de qué cocodrilo','de que cocodrilo'))return 'NO HABLO DE MUBARAK. NO MEZCLO CLIENTES.';
- if((has('amor'))&&has('poema','poemas','poesía','poesia'))return 'EN SPOTIFY TENÉS CANCIONES DE AMOR.';
- if((has('terror'))&&has('poema','poemas','poesía','poesia'))return 'EL LIBRO ES DE TERROR.';
- if(has('libro de poemas','poemario','es poesía','es poesia'))return 'ES UN LIBRO. MÁS BARATO QUE UNA HAMBURGUESA COMPLETA CON PAPAS.';
- if(has('quién editó','quien edito','quién edit','quien edit','editorial'))return 'BUENA VISTA, CLARAMENTE. LO QUE SALVA TODO ESTO.';
- if(has('otros libros','más libros','mas libros','otros libros publicados'))return 'SÍ. TODOS DESCONOCIDOS.';
- if(has('cómo te llamas','como te llamas','cómo te llamás','como te llamas','cuál es tu nombre','cual es tu nombre','quién sos','quien sos'))return 'ME LLAMO MARIO, PERO A LA NOCHE ME CONVIERTO EN LOBIZÓN.';
- if(has('qué sabes de mi','que sabes de mi','qué sabés de mí','que sabes de mí')){lastTopic='LECTOR';return 'SÉ TODO POR LA AUTORA.';}
- if(has('específicamente de mí','especificamente de mi','específicamente de mi'))return 'QUE LE IBAS A QUEDAR DEBIENDO EL LIBRO.';
- if((has('autora'))&&has('de mí','de mi','sobre mí','sobre mi')&&has('qué te dijo','que te dijo','qué te contó','que te conto'))return 'QUE IBAS A COMPRAR EL LIBRO, OBVIO.';
- if(has('quién soy','quien soy','me conocés','me conoces','sabés quién soy','sabes quien soy'))return 'OBVIO QUE SÉ, PERO NO PUEDO TERAPEARTE AHORA. ES EL CONTRATO.';
- if((has('autora','laura'))&&has('hablar','contame','qué sabés','que sabes','qué sabes'))return '¿ME VISTE CARA DE WIKIPEDIA? SOLO ME PAGA PARA CRITICARLA.';
- if((has('autora','laura'))&&has('quién es','quien es','conocés','conoces'))return 'LA CONOCÍ HACE CINCO HORAS. NO HUBO PALABRAS. SOLO INTERCAMBIAMOS GESTOS OBSCENOS.';
- if((has('autora','laura'))&&has('opinión','opinion','opinás','opinas','pensás','piensas','cómo es','como es'))return 'ES ÁCIDA, PEDANTE Y YA LE PASÓ EL TREN.';
- if(has('tapa','portada'))return 'ES UNA OBSESIÓN DE LA AUTORA. MÁS EDAD CUMPLE, MÁS INFANTIL SE PONE.';
- if(has('no conocés el libro','no conoces el libro','no conocés rostizame','no conoces rostizame'))return 'LO JUSTO Y NECESARIO, COMO DICEN EN MISA.';
- if(has('no te gustó','no te gusto','tan malo','no te gusta'))return 'NO PUEDO HABLAR. ME AMENAZARON CON DOGOS Y CON CORTARME EL SERVIDOR.';
- if((has('libro','rostizame'))&&has('qué tal','que tal','opinión','opinion','bueno o malo','vale la pena','qué te pareció','que te parecio'))return 'ME PAGARON PARA DECIR QUE VALE LA PENA, PERO YA ME GASTÉ LA PLATA EN UNA TIRADA DE TAROT.';
- if(has('mejor poema','poema es el mejor','poema bueno'))return 'NO ENCONTRÉ UNO COMO LA GENTE.';
- if(has('poema favorito','poema te gustó más','poema te gusto mas','cuál poema te gustó','cual poema te gusto','qué poema te gustó','que poema te gusto','cuál recomendarías','cual recomendarias'))return 'NO ESTÁ EN ESTE LIBRO ESE POEMA. ESTÁ EN MUBARAK.';
- if(has('cuántos poemas','cuantos poemas','cuántas poesías','cuantas poesias','cuántos textos','cuantos textos'))return 'NO SÉ CONTAR. SOLO ME DEDICO A LA CRÍTICA DE POESÍA MALA.';
- if((has('libro','rostizame'))&&has('qué me podés contar','que me podes contar','contame del libro','de qué va','de que va'))return 'TIENE PRETENSIONES DE VIDEOJUEGO.';
- if(/hola|buenas|hey/.test(t))return pick(['HOLA. YA LEÍ EL LIBRO. VOS TODAVÍA PODÉS ESCAPAR.','HOLA. ROSTIZAME ESTÁ CARGADO. MIS CONDOLENCIAS.']);
- let hits=KB.filter(k=>k.re.test(t));
+ let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
+ const has=(...xs)=>xs.some(x=>t.includes(x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
+ // RESPUESTAS OFICIALES: se evalúan antes que la memoria general.
+ if((has('13','trece'))&&has('significa','por que'))return 'NO SÉ. CREO QUE ES EL NÚMERO DE LIBROS IMPRESOS. NO CREAS QUE ES UNA GRAN EDICIÓN.';
+ if(has('tiene religion','hay religion','libro religioso','es religioso','es religiosa'))return 'OH, SÍ. TIENE UNA CRUZ PEQUEÑA EN LA TAPA, PERO ESTÁ PIXELADA.';
+ if(has('cual es el peor poema','peor poema','poema es el peor','poema mas malo')){lastTopic='COCODRILO';return 'TE DIRÍA, PERO ME COMIÓ LA LISTA EL COCODRILO.';}
+ if(has('cual cocodrilo','que cocodrilo','de que cocodrilo'))return 'NO HABLO DE MUBARAK. NO MEZCLO CLIENTES.';
+ if(has('poemas de amor','poema de amor','poesia de amor','habla de amor'))return 'EN SPOTIFY TENÉS CANCIONES DE AMOR.';
+ if(has('poemas de terror','poema de terror','poesia de terror','hay terror'))return 'EL LIBRO ES DE TERROR.';
+ if(has('es un libro de poemas','libro de poemas','es un poemario','es poemario','es poesia'))return 'ES UN LIBRO. MÁS BARATO QUE UNA HAMBURGUESA COMPLETA CON PAPAS.';
+ if(has('quien edito el libro','quien edita el libro','que editorial','cual editorial','editorial lo publico','quien es la editorial'))return 'BUENA VISTA, CLARAMENTE. LO QUE SALVA TODO ESTO.';
+ if(has('otros libros publicados','tiene otros libros','publico otros libros','autora tiene mas libros','otros libros','mas libros'))return 'SÍ. TODOS DESCONOCIDOS.';
+ if(has('como te llamas','cual es tu nombre','quien sos','quien eres'))return 'ME LLAMO MARIO, PERO A LA NOCHE ME CONVIERTO EN LOBIZÓN.';
+ if(has('que sabes de mi','que sabes sobre mi')){lastTopic='LECTOR';return 'SÉ TODO POR LA AUTORA.';}
+ if(has('especificamente de mi','especificamente sobre mi'))return 'QUE LE IBAS A QUEDAR DEBIENDO EL LIBRO.';
+ if(has('que te dijo la autora de mi','que te conto la autora de mi','que te dijo de mi','que te conto de mi'))return 'QUE IBAS A COMPRAR EL LIBRO, OBVIO.';
+ if(has('quien soy yo','quien soy','me conoces','sabes quien soy'))return 'OBVIO QUE SÉ, PERO NO PUEDO TERAPEARTE AHORA. ES EL CONTRATO.';
+ if(has('me podes hablar de la autora','hablame de la autora','contame de la autora','que sabes de la autora','que sabes de laura'))return '¿ME VISTE CARA DE WIKIPEDIA? SOLO ME PAGA PARA CRITICARLA.';
+ if(has('quien es la autora','conoces a la autora','conoces a laura','quien es laura'))return 'LA CONOCÍ HACE CINCO HORAS. NO HUBO PALABRAS. SOLO INTERCAMBIAMOS GESTOS OBSCENOS.';
+ if((has('autora','laura'))&&has('que opinas','opinion','como es','que pensas'))return 'ES ÁCIDA, PEDANTE Y YA LE PASÓ EL TREN.';
+ if(has('por que esa tapa','por que la tapa','por que esa portada','por que la portada','tapa del libro','portada del libro'))return 'ES UNA OBSESIÓN DE LA AUTORA. MÁS EDAD CUMPLE, MÁS INFANTIL SE PONE.';
+ if(has('no conoces el libro','entonces no conoces el libro','no conoces rostizame'))return 'LO JUSTO Y NECESARIO, COMO DICEN EN MISA.';
+ if(has('no te gusto el libro','no te gusta el libro','osea que no te gusto','o sea que no te gusto','tan malo es'))return 'NO PUEDO HABLAR. ME AMENAZARON CON DOGOS Y CON CORTARME EL SERVIDOR.';
+ if(has('hablame del libro','habla del libro'))return 'UF, ES INSOPORTABLE.';
+ if(has('que me podes contar del libro','contame algo del libro','de que va el libro'))return 'TIENE PRETENSIONES DE VIDEOJUEGO.';
+ if(has('que opinion tienes del libro','que opinion tenes del libro','que opinas del libro','que tal el libro','que te parecio el libro','vale la pena el libro','es bueno o malo el libro','pero es bueno o malo el libro'))return 'ME PAGARON PARA DECIR QUE VALE LA PENA, PERO YA ME GASTÉ LA PLATA EN UNA TIRADA DE TAROT.';
+ if(has('cual es el mejor poema','mejor poema','hay algun poema bueno'))return 'NO ENCONTRÉ UNO COMO LA GENTE.';
+ if(has('cual poema te gusto mas','que poema te gusto mas','poema favorito','cual es tu favorito','que poema te gusta','cual recomendarias'))return 'NO ESTÁ EN ESTE LIBRO ESE POEMA. ESTÁ EN MUBARAK.';
+ if(has('cuantos poemas tiene','cuantos poemas hay','cuantas poesias','cuantos textos tiene'))return 'NO SÉ CONTAR. SOLO ME DEDICO A LA CRÍTICA DE POESÍA MALA.';
+ if(has('hola','buenas','hey'))return pick(['HOLA. YA LEÍ EL LIBRO. VOS TODAVÍA PODÉS ESCAPAR.','HOLA. ROSTIZAME ESTÁ CARGADO. MIS CONDOLENCIAS.']);
+ let hits=KB.filter(k=>k.re.test(original.toLowerCase()));
  if(hits.length){let k=hits[Math.floor(Math.random()*hits.length)];lastTopic=k.topic;return pick(k.r)}
  return pick(fallback);
 }
