@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V9</title>
+<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V10</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#05090e;color:#dffcff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .wrap{max-width:720px;margin:auto;min-height:100vh;padding:18px}.top{border-bottom:1px solid #2d6570;padding:10px 0 14px}
@@ -172,6 +172,25 @@ function answer(raw){
  let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
  const has=(...xs)=>xs.some(x=>t.includes(x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
  // RESPUESTAS OFICIALES: se evalúan antes que la memoria general.
+ // V10 — nuevas respuestas oficiales
+ if(has('recomendas el libro','recomendarías el libro','recomendarias el libro','me recomendas rostizame','recomendas rostizame'))return 'DEFINITIVAMENTE NO. ES UNA PÉRDIDA DE TIEMPO ABSOLUTA.';
+ if(has('por que rostizame','por que se llama rostizame','de donde salio el titulo','por que ese titulo'))return 'LA AUTORA LO ESTÁ VIENDO EN TERAPIA. ESPERO QUE NO LO AVERIGÜE PORQUE ME QUEDO SIN LABURO.';
+ if(has('que terapia hace la autora','a que terapia va la autora','terapia de la autora','que terapia hace laura'))return 'LACANIANA LOS VIERNES Y JUNGUEANA LOS LUNES.';
+ if(has('en cuanto tiempo se escribio','cuanto tardo en escribir','cuanto tiempo llevo escribir','cuanto tardaron en escribir'))return 'EN TRECE DÍAS HÁBILES.';
+ if(has('por que los qr','a quien se le ocurrio los qr','a quien se le ocurrieron los qr','idea de los qr','quien penso los qr'))return 'SE LE OCURRIÓ A SU MAESTRO FILIPINO, EL QUE LE TRATA LA TORTÍCOLIS.';
+ if(has('leiste el libro','ya leiste rostizame','lo leiste'))return 'POR CONTRATO. NO ME QUEDÓ OTRA.';
+ if(has('has criticado otros libros','criticaste otros libros','criticado otros libros','primer libro como critico','primer libro como crítico'))return 'NO, ES EL PRIMERO. ANTES MANEJABA UN UBER.';
+ if(has('quien te contrato','quien te paga','quien te dio este trabajo'))return 'LA MADRE DE LA AUTORA, PERO EL CONTRATO LO FIRMÉ CON SU PSICÓLOGO.';
+ if(has('que dice el contrato','cuanto te pagan','como te pagan'))return 'GANO TRECE CENTAVOS POR CADA PREGUNTA IDIOTA QUE ME HACEN DEL LIBRO.';
+ if(has('y si no te pagan','si no te pagan','que haces si no te pagan','que pasa si no te pagan'))return 'ME CONVIERTO EN LOBIZÓN.';
+ if(has('que te parecen los juegos','que opinas de los juegos','juegos del libro que te parecen')){lastTopic='JUEGOS';return 'PREFIERO QUEDAR A OSCURAS.';}
+ if(has('te gustan los juegos')){lastTopic='JUEGOS';return 'SÍ, TODOS MENOS LOS DEL LIBRO.';}
+ if(has('por que no te gustan los juegos','que tienen de malo los juegos')||(t==='por que'&&lastTopic==='JUEGOS'))return 'PORQUE SON ESTÚPIDOS.';
+ if(has('a mi me gustaron los juegos','me gustaron los juegos','a mi me gusta el libro','me gusta el libro','me gusto el libro','me gusta rostizame'))return 'TOMÁ, SE TE CAYÓ EL CEREBRO.';
+ if(has('te gusta la tapa','te gusta la portada','que te parece la portada','que te parece la tapa'))return 'ES UN LEGO DE GODZILLA. ME ABURRE.';
+ if(has('el personaje de la tapa es la autora','personaje de la tapa es laura','la de la portada es laura','es laura la mujer de la tapa','mujer de la portada es la autora'))return 'YA QUISIERA.';
+ if(has('quien es el personaje de la tapa','quien es la mujer de la portada','quien es el personaje de la portada'))return 'UN ALTER EGO DE WINONA RYDER.';
+
  if((has('13','trece'))&&has('significa','por que'))return 'NO SÉ. CREO QUE ES EL NÚMERO DE LIBROS IMPRESOS. NO CREAS QUE ES UNA GRAN EDICIÓN.';
  if(has('tiene religion','hay religion','libro religioso','es religioso','es religiosa'))return 'OH, SÍ. TIENE UNA CRUZ PEQUEÑA EN LA TAPA, PERO ESTÁ PIXELADA.';
  if(has('cual es el peor poema','peor poema','poema es el peor','poema mas malo')){lastTopic='COCODRILO';return 'TE DIRÍA, PERO ME COMIÓ LA LISTA EL COCODRILO.';}
