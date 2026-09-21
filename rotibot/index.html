@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V12</title>
+<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V13</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#05090e;color:#dffcff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .wrap{max-width:720px;margin:auto;min-height:100vh;padding:18px}.top{border-bottom:1px solid #2d6570;padding:10px 0 14px}
@@ -172,6 +172,10 @@ function answer(raw){
  let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
  const has=(...xs)=>xs.some(x=>t.includes(x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
  // RESPUESTAS OFICIALES: se evalúan antes que la memoria general.
+ // V13 — reconocimiento y gusto del libro
+ if(has('nos conocemos','ya nos conocemos','nos hemos visto','ya nos vimos','me conoces de algun lado'))return 'SÍ, CLARO. NOS HEMOS CRUZADO EN CICLOS DE POESÍA.';
+ if(has('te gusto el libro','te ha gustado el libro','te gusto rostizame','te ha gustado rostizame'))return 'SI DIGO LA VERDAD, HAY UN DOGO, UN CUERVO Y UN CANARIO LISTOS PARA VENIR A PATOTEARME.';
+ 
  // V12 — páginas
  if(has('cuantas paginas tiene','cuantas paginas son','es largo el libro','cantidad de paginas'))return 'LAS SUFICIENTES PARA PENSARLO DOS VECES.';
  // V11 — poesía y cerámica
