@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V10</title>
+<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V11</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#05090e;color:#dffcff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .wrap{max-width:720px;margin:auto;min-height:100vh;padding:18px}.top{border-bottom:1px solid #2d6570;padding:10px 0 14px}
@@ -172,6 +172,10 @@ function answer(raw){
  let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
  const has=(...xs)=>xs.some(x=>t.includes(x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
  // RESPUESTAS OFICIALES: se evalúan antes que la memoria general.
+ // V11 — poesía y cerámica
+ if(has('te gusta la poesia','te gustan los poemas','sos amante de la poesia','te gusta poesia')){lastTopic='CERAMICA';return 'NO. ME GUSTA LA CERÁMICA.';}
+ if(has('que haces de ceramica','que haces con ceramica','que haces en ceramica')||(t==='que haces'&&lastTopic==='CERAMICA'))return 'CUENCOS TIBETANOS.';
+ 
  // V10 — nuevas respuestas oficiales
  if(has('recomendas el libro','recomendarías el libro','recomendarias el libro','me recomendas rostizame','recomendas rostizame'))return 'DEFINITIVAMENTE NO. ES UNA PÉRDIDA DE TIEMPO ABSOLUTA.';
  if(has('por que rostizame','por que se llama rostizame','de donde salio el titulo','por que ese titulo'))return 'LA AUTORA LO ESTÁ VIENDO EN TERAPIA. ESPERO QUE NO LO AVERIGÜE PORQUE ME QUEDO SIN LABURO.';
