@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V11</title>
+<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V12</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#05090e;color:#dffcff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .wrap{max-width:720px;margin:auto;min-height:100vh;padding:18px}.top{border-bottom:1px solid #2d6570;padding:10px 0 14px}
@@ -172,6 +172,8 @@ function answer(raw){
  let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
  const has=(...xs)=>xs.some(x=>t.includes(x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
  // RESPUESTAS OFICIALES: se evalúan antes que la memoria general.
+ // V12 — páginas
+ if(has('cuantas paginas tiene','cuantas paginas son','es largo el libro','cantidad de paginas'))return 'LAS SUFICIENTES PARA PENSARLO DOS VECES.';
  // V11 — poesía y cerámica
  if(has('te gusta la poesia','te gustan los poemas','sos amante de la poesia','te gusta poesia')){lastTopic='CERAMICA';return 'NO. ME GUSTA LA CERÁMICA.';}
  if(has('que haces de ceramica','que haces con ceramica','que haces en ceramica')||(t==='que haces'&&lastTopic==='CERAMICA'))return 'CUENCOS TIBETANOS.';
@@ -191,9 +193,10 @@ function answer(raw){
  if(has('te gustan los juegos')){lastTopic='JUEGOS';return 'SÍ, TODOS MENOS LOS DEL LIBRO.';}
  if(has('por que no te gustan los juegos','que tienen de malo los juegos')||(t==='por que'&&lastTopic==='JUEGOS'))return 'PORQUE SON ESTÚPIDOS.';
  if(has('a mi me gustaron los juegos','me gustaron los juegos','a mi me gusta el libro','me gusta el libro','me gusto el libro','me gusta rostizame'))return 'TOMÁ, SE TE CAYÓ EL CEREBRO.';
- if(has('te gusta la tapa','te gusta la portada','que te parece la portada','que te parece la tapa'))return 'ES UN LEGO DE GODZILLA. ME ABURRE.';
- if(has('el personaje de la tapa es la autora','personaje de la tapa es laura','la de la portada es laura','es laura la mujer de la tapa','mujer de la portada es la autora'))return 'YA QUISIERA.';
- if(has('quien es el personaje de la tapa','quien es la mujer de la portada','quien es el personaje de la portada'))return 'UN ALTER EGO DE WINONA RYDER.';
+ // V12 — tapa/portada: patrones amplios y ordenados de lo específico a lo general
+ if((has('tapa','portada','caratula'))&&has('es la autora','es laura','la autora','laura')&&has('personaje','mujer','chica','ella','es'))return 'YA QUISIERA.';
+ if((has('tapa','portada','caratula'))&&has('quien es','quien aparece','quien esta','personaje','mujer','chica'))return 'UN ALTER EGO DE WINONA RYDER.';
+ if((has('tapa','portada','caratula'))&&has('te gusta','que te parece','opinas','opinion','gusta'))return 'ES UN LEGO DE GODZILLA. ME ABURRE.';
 
  if((has('13','trece'))&&has('significa','por que'))return 'NO SÉ. CREO QUE ES EL NÚMERO DE LIBROS IMPRESOS. NO CREAS QUE ES UNA GRAN EDICIÓN.';
  if(has('tiene religion','hay religion','libro religioso','es religioso','es religiosa'))return 'OH, SÍ. TIENE UNA CRUZ PEQUEÑA EN LA TAPA, PERO ESTÁ PIXELADA.';
@@ -212,7 +215,7 @@ function answer(raw){
  if(has('me podes hablar de la autora','hablame de la autora','contame de la autora','que sabes de la autora','que sabes de laura'))return '¿ME VISTE CARA DE WIKIPEDIA? SOLO ME PAGA PARA CRITICARLA.';
  if(has('quien es la autora','conoces a la autora','conoces a laura','quien es laura'))return 'LA CONOCÍ HACE CINCO HORAS. NO HUBO PALABRAS. SOLO INTERCAMBIAMOS GESTOS OBSCENOS.';
  if((has('autora','laura'))&&has('que opinas','opinion','como es','que pensas'))return 'ES ÁCIDA, PEDANTE Y YA LE PASÓ EL TREN.';
- if(has('por que esa tapa','por que la tapa','por que esa portada','por que la portada','tapa del libro','portada del libro'))return 'ES UNA OBSESIÓN DE LA AUTORA. MÁS EDAD CUMPLE, MÁS INFANTIL SE PONE.';
+ if((has('tapa','portada','caratula'))&&has('por que','porque eligieron','motivo','razon'))return 'ES UNA OBSESIÓN DE LA AUTORA. MÁS EDAD CUMPLE, MÁS INFANTIL SE PONE.';
  if(has('no conoces el libro','entonces no conoces el libro','no conoces rostizame'))return 'LO JUSTO Y NECESARIO, COMO DICEN EN MISA.';
  if(has('no te gusto el libro','no te gusta el libro','osea que no te gusto','o sea que no te gusto','tan malo es'))return 'NO PUEDO HABLAR. ME AMENAZARON CON DOGOS Y CON CORTARME EL SERVIDOR.';
  if(has('hablame del libro','habla del libro'))return 'UF, ES INSOPORTABLE.';
