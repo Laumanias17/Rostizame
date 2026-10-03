@@ -236,7 +236,7 @@ function finalInterceptReveal(title,html){
 }
 function finishWin(){active=false;clearTimeout(timer);clearTimeout(chaosMsgTimer);clearSignalLoss();stopVoice();winSound();const words=[...poem.querySelectorAll('.saved')].map(x=>x.textContent.toUpperCase()).join(' · ');finalInterceptReveal('CENSURA INTERRUMPIDA // 13 DE 13','El resto del texto cae.<br><br><strong>'+words+'</strong><br><br>ARCHIVO RECUPERADO.')}
 
-function finishLose(){active=false;clearTimeout(timer);clearTimeout(chaosMsgTimer);clearSignalLoss();stopVoice();finalInterceptReveal('ROSTIZADA!','El sistema terminó de borrar el archivo.<br><br>INTERCEPTADAS: <strong>'+saved+'/13</strong>')}
+function finishLose(){active=false;clearTimeout(timer);clearTimeout(chaosMsgTimer);clearSignalLoss();stopVoice();finalInterceptReveal('ROSTIZADXS','El sistema terminó de borrar el archivo.<br><br>INTERCEPTADAS: <strong>'+saved+'/13</strong>')}
 start.onclick=startGame;
 document.getElementById('testVoice').onclick=async function(){
  try{
