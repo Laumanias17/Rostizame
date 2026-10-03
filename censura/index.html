@@ -73,9 +73,9 @@ function setupVoiceFX(){
   if(voiceCtx)return;
   voiceCtx=new(window.AudioContext||window.webkitAudioContext)();
   voiceSource=voiceCtx.createMediaElementSource(voice);
-  voiceFilter=voiceCtx.createBiquadFilter();voiceFilter.type='bandpass';voiceFilter.frequency.value=1450;voiceFilter.Q.value=.75;
-  voiceDist=voiceCtx.createWaveShaper();voiceDist.curve=distortionCurve(220);voiceDist.oversample='4x';
-  voiceGain=voiceCtx.createGain();voiceGain.gain.value=.88;
+  voiceFilter=voiceCtx.createBiquadFilter();voiceFilter.type='highpass';voiceFilter.frequency.value=180;voiceFilter.Q.value=.6;
+  voiceDist=voiceCtx.createWaveShaper();voiceDist.curve=distortionCurve(35);voiceDist.oversample='4x';
+  voiceGain=voiceCtx.createGain();voiceGain.gain.value=.72;
   voiceSource.connect(voiceFilter);voiceFilter.connect(voiceDist);voiceDist.connect(voiceGain);voiceGain.connect(voiceCtx.destination);
  }catch(e){}
 }
@@ -94,11 +94,11 @@ async function startVoice(){
 function setVoiceDegradation(step){
  try{
   const p=Math.min(1,step/12);
-  if(voiceDist)voiceDist.curve=distortionCurve(80+520*p);
-  if(voiceFilter){voiceFilter.frequency.value=1700-900*p;voiceFilter.Q.value=.7+5*p}
-  voice.playbackRate=.98-.18*p;
-  voiceGhost.playbackRate=.95-.25*p;
-  voiceGhost.volume=.10+.38*p;
+  if(voiceDist)voiceDist.curve=distortionCurve(35+150*p);
+  if(voiceFilter){voiceFilter.type='highpass';voiceFilter.frequency.value=180+620*p;voiceFilter.Q.value=.6+1.2*p}
+  voice.playbackRate=1-.06*p;
+  voiceGhost.playbackRate=.995-.035*p;
+  voiceGhost.volume=.025+.08*p;
  }catch(e){}
 }
 function voiceGlitch(){try{const base=voice.volume;voice.volume=.42;setTimeout(()=>{voice.volume=base},220)}catch(e){}}
