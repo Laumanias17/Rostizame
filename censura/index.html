@@ -72,15 +72,15 @@ function setupVoiceFX(){
   voiceCtx=new(window.AudioContext||window.webkitAudioContext)();
   voiceSource=voiceCtx.createMediaElementSource(voice);
   voiceFilter=voiceCtx.createBiquadFilter();voiceFilter.type='highpass';voiceFilter.frequency.value=180;voiceFilter.Q.value=.6;
-  voiceDist=voiceCtx.createWaveShaper();voiceDist.curve=distortionCurve(18);voiceDist.oversample='4x';
-  voiceGain=voiceCtx.createGain();voiceGain.gain.value=.72;
+  voiceDist=voiceCtx.createWaveShaper();voiceDist.curve=distortionCurve(5);voiceDist.oversample='4x';
+  voiceGain=voiceCtx.createGain();voiceGain.gain.value=.46;
   voiceSource.connect(voiceFilter);voiceFilter.connect(voiceDist);voiceDist.connect(voiceGain);voiceGain.connect(voiceCtx.destination);
  }catch(e){}
 }
 async function startVoice(){
  try{
    setupVoiceFX();if(voiceCtx&&voiceCtx.state==='suspended')await voiceCtx.resume();
-   voice.pause(); voice.currentTime=0; voice.volume=1; voice.playbackRate=.94;
+   voice.pause(); voice.currentTime=0; voice.volume=.72; voice.playbackRate=.94;
    voice.load();voiceGhost.load();
    await voice.play();
    msg.textContent='▶ VOZ ACTIVADA // ARCHIVO SONORO EN CURSO';
@@ -92,7 +92,7 @@ async function startVoice(){
 function setVoiceDegradation(step){
  try{
   const p=Math.min(1,step/12);
-  if(voiceDist)voiceDist.curve=distortionCurve(18+65*p);
+  if(voiceDist)voiceDist.curve=distortionCurve(5+22*p);
   if(voiceFilter){voiceFilter.type='highpass';voiceFilter.frequency.value=120+260*p;voiceFilter.Q.value=.5+.5*p}
   voice.playbackRate=1-.025*p;
   
@@ -100,14 +100,14 @@ function setVoiceDegradation(step){
  }catch(e){}
 }
 let signalTimer=null;
-function clearSignalLoss(){if(signalTimer){clearTimeout(signalTimer);signalTimer=null}try{voice.volume=1}catch(e){}}
+function clearSignalLoss(){if(signalTimer){clearTimeout(signalTimer);signalTimer=null}try{voice.volume=.72}catch(e){}}
 function scheduleSignalLoss(step){
  clearSignalLoss();
  if(step<6||!active)return;
  const severity=Math.min(1,(step-5)/7);
  const drop=()=>{
   if(!active)return;
-  const normal=1;
+  const normal=.72;
   voice.volume=.08+.18*(1-severity);
   setTimeout(()=>{if(active)voice.volume=normal},70+Math.random()*110);
   signalTimer=setTimeout(drop,900+Math.random()*(1500-700*severity));
