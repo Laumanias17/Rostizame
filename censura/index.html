@@ -51,6 +51,9 @@ body.chaos #hud{animation:hudMad .45s steps(2) infinite}
 .flashChaos{position:fixed;inset:0;z-index:9998;pointer-events:none;background:#fff;mix-blend-mode:difference;opacity:0}
 body.chaos .flashChaos{animation:flashMad 2.7s steps(1) infinite}
 @keyframes flashMad{0%,91%,94%,100%{opacity:0}92%,93%{opacity:.22}}
+
+body.chaos .line.erased{opacity:0;filter:blur(7px);transform:scaleX(.75);transition:opacity .65s ease,filter .65s ease,transform .65s ease}
+body.chaos .line.fading{opacity:.18;filter:blur(2px);transition:all .45s ease}
 </style>
 </head>
 <body>
@@ -178,12 +181,25 @@ function censorSound(){tone(120,.14,'sawtooth',.035);setTimeout(()=>tone(75,.16,
 function winSound(){[392,523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f,.18,'triangle',.03),i*90))}
 function updateHud(){hud.innerHTML='INTERCEPTADAS '+saved+'/13 <span class="life">'+(('♥ '.repeat(lives).trim())||'—')+'</span>'}
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
-function resetMarks(){poem.querySelectorAll('.target').forEach(el=>el.classList.remove('live','saved','censored'));poem.querySelectorAll('.decoy').forEach(el=>el.classList.remove('decoy'))}
+function resetMarks(){poem.querySelectorAll('.target').forEach(el=>el.classList.remove('live','saved','censored'));poem.querySelectorAll('.decoy').forEach(el=>el.classList.remove('decoy'));poem.querySelectorAll('.line').forEach(el=>el.classList.remove('erased','fading'))}
 function chaosMessages(){
  if(!active||!chaos)return;
  const m=['NO INTERCEPTES','INTERCEPTÁ TODO','USUARIO DETECTADO','ESTO NO ES UNA PALABRA','ERROR // ERROR // ERROR','¿QUERÉS QUEDARTE AHÍ?','LA PANTALLA TE ESTÁ MIRANDO','ARCHIVO SIN PROPIETARIO'];
  msg.textContent='⚠ '+m[Math.floor(Math.random()*m.length)];
  chaosMsgTimer=setTimeout(chaosMessages,650+Math.random()*850);
+}
+function erasePoemStep(){
+ if(!chaos)return;
+ const lines=[...poem.querySelectorAll('.line')];
+ const available=lines.filter(l=>!l.classList.contains('erased')&&!l.querySelector('.live'));
+ if(!available.length)return;
+ const count=idx>=10?2:1;
+ shuffle(available).slice(0,count).forEach((line,n)=>{
+   setTimeout(()=>{
+     line.classList.add('fading');
+     setTimeout(()=>{line.classList.remove('fading');line.classList.add('erased')},420);
+   },n*160);
+ });
 }
 function addDecoys(){
  const candidates=[...poem.querySelectorAll('.word:not(.saved):not(.censored):not(.live)')];
@@ -209,7 +225,7 @@ function midpointFailure(){
    setTimeout(nextTarget,700)
  },6900);
 }
-function nextTarget(){if(!active)return;if(idx>=order.length)return finishWin();if(idx>=6&&!midpointDone)return midpointFailure();setVoiceDegradation(idx);scheduleSignalLoss(idx);current=order[idx].toLowerCase();const el=[...poem.querySelectorAll('.target')].find(x=>x.dataset.target===current);if(!el){idx++;return nextTarget()}el.classList.add('live');msg.textContent='⚠ PALABRA DETECTADA // INTERCEPTALA';document.body.classList.add('glitch');setTimeout(()=>document.body.classList.remove('glitch'),250);if(navigator.vibrate)navigator.vibrate(20);const delay=chaos?(780+Math.floor(Math.random()*850)):(1800+Math.floor(Math.random()*1200));if(chaos){addDecoys();document.body.classList.add('glitch');setTimeout(()=>document.body.classList.remove('glitch'),420)}timer=setTimeout(()=>censor(el),delay)}
+function nextTarget(){if(!active)return;if(idx>=order.length)return finishWin();if(idx>=6&&!midpointDone)return midpointFailure();setVoiceDegradation(idx);scheduleSignalLoss(idx);current=order[idx].toLowerCase();const el=[...poem.querySelectorAll('.target')].find(x=>x.dataset.target===current);if(!el){idx++;return nextTarget()}el.classList.add('live');msg.textContent='⚠ PALABRA DETECTADA // INTERCEPTALA';document.body.classList.add('glitch');setTimeout(()=>document.body.classList.remove('glitch'),250);if(navigator.vibrate)navigator.vibrate(20);const delay=chaos?(780+Math.floor(Math.random()*850)):(1800+Math.floor(Math.random()*1200));if(chaos){erasePoemStep();addDecoys();document.body.classList.add('glitch');setTimeout(()=>document.body.classList.remove('glitch'),420)}timer=setTimeout(()=>censor(el),delay)}
 function hit(el){if(!active||!el.classList.contains('live'))return;clearTimeout(timer);el.classList.remove('live');el.classList.add('saved');saved++;idx++;successSound();msg.textContent='✓ INTERCEPTADA // '+el.textContent.toUpperCase();savedList.textContent='RESCATADAS: '+[...poem.querySelectorAll('.saved')].map(x=>x.textContent.toUpperCase()).join(' · ');updateHud();setTimeout(nextTarget,500)}
 function censor(el){if(!active)return;el.classList.remove('live');el.classList.add('censored');lives--;idx++;censorSound();voiceGlitch();updateHud();msg.textContent='████ CENSURADA // PERDISTE UNA VIDA';if(navigator.vibrate)navigator.vibrate([80,40,120]);if(lives<=0)return finishLose();setTimeout(nextTarget,650)}
 function finalInterceptReveal(title,html){
