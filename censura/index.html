@@ -73,8 +73,8 @@ function setupVoiceFX(){
   voiceSource=voiceCtx.createMediaElementSource(voice);
   voiceFilter=voiceCtx.createBiquadFilter();voiceFilter.type='highpass';voiceFilter.frequency.value=180;voiceFilter.Q.value=.6;
   voiceDist=voiceCtx.createWaveShaper();voiceDist.curve=distortionCurve(5);voiceDist.oversample='4x';
-  voiceGain=voiceCtx.createGain();voiceGain.gain.value=.46;
-  voiceSource.connect(voiceFilter);voiceFilter.connect(voiceDist);voiceDist.connect(voiceGain);voiceGain.connect(voiceCtx.destination);
+  voiceGain=voiceCtx.createGain();voiceGain.gain.value=.58;
+  voiceSource.connect(voiceFilter);voiceFilter.connect(voiceGain);voiceGain.connect(voiceCtx.destination);
  }catch(e){}
 }
 async function startVoice(){
@@ -92,9 +92,9 @@ async function startVoice(){
 function setVoiceDegradation(step){
  try{
   const p=Math.min(1,step/12);
-  if(voiceDist)voiceDist.curve=distortionCurve(5+22*p);
-  if(voiceFilter){voiceFilter.type='highpass';voiceFilter.frequency.value=120+260*p;voiceFilter.Q.value=.5+.5*p}
-  voice.playbackRate=1-.025*p;
+  /* sin saturación adicional: el archivo ya está procesado */
+  if(voiceFilter){voiceFilter.type='highpass';voiceFilter.frequency.value=80+70*p;voiceFilter.Q.value=.35}
+  voice.playbackRate=1;
   
   
  }catch(e){}
@@ -108,13 +108,13 @@ function scheduleSignalLoss(step){
  const drop=()=>{
   if(!active)return;
   const normal=.72;
-  voice.volume=.08+.18*(1-severity);
-  setTimeout(()=>{if(active)voice.volume=normal},70+Math.random()*110);
-  signalTimer=setTimeout(drop,900+Math.random()*(1500-700*severity));
+  voice.volume=.015;
+  setTimeout(()=>{if(active)voice.volume=normal},45+Math.random()*65);
+  signalTimer=setTimeout(drop,1250+Math.random()*(1900-450*severity));
  };
- signalTimer=setTimeout(drop,650+Math.random()*900);
+ signalTimer=setTimeout(drop,900+Math.random()*1100);
 }
-function voiceGlitch(){try{const base=voice.volume;voice.volume=.62;setTimeout(()=>{voice.volume=base},120)}catch(e){}}
+function voiceGlitch(){try{const base=voice.volume;voice.volume=.48;setTimeout(()=>{voice.volume=base},80)}catch(e){}}
 function stopVoice(){try{voice.pause();}catch(e){}}
 const lines=[
 'Amamos la calefacción de ese vientre',
