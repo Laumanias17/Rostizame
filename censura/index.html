@@ -190,10 +190,11 @@ function chaosMessages(){
 }
 function erasePoemStep(){
  if(!chaos)return;
+ if(idx<10 && idx%2===1)return;
  const lines=[...poem.querySelectorAll('.line')];
  const available=lines.filter(l=>!l.classList.contains('erased')&&!l.querySelector('.live'));
  if(!available.length)return;
- const count=idx>=10?2:1;
+ const count=idx>=11?2:1;
  shuffle(available).slice(0,count).forEach((line,n)=>{
    setTimeout(()=>{
      line.classList.add('fading');
@@ -208,7 +209,7 @@ function addDecoys(){
    el.onclick=()=>{if(!active||!chaos)return;censorSound();msg.textContent='✕ FALSO OBJETIVO // EL SISTEMA TE VIO';if(navigator.vibrate)navigator.vibrate([40,30,40]);setTimeout(()=>el.classList.remove('decoy'),450)}
  });
 }
-function startGame(){audio();startVoice();active=true;saved=0;lives=3;idx=0;midpointDone=false;chaos=false;clearTimeout(chaosMsgTimer);document.body.classList.remove('chaos','afterFailure');blackout.classList.add('hide');setVoiceDegradation(0);current=null;clearTimeout(timer);order=shuffle(targets);resetMarks();updateHud();savedList.textContent='';msg.textContent='ARCHIVO ACTIVO // ESPERANDO PRIMERA PALABRA';start.classList.add('hide');again.classList.add('hide');overlay.classList.add('hide');setTimeout(nextTarget,500)}
+function startGame(){audio();startVoice();active=true;saved=0;lives=3;idx=0;midpointDone=false;chaos=false;clearTimeout(chaosMsgTimer);document.body.classList.remove('chaos','afterFailure');blackout.classList.add('hide');setVoiceDegradation(0);current=null;clearTimeout(timer);order=shuffle(targets);resetMarks();updateHud();savedList.textContent='';msg.textContent='ARCHIVO ACTIVO // ESPERANDO PRIMERA PALABRA';start.classList.add('hide');again.classList.add('hide');overlay.classList.add('hide');setTimeout(nextTarget,chaos?1050:500)}
 function midpointFailure(){
  midpointDone=true;clearTimeout(timer);clearSignalLoss();
  const wasPlaying=!voice.paused;voice.pause();
@@ -225,9 +226,9 @@ function midpointFailure(){
    setTimeout(nextTarget,700)
  },6900);
 }
-function nextTarget(){if(!active)return;if(idx>=order.length)return finishWin();if(idx>=6&&!midpointDone)return midpointFailure();setVoiceDegradation(idx);scheduleSignalLoss(idx);current=order[idx].toLowerCase();const el=[...poem.querySelectorAll('.target')].find(x=>x.dataset.target===current);if(!el){idx++;return nextTarget()}el.classList.add('live');msg.textContent='⚠ PALABRA DETECTADA // INTERCEPTALA';document.body.classList.add('glitch');setTimeout(()=>document.body.classList.remove('glitch'),250);if(navigator.vibrate)navigator.vibrate(20);const delay=chaos?(780+Math.floor(Math.random()*850)):(1800+Math.floor(Math.random()*1200));if(chaos){erasePoemStep();addDecoys();document.body.classList.add('glitch');setTimeout(()=>document.body.classList.remove('glitch'),420)}timer=setTimeout(()=>censor(el),delay)}
+function nextTarget(){if(!active)return;if(idx>=order.length)return finishWin();if(idx>=6&&!midpointDone)return midpointFailure();setVoiceDegradation(idx);scheduleSignalLoss(idx);current=order[idx].toLowerCase();const el=[...poem.querySelectorAll('.target')].find(x=>x.dataset.target===current);if(!el){idx++;return nextTarget()}el.classList.add('live');msg.textContent='⚠ PALABRA DETECTADA // INTERCEPTALA';document.body.classList.add('glitch');setTimeout(()=>document.body.classList.remove('glitch'),250);if(navigator.vibrate)navigator.vibrate(20);const delay=chaos?(1450+Math.floor(Math.random()*1050)):(1800+Math.floor(Math.random()*1200));if(chaos){erasePoemStep();addDecoys();document.body.classList.add('glitch');setTimeout(()=>document.body.classList.remove('glitch'),420)}timer=setTimeout(()=>censor(el),delay)}
 function hit(el){if(!active||!el.classList.contains('live'))return;clearTimeout(timer);el.classList.remove('live');el.classList.add('saved');saved++;idx++;successSound();msg.textContent='✓ INTERCEPTADA // '+el.textContent.toUpperCase();savedList.textContent='RESCATADAS: '+[...poem.querySelectorAll('.saved')].map(x=>x.textContent.toUpperCase()).join(' · ');updateHud();setTimeout(nextTarget,500)}
-function censor(el){if(!active)return;el.classList.remove('live');el.classList.add('censored');lives--;idx++;censorSound();voiceGlitch();updateHud();msg.textContent='████ CENSURADA // PERDISTE UNA VIDA';if(navigator.vibrate)navigator.vibrate([80,40,120]);if(lives<=0)return finishLose();setTimeout(nextTarget,650)}
+function censor(el){if(!active)return;el.classList.remove('live');el.classList.add('censored');lives--;idx++;censorSound();voiceGlitch();updateHud();msg.textContent='████ CENSURADA // PERDISTE UNA VIDA';if(navigator.vibrate)navigator.vibrate([80,40,120]);if(lives<=0)return finishLose();setTimeout(nextTarget,chaos?1150:650)}
 function finalInterceptReveal(title,html){
  endTitle.textContent=title;endText.innerHTML=html;overlay.classList.remove('hide');
  setTimeout(()=>{endText.innerHTML=html+'<br><br><strong>1 USUARIO INTERCEPTADO</strong>'},1800);
