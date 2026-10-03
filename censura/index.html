@@ -58,13 +58,33 @@ footer{font-size:11px;opacity:.55;padding:12px}
   </div>
 </div>
 <audio id="voice" preload="auto" playsinline><source src="./sistema2_distorsionado.mp3" type="audio/mpeg"></audio>
+<audio id="voiceGhost" preload="auto" playsinline><source src="./sistema2_distorsionado.mp3" type="audio/mpeg"></audio>
 <script>
 const voice=document.getElementById("voice");
+const voiceGhost=document.getElementById("voiceGhost");
+let voiceCtx=null, voiceSource=null, voiceFilter=null, voiceDist=null, voiceGain=null;
+function distortionCurve(amount=180){
+ const n=44100,curve=new Float32Array(n),deg=Math.PI/180;
+ for(let i=0;i<n;i++){const x=i*2/n-1;curve[i]=(3+amount)*x*20*deg/(Math.PI+amount*Math.abs(x))}
+ return curve;
+}
+function setupVoiceFX(){
+ try{
+  if(voiceCtx)return;
+  voiceCtx=new(window.AudioContext||window.webkitAudioContext)();
+  voiceSource=voiceCtx.createMediaElementSource(voice);
+  voiceFilter=voiceCtx.createBiquadFilter();voiceFilter.type='bandpass';voiceFilter.frequency.value=1450;voiceFilter.Q.value=.75;
+  voiceDist=voiceCtx.createWaveShaper();voiceDist.curve=distortionCurve(220);voiceDist.oversample='4x';
+  voiceGain=voiceCtx.createGain();voiceGain.gain.value=.88;
+  voiceSource.connect(voiceFilter);voiceFilter.connect(voiceDist);voiceDist.connect(voiceGain);voiceGain.connect(voiceCtx.destination);
+ }catch(e){}
+}
 async function startVoice(){
  try{
-   voice.pause(); voice.currentTime=0; voice.volume=1; voice.playbackRate=1;
-   voice.load();
-   await voice.play();
+   setupVoiceFX();if(voiceCtx&&voiceCtx.state==='suspended')await voiceCtx.resume();
+   voice.pause();voiceGhost.pause(); voice.currentTime=0;voiceGhost.currentTime=0; voice.volume=1;voiceGhost.volume=.24; voice.playbackRate=.94;voiceGhost.playbackRate=.91;
+   voice.load();voiceGhost.load();
+   await voice.play();setTimeout(()=>{voiceGhost.currentTime=Math.max(0,voice.currentTime-.045);voiceGhost.play().catch(()=>{})},55);
    msg.textContent='▶ VOZ ACTIVADA // ARCHIVO SONORO EN CURSO';
  }catch(e){
    msg.innerHTML='⚠ AUDIO BLOQUEADO // <button class="btn" id="audioUnlock" style="padding:6px 10px;margin:0">ACTIVAR VOZ</button>';
@@ -72,7 +92,7 @@ async function startVoice(){
  }
 }
 function voiceGlitch(){try{voice.volume=.55;voice.playbackRate=.78;setTimeout(()=>{voice.volume=1;voice.playbackRate=1},260)}catch(e){}}
-function stopVoice(){try{voice.pause()}catch(e){}}
+function stopVoice(){try{voice.pause();voiceGhost.pause()}catch(e){}}
 const lines=[
 'Amamos la calefacción de ese vientre',
 'Amamos el misil del sistema',
