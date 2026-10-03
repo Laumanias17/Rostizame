@@ -91,7 +91,17 @@ async function startVoice(){
    setTimeout(()=>{const b=document.getElementById('audioUnlock');if(b)b.onclick=async()=>{try{voice.volume=1;await voice.play();msg.textContent='▶ VOZ ACTIVADA';}catch(err){msg.textContent='⚠ NO SE PUDO REPRODUCIR EL AUDIO';}}},0);
  }
 }
-function voiceGlitch(){try{voice.volume=.55;voice.playbackRate=.78;setTimeout(()=>{voice.volume=1;voice.playbackRate=1},260)}catch(e){}}
+function setVoiceDegradation(step){
+ try{
+  const p=Math.min(1,step/12);
+  if(voiceDist)voiceDist.curve=distortionCurve(80+520*p);
+  if(voiceFilter){voiceFilter.frequency.value=1700-900*p;voiceFilter.Q.value=.7+5*p}
+  voice.playbackRate=.98-.18*p;
+  voiceGhost.playbackRate=.95-.25*p;
+  voiceGhost.volume=.10+.38*p;
+ }catch(e){}
+}
+function voiceGlitch(){try{const base=voice.volume;voice.volume=.42;setTimeout(()=>{voice.volume=base},220)}catch(e){}}
 function stopVoice(){try{voice.pause();voiceGhost.pause()}catch(e){}}
 const lines=[
 'Amamos la calefacción de ese vientre',
@@ -138,8 +148,8 @@ function winSound(){[392,523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f,
 function updateHud(){hud.innerHTML='INTERCEPTADAS '+saved+'/13 <span class="life">'+(('♥ '.repeat(lives).trim())||'—')+'</span>'}
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
 function resetMarks(){poem.querySelectorAll('.target').forEach(el=>el.classList.remove('live','saved','censored'))}
-function startGame(){audio();startVoice();active=true;saved=0;lives=3;idx=0;current=null;clearTimeout(timer);order=shuffle(targets);resetMarks();updateHud();savedList.textContent='';msg.textContent='ARCHIVO ACTIVO // ESPERANDO PRIMERA PALABRA';start.classList.add('hide');again.classList.add('hide');overlay.classList.add('hide');setTimeout(nextTarget,500)}
-function nextTarget(){if(!active)return;if(idx>=order.length)return finishWin();current=order[idx].toLowerCase();const el=[...poem.querySelectorAll('.target')].find(x=>x.dataset.target===current);if(!el){idx++;return nextTarget()}el.classList.add('live');msg.textContent='⚠ PALABRA DETECTADA // INTERCEPTALA';document.body.classList.add('glitch');setTimeout(()=>document.body.classList.remove('glitch'),250);if(navigator.vibrate)navigator.vibrate(20);const delay=1800+Math.floor(Math.random()*1200);timer=setTimeout(()=>censor(el),delay)}
+function startGame(){audio();startVoice();active=true;saved=0;lives=3;idx=0;setVoiceDegradation(0);current=null;clearTimeout(timer);order=shuffle(targets);resetMarks();updateHud();savedList.textContent='';msg.textContent='ARCHIVO ACTIVO // ESPERANDO PRIMERA PALABRA';start.classList.add('hide');again.classList.add('hide');overlay.classList.add('hide');setTimeout(nextTarget,500)}
+function nextTarget(){if(!active)return;if(idx>=order.length)return finishWin();setVoiceDegradation(idx);current=order[idx].toLowerCase();const el=[...poem.querySelectorAll('.target')].find(x=>x.dataset.target===current);if(!el){idx++;return nextTarget()}el.classList.add('live');msg.textContent='⚠ PALABRA DETECTADA // INTERCEPTALA';document.body.classList.add('glitch');setTimeout(()=>document.body.classList.remove('glitch'),250);if(navigator.vibrate)navigator.vibrate(20);const delay=1800+Math.floor(Math.random()*1200);timer=setTimeout(()=>censor(el),delay)}
 function hit(el){if(!active||!el.classList.contains('live'))return;clearTimeout(timer);el.classList.remove('live');el.classList.add('saved');saved++;idx++;successSound();msg.textContent='✓ INTERCEPTADA // '+el.textContent.toUpperCase();savedList.textContent='RESCATADAS: '+[...poem.querySelectorAll('.saved')].map(x=>x.textContent.toUpperCase()).join(' · ');updateHud();setTimeout(nextTarget,500)}
 function censor(el){if(!active)return;el.classList.remove('live');el.classList.add('censored');lives--;idx++;censorSound();voiceGlitch();updateHud();msg.textContent='████ CENSURADA // PERDISTE UNA VIDA';if(navigator.vibrate)navigator.vibrate([80,40,120]);if(lives<=0)return finishLose();setTimeout(nextTarget,650)}
 function finishWin(){active=false;clearTimeout(timer);stopVoice();winSound();endTitle.textContent='CENSURA INTERRUMPIDA // 13 DE 13';const words=[...poem.querySelectorAll('.saved')].map(x=>x.textContent.toUpperCase()).join(' · ');endText.innerHTML='El resto del texto cae.<br><br><strong>'+words+'</strong><br><br>ARCHIVO RECUPERADO.';overlay.classList.remove('hide');again.classList.remove('hide')}
