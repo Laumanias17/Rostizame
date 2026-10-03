@@ -57,10 +57,20 @@ footer{font-size:11px;opacity:.55;padding:12px}
     <button class="btn" id="overlayAgain">VOLVER A INTERCEPTAR</button>
   </div>
 </div>
-<audio id="voice" src="sistema2_distorsionado.mp3" preload="auto"></audio>
+<audio id="voice" preload="auto" playsinline><source src="./sistema2_distorsionado.mp3" type="audio/mpeg"></audio>
 <script>
 const voice=document.getElementById("voice");
-function startVoice(){try{voice.pause();voice.currentTime=0;voice.volume=1;voice.playbackRate=1;const p=voice.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}}
+async function startVoice(){
+ try{
+   voice.pause(); voice.currentTime=0; voice.volume=1; voice.playbackRate=1;
+   voice.load();
+   await voice.play();
+   msg.textContent='▶ VOZ ACTIVADA // ARCHIVO SONORO EN CURSO';
+ }catch(e){
+   msg.innerHTML='⚠ AUDIO BLOQUEADO // <button class="btn" id="audioUnlock" style="padding:6px 10px;margin:0">ACTIVAR VOZ</button>';
+   setTimeout(()=>{const b=document.getElementById('audioUnlock');if(b)b.onclick=async()=>{try{voice.volume=1;await voice.play();msg.textContent='▶ VOZ ACTIVADA';}catch(err){msg.textContent='⚠ NO SE PUDO REPRODUCIR EL AUDIO';}}},0);
+ }
+}
 function voiceGlitch(){try{voice.volume=.55;voice.playbackRate=.78;setTimeout(()=>{voice.volume=1;voice.playbackRate=1},260)}catch(e){}}
 function stopVoice(){try{voice.pause()}catch(e){}}
 const lines=[
