@@ -60,8 +60,8 @@ footer{font-size:11px;opacity:.55;padding:12px}
 <audio id="voice" src="sistema2_distorsionado.mp3" preload="auto"></audio>
 <script>
 const voice=document.getElementById("voice");
-function startVoice(){try{voice.pause();voice.currentTime=0;voice.volume=.82;voice.playbackRate=1;const p=voice.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}}
-function voiceGlitch(){try{voice.volume=.28;voice.playbackRate=.78;setTimeout(()=>{voice.volume=.82;voice.playbackRate=1},260)}catch(e){}}
+function startVoice(){try{voice.pause();voice.currentTime=0;voice.volume=1;voice.playbackRate=1;const p=voice.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}}
+function voiceGlitch(){try{voice.volume=.55;voice.playbackRate=.78;setTimeout(()=>{voice.volume=1;voice.playbackRate=1},260)}catch(e){}}
 function stopVoice(){try{voice.pause()}catch(e){}}
 const lines=[
 'Amamos la calefacción de ese vientre',
@@ -102,9 +102,9 @@ function buildPoem(){
 }
 function audio(){if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume()}
 function tone(f,d=.12,type='sine',v=.09){audio();const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}
-function successSound(){tone(680,.09,'square',.07);setTimeout(()=>tone(980,.12,'square',.06),80)}
-function censorSound(){tone(120,.18,'sawtooth',.09);setTimeout(()=>tone(75,.22,'sawtooth',.06),100)}
-function winSound(){[392,523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f,.24,'triangle',.08),i*90))}
+function successSound(){tone(680,.07,'square',.025);setTimeout(()=>tone(980,.09,'square',.02),70)}
+function censorSound(){tone(120,.14,'sawtooth',.035);setTimeout(()=>tone(75,.16,'sawtooth',.025),90)}
+function winSound(){[392,523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f,.18,'triangle',.03),i*90))}
 function updateHud(){hud.innerHTML='INTERCEPTADAS '+saved+'/13 <span class="life">'+(('♥ '.repeat(lives).trim())||'—')+'</span>'}
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
 function resetMarks(){poem.querySelectorAll('.target').forEach(el=>el.classList.remove('live','saved','censored'))}
