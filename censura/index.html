@@ -42,7 +42,7 @@ footer{font-size:11px;opacity:.55;padding:12px}
 <div class="wrap">
   <div class="panel">
     <p class="instructions">INTERCEPTÁ LAS 13 PALABRAS ROJAS ANTES DE QUE SEAN CENSURADAS.</p>
-    <button class="btn" id="start">INICIAR CENSURA</button>
+    <button class="btn" id="start">INICIAR CENSURA + VOZ</button><button class="btn" id="testVoice">PROBAR VOZ</button>
     <div class="poem" id="poem"></div>
     <div class="msg" id="msg">El sistema todavía no empezó a borrar.</div>
     <div class="savedList" id="savedList"></div>
@@ -124,7 +124,15 @@ function hit(el){if(!active||!el.classList.contains('live'))return;clearTimeout(
 function censor(el){if(!active)return;el.classList.remove('live');el.classList.add('censored');lives--;idx++;censorSound();voiceGlitch();updateHud();msg.textContent='████ CENSURADA // PERDISTE UNA VIDA';if(navigator.vibrate)navigator.vibrate([80,40,120]);if(lives<=0)return finishLose();setTimeout(nextTarget,650)}
 function finishWin(){active=false;clearTimeout(timer);stopVoice();winSound();endTitle.textContent='CENSURA INTERRUMPIDA // 13 DE 13';const words=[...poem.querySelectorAll('.saved')].map(x=>x.textContent.toUpperCase()).join(' · ');endText.innerHTML='El resto del texto cae.<br><br><strong>'+words+'</strong><br><br>ARCHIVO RECUPERADO.';overlay.classList.remove('hide');again.classList.remove('hide')}
 function finishLose(){active=false;clearTimeout(timer);stopVoice();endTitle.textContent='ROSTIZADA!';endText.innerHTML='El sistema terminó de borrar el archivo.<br><br>INTERCEPTADAS: <strong>'+saved+'/13</strong>';overlay.classList.remove('hide');again.classList.remove('hide')}
-start.onclick=startGame;again.onclick=startGame;document.getElementById('overlayAgain').onclick=startGame;buildPoem();updateHud();
+start.onclick=startGame;
+document.getElementById('testVoice').onclick=async function(){
+ try{
+  voice.pause();voice.currentTime=0;voice.volume=1;voice.playbackRate=1;voice.load();
+  await voice.play();
+  msg.textContent='▶ SI ESCUCHÁS ESTO, LA VOZ FUNCIONA';
+ }catch(e){msg.textContent='⚠ ERROR DE AUDIO: '+(e.name||'desconocido')}
+};
+again.onclick=startGame;document.getElementById('overlayAgain').onclick=startGame;buildPoem();updateHud();
 </script>
 </body>
 </html>
