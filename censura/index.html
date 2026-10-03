@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ROSTIZAME // CENSURA 13</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#05070a;color:#f6f6f6;font-family:system-ui,-apple-system,Segoe UI,sans-serif;text-align:center;overflow-x:hidden}
+body.glitch{animation:glitchbody .22s linear 2}
+@keyframes glitchbody{0%{transform:translateX(0)}25%{transform:translateX(-4px)}50%{transform:translateX(4px)}75%{transform:translateX(-2px)}100%{transform:translateX(0)}}
+header{padding:12px 10px 6px;font-weight:950;letter-spacing:.04em}
+.sub{font-size:12px;opacity:.72}
+.hud{font-size:16px;font-weight:900;padding:6px 10px}
+.wrap{width:min(94vw,760px);margin:auto}
+.panel{border:1px solid #2b2f36;background:#0a0e13;box-shadow:0 0 24px #000 inset;border-radius:14px;padding:14px}
+.instructions{font-size:13px;opacity:.8;margin:0 0 10px}
+.poem{text-align:left;line-height:1.7;font-size:clamp(16px,4vw,22px);padding:8px 4px 4px}
+.line{display:block;min-height:1.7em}
+.word{display:inline-block;position:relative;border-radius:4px;padding:0 2px;transition:filter .15s,background .15s,color .15s,transform .15s}
+.target.live{color:#ff4d4d;background:#3a0000;box-shadow:0 0 10px #ff2a2a88;animation:pulse .7s infinite alternate;cursor:pointer;font-weight:900}
+@keyframes pulse{from{transform:scale(1)}to{transform:scale(1.05)}}
+.target.censored{color:transparent;background:#050505;box-shadow:0 0 0 1px #222 inset;pointer-events:none}
+.target.censored:after{content:'████';position:absolute;left:2px;right:2px;top:0;color:#000;text-shadow:0 0 1px #333;overflow:hidden}
+.target.saved{color:#7cff91;background:#082811;box-shadow:0 0 8px #48ff6a55;pointer-events:none;font-weight:900}
+.life{display:inline-block;margin-left:8px}
+.btn{padding:11px 20px;border:1px solid #8c949f;border-radius:10px;background:#11161d;color:white;font-weight:900;margin:8px 5px}
+.btn:active{transform:scale(.98)}
+.msg{min-height:58px;padding:10px 4px;font-weight:900}
+.savedList{font-size:13px;opacity:.8;min-height:40px;padding:2px 8px 10px}
+.hide{display:none}
+.overlay{position:fixed;inset:0;background:#000d;display:flex;align-items:center;justify-content:center;padding:20px;z-index:20}
+.overlay.hide{display:none}
+.card{width:min(92vw,520px);background:#090d12;border:1px solid #555;border-radius:14px;padding:22px}
+.big{font-size:30px;font-weight:1000;letter-spacing:.03em}
+footer{font-size:11px;opacity:.55;padding:12px}
+</style>
+</head>
+<body>
+<header>BV // CENSURA 13<div class="sub">ROSTIZAME // ARCHIVO INTERVENIDO</div></header>
+<div class="hud" id="hud">INTERCEPTADAS 0/13 <span class="life">♥ ♥ ♥</span></div>
+<div class="wrap">
+  <div class="panel">
+    <p class="instructions">INTERCEPTÁ LAS 13 PALABRAS ROJAS ANTES DE QUE SEAN CENSURADAS.</p>
+    <button class="btn" id="start">INICIAR CENSURA</button>
+    <div class="poem" id="poem"></div>
+    <div class="msg" id="msg">El sistema todavía no empezó a borrar.</div>
+    <div class="savedList" id="savedList"></div>
+    <button class="btn hide" id="again">REINICIAR ARCHIVO</button>
+  </div>
+</div>
+<footer>ROSTIZAME // BUENA VISTA</footer>
+<div class="overlay hide" id="endOverlay">
+  <div class="card">
+    <div class="big" id="endTitle"></div>
+    <div id="endText" style="margin-top:12px;line-height:1.6"></div>
+    <button class="btn" id="overlayAgain">VOLVER A INTERCEPTAR</button>
+  </div>
+</div>
+<script>
+const lines=[
+'Amamos la calefacción de ese vientre',
+'Amamos el misil del sistema',
+'Su baño de fuego',
+'Su pantalla táctil',
+'Su dieta líquida',
+'su bota de combate sobre las sienes',
+'replicar el bombardeo',
+'El zoom sociofóbico que descubre sangre pixelada en las fotos',
+'¿Querés quedarte ahí?',
+'Quien más puede prescindir de vos',
+'y mantener stock',
+'Qué otra hipnosis animada donde ahogarte',
+'y llevar también a tu perro.',
+'Esta es la guerra',
+'Tendencia y Backroom',
+'Ella te luce en su catálago',
+'Estás dentro de la ballena',
+'con las chinelas puestas.'
+];
+const targets=['vientre','misil','fuego','pantalla','combate','bombardeo','sangre','stock','hipnosis','guerra','Backroom','ballena','chinelas'];
+let order=[],idx=0,saved=0,lives=3,active=false,current=null,timer=null,ac=null;
+const poem=document.getElementById('poem'),hud=document.getElementById('hud'),msg=document.getElementById('msg'),savedList=document.getElementById('savedList'),start=document.getElementById('start'),again=document.getElementById('again'),overlay=document.getElementById('endOverlay'),endTitle=document.getElementById('endTitle'),endText=document.getElementById('endText');
+function buildPoem(){
+  poem.innerHTML='';
+  lines.forEach(line=>{
+    const div=document.createElement('span');div.className='line';
+    let html=line;
+    targets.forEach(t=>{
+      const re=new RegExp('('+t.replace(/[.*+?^$()|[\]\\]/g,'\\$&')+')','i');
+      html=html.replace(re,'<span class="word target" data-target="'+t.toLowerCase()+'">$1</span>');
+    });
+    div.innerHTML=html;
+    poem.appendChild(div);
+  });
+  poem.querySelectorAll('.target').forEach(el=>el.addEventListener('click',()=>hit(el)));
+}
+function audio(){if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume()}
+function tone(f,d=.12,type='sine',v=.09){audio();const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}
+function successSound(){tone(680,.09,'square',.07);setTimeout(()=>tone(980,.12,'square',.06),80)}
+function censorSound(){tone(120,.18,'sawtooth',.09);setTimeout(()=>tone(75,.22,'sawtooth',.06),100)}
+function winSound(){[392,523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f,.24,'triangle',.08),i*90))}
+function updateHud(){hud.innerHTML='INTERCEPTADAS '+saved+'/13 <span class="life">'+(('♥ '.repeat(lives).trim())||'—')+'</span>'}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function resetMarks(){poem.querySelectorAll('.target').forEach(el=>el.classList.remove('live','saved','censored'))}
+function startGame(){audio();active=true;saved=0;lives=3;idx=0;current=null;clearTimeout(timer);order=shuffle(targets);resetMarks();updateHud();savedList.textContent='';msg.textContent='ARCHIVO ACTIVO // ESPERANDO PRIMERA PALABRA';start.classList.add('hide');again.classList.add('hide');overlay.classList.add('hide');setTimeout(nextTarget,500)}
+function nextTarget(){if(!active)return;if(idx>=order.length)return finishWin();current=order[idx].toLowerCase();const el=[...poem.querySelectorAll('.target')].find(x=>x.dataset.target===current);if(!el){idx++;return nextTarget()}el.classList.add('live');msg.textContent='⚠ PALABRA DETECTADA // INTERCEPTALA';document.body.classList.add('glitch');setTimeout(()=>document.body.classList.remove('glitch'),250);if(navigator.vibrate)navigator.vibrate(20);const delay=1800+Math.floor(Math.random()*1200);timer=setTimeout(()=>censor(el),delay)}
+function hit(el){if(!active||!el.classList.contains('live'))return;clearTimeout(timer);el.classList.remove('live');el.classList.add('saved');saved++;idx++;successSound();msg.textContent='✓ INTERCEPTADA // '+el.textContent.toUpperCase();savedList.textContent='RESCATADAS: '+[...poem.querySelectorAll('.saved')].map(x=>x.textContent.toUpperCase()).join(' · ');updateHud();setTimeout(nextTarget,500)}
+function censor(el){if(!active)return;el.classList.remove('live');el.classList.add('censored');lives--;idx++;censorSound();updateHud();msg.textContent='████ CENSURADA // PERDISTE UNA VIDA';if(navigator.vibrate)navigator.vibrate([80,40,120]);if(lives<=0)return finishLose();setTimeout(nextTarget,650)}
+function finishWin(){active=false;clearTimeout(timer);winSound();endTitle.textContent='CENSURA INTERRUMPIDA // 13 DE 13';const words=[...poem.querySelectorAll('.saved')].map(x=>x.textContent.toUpperCase()).join(' · ');endText.innerHTML='El resto del texto cae.<br><br><strong>'+words+'</strong><br><br>ARCHIVO RECUPERADO.';overlay.classList.remove('hide');again.classList.remove('hide')}
+function finishLose(){active=false;clearTimeout(timer);endTitle.textContent='ROSTIZADA!';endText.innerHTML='El sistema terminó de borrar el archivo.<br><br>INTERCEPTADAS: <strong>'+saved+'/13</strong>';overlay.classList.remove('hide');again.classList.remove('hide')}
+start.onclick=startGame;again.onclick=startGame;document.getElementById('overlayAgain').onclick=startGame;buildPoem();updateHud();
+</script>
+</body>
+</html>
