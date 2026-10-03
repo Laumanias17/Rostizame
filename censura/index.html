@@ -58,10 +58,8 @@ footer{font-size:11px;opacity:.55;padding:12px}
   </div>
 </div>
 <audio id="voice" preload="auto" playsinline><source src="./sistema2_distorsionado.mp3" type="audio/mpeg"></audio>
-<audio id="voiceGhost" preload="auto" playsinline><source src="./sistema2_distorsionado.mp3" type="audio/mpeg"></audio>
 <script>
 const voice=document.getElementById("voice");
-const voiceGhost=document.getElementById("voiceGhost");
 let voiceCtx=null, voiceSource=null, voiceFilter=null, voiceDist=null, voiceGain=null;
 function distortionCurve(amount=180){
  const n=44100,curve=new Float32Array(n),deg=Math.PI/180;
@@ -74,7 +72,7 @@ function setupVoiceFX(){
   voiceCtx=new(window.AudioContext||window.webkitAudioContext)();
   voiceSource=voiceCtx.createMediaElementSource(voice);
   voiceFilter=voiceCtx.createBiquadFilter();voiceFilter.type='highpass';voiceFilter.frequency.value=180;voiceFilter.Q.value=.6;
-  voiceDist=voiceCtx.createWaveShaper();voiceDist.curve=distortionCurve(35);voiceDist.oversample='4x';
+  voiceDist=voiceCtx.createWaveShaper();voiceDist.curve=distortionCurve(18);voiceDist.oversample='4x';
   voiceGain=voiceCtx.createGain();voiceGain.gain.value=.72;
   voiceSource.connect(voiceFilter);voiceFilter.connect(voiceDist);voiceDist.connect(voiceGain);voiceGain.connect(voiceCtx.destination);
  }catch(e){}
@@ -82,9 +80,9 @@ function setupVoiceFX(){
 async function startVoice(){
  try{
    setupVoiceFX();if(voiceCtx&&voiceCtx.state==='suspended')await voiceCtx.resume();
-   voice.pause();voiceGhost.pause(); voice.currentTime=0;voiceGhost.currentTime=0; voice.volume=1;voiceGhost.volume=.24; voice.playbackRate=.94;voiceGhost.playbackRate=.91;
+   voice.pause(); voice.currentTime=0; voice.volume=1; voice.playbackRate=.94;
    voice.load();voiceGhost.load();
-   await voice.play();setTimeout(()=>{voiceGhost.currentTime=Math.max(0,voice.currentTime-.045);voiceGhost.play().catch(()=>{})},55);
+   await voice.play();
    msg.textContent='▶ VOZ ACTIVADA // ARCHIVO SONORO EN CURSO';
  }catch(e){
    msg.innerHTML='⚠ AUDIO BLOQUEADO // <button class="btn" id="audioUnlock" style="padding:6px 10px;margin:0">ACTIVAR VOZ</button>';
@@ -94,15 +92,30 @@ async function startVoice(){
 function setVoiceDegradation(step){
  try{
   const p=Math.min(1,step/12);
-  if(voiceDist)voiceDist.curve=distortionCurve(35+150*p);
-  if(voiceFilter){voiceFilter.type='highpass';voiceFilter.frequency.value=180+620*p;voiceFilter.Q.value=.6+1.2*p}
-  voice.playbackRate=1-.06*p;
-  voiceGhost.playbackRate=.995-.035*p;
-  voiceGhost.volume=.025+.08*p;
+  if(voiceDist)voiceDist.curve=distortionCurve(18+65*p);
+  if(voiceFilter){voiceFilter.type='highpass';voiceFilter.frequency.value=120+260*p;voiceFilter.Q.value=.5+.5*p}
+  voice.playbackRate=1-.025*p;
+  
+  
  }catch(e){}
 }
-function voiceGlitch(){try{const base=voice.volume;voice.volume=.42;setTimeout(()=>{voice.volume=base},220)}catch(e){}}
-function stopVoice(){try{voice.pause();voiceGhost.pause()}catch(e){}}
+let signalTimer=null;
+function clearSignalLoss(){if(signalTimer){clearTimeout(signalTimer);signalTimer=null}try{voice.volume=1}catch(e){}}
+function scheduleSignalLoss(step){
+ clearSignalLoss();
+ if(step<6||!active)return;
+ const severity=Math.min(1,(step-5)/7);
+ const drop=()=>{
+  if(!active)return;
+  const normal=1;
+  voice.volume=.08+.18*(1-severity);
+  setTimeout(()=>{if(active)voice.volume=normal},70+Math.random()*110);
+  signalTimer=setTimeout(drop,900+Math.random()*(1500-700*severity));
+ };
+ signalTimer=setTimeout(drop,650+Math.random()*900);
+}
+function voiceGlitch(){try{const base=voice.volume;voice.volume=.62;setTimeout(()=>{voice.volume=base},120)}catch(e){}}
+function stopVoice(){try{voice.pause();}catch(e){}}
 const lines=[
 'Amamos la calefacción de ese vientre',
 'Amamos el misil del sistema',
@@ -149,7 +162,7 @@ function updateHud(){hud.innerHTML='INTERCEPTADAS '+saved+'/13 <span class="life
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
 function resetMarks(){poem.querySelectorAll('.target').forEach(el=>el.classList.remove('live','saved','censored'))}
 function startGame(){audio();startVoice();active=true;saved=0;lives=3;idx=0;setVoiceDegradation(0);current=null;clearTimeout(timer);order=shuffle(targets);resetMarks();updateHud();savedList.textContent='';msg.textContent='ARCHIVO ACTIVO // ESPERANDO PRIMERA PALABRA';start.classList.add('hide');again.classList.add('hide');overlay.classList.add('hide');setTimeout(nextTarget,500)}
-function nextTarget(){if(!active)return;if(idx>=order.length)return finishWin();setVoiceDegradation(idx);current=order[idx].toLowerCase();const el=[...poem.querySelectorAll('.target')].find(x=>x.dataset.target===current);if(!el){idx++;return nextTarget()}el.classList.add('live');msg.textContent='⚠ PALABRA DETECTADA // INTERCEPTALA';document.body.classList.add('glitch');setTimeout(()=>document.body.classList.remove('glitch'),250);if(navigator.vibrate)navigator.vibrate(20);const delay=1800+Math.floor(Math.random()*1200);timer=setTimeout(()=>censor(el),delay)}
+function nextTarget(){if(!active)return;if(idx>=order.length)return finishWin();setVoiceDegradation(idx);scheduleSignalLoss(idx);current=order[idx].toLowerCase();const el=[...poem.querySelectorAll('.target')].find(x=>x.dataset.target===current);if(!el){idx++;return nextTarget()}el.classList.add('live');msg.textContent='⚠ PALABRA DETECTADA // INTERCEPTALA';document.body.classList.add('glitch');setTimeout(()=>document.body.classList.remove('glitch'),250);if(navigator.vibrate)navigator.vibrate(20);const delay=1800+Math.floor(Math.random()*1200);timer=setTimeout(()=>censor(el),delay)}
 function hit(el){if(!active||!el.classList.contains('live'))return;clearTimeout(timer);el.classList.remove('live');el.classList.add('saved');saved++;idx++;successSound();msg.textContent='✓ INTERCEPTADA // '+el.textContent.toUpperCase();savedList.textContent='RESCATADAS: '+[...poem.querySelectorAll('.saved')].map(x=>x.textContent.toUpperCase()).join(' · ');updateHud();setTimeout(nextTarget,500)}
 function censor(el){if(!active)return;el.classList.remove('live');el.classList.add('censored');lives--;idx++;censorSound();voiceGlitch();updateHud();msg.textContent='████ CENSURADA // PERDISTE UNA VIDA';if(navigator.vibrate)navigator.vibrate([80,40,120]);if(lives<=0)return finishLose();setTimeout(nextTarget,650)}
 function finishWin(){active=false;clearTimeout(timer);stopVoice();winSound();endTitle.textContent='CENSURA INTERRUMPIDA // 13 DE 13';const words=[...poem.querySelectorAll('.saved')].map(x=>x.textContent.toUpperCase()).join(' · ');endText.innerHTML='El resto del texto cae.<br><br><strong>'+words+'</strong><br><br>ARCHIVO RECUPERADO.';overlay.classList.remove('hide');again.classList.remove('hide')}
