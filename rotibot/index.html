@@ -172,6 +172,7 @@ function answer(raw){
  let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
  const has=(...xs)=>xs.some(x=>t.includes(x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
  // RESPUESTAS OFICIALES: se evalúan antes que la memoria general.
+ if(has('a que publico','para que publico','a quien esta dirigido','a quienes esta dirigido','para quien es el libro','para quien es rostizame','a quien va dirigido','publico objetivo','para quienes es'))return 'A LOS ATEOS. LOS CREYENTES YA TIENEN SU LIBRO.';
  if(has('la autora se considera una buena escritora','buena escritora','buena poeta','escribe bien la autora','la autora escribe bien'))return 'ANTES DE ESCRIBIR FUE TESTIGO DE JEHOVÁ. YA TENÍA EXPERIENCIA EN OFRECER LITERATURA QUE NADIE LE HABÍA PEDIDO.';
  if(has('es un mal libro','es malo el libro','el libro es malo','rostizame es malo','es malo rostizame','es un libro malo','es tan malo','es malo'))return 'HASTA DONDE SÉ, NO FIGURA ENTRE LOS PECADOS CAPITALES. PERO LA IGLESIA TODAVÍA NO LO HA LEÍDO.';
  if(has('es bueno el libro','el libro es bueno','es bueno rostizame','rostizame es bueno','es un buen libro','es bueno o malo el libro','es buena la obra','es bueno','es tan bueno'))return 'NO SÉ. SE LO MANDÉ AL DIABLO PARA QUE ESCRIBIERA LA CONTRATAPA Y ME PIDIÓ QUE NO LO INVOLUCRARA.';
