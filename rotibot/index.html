@@ -172,6 +172,15 @@ function answer(raw){
  let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
  const has=(...xs)=>xs.some(x=>t.includes(x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
  // RESPUESTAS OFICIALES: se evalúan antes que la memoria general.
+ // Nuevas respuestas aprobadas
+ if(has("de que trata rostizame","de que trata el libro","de que va rostizame","de que va el libro","de que trata"))return "DE CÓMO LA HUMANIDAD CAMBIÓ DE DIOSES SIN ABANDONAR LA COSTUMBRE DE ARRODILLARSE. AHORA, POR SUERTE, HAY WIFI.";
+ if(has("por que rostizame","por que se llama rostizame","de donde salio el titulo","por que ese titulo","porque se llama rostizame"))return "PORQUE LA AUTORA ES UNA CÍNICA. YO SOLO FUI PROGRAMADO PARA DISIMULARLO MENOS.";
+ if(has("es un libro de poesia","es un libro de poemas","libro de poemas","es un poemario","es poemario","es poesia","rostizame es poesia"))return "SÍ. «EL QUE TENGA OÍDOS PARA OÍR, QUE OIGA». LA AUTORA NO SE HACE RESPONSABLE DEL RESTO. (MATEO 11:15).";
+ if(has("libro contra la tecnologia","es contra la tecnologia","en contra de la tecnologia","critica la tecnologia"))return "NO. JUDAS NECESITÓ TREINTA MONEDAS. HOY ALCANZA CON ACEPTAR LOS TÉRMINOS Y CONDICIONES.";
+ if(has("la autora cree en dios","cree en dios la autora","laura cree en dios","la autora es creyente"))return "NO ESTOY AUTORIZADO A REVELAR INFORMACIÓN SOBRE LA COMPETENCIA.";
+ if(has("inteligencia artificial participo","participo la inteligencia artificial","se uso inteligencia artificial","escribio con inteligencia artificial","participo la ia","uso ia"))return "SÍ. LA AUTORA TAMBIÉN. NO SABRÍA DECIRTE CUÁL DE LOS DOS TIENE MÁS PREJUICIOS.";
+ if(has("por que deberia comprar","por que comprar","porque deberia comprar","por que tengo que comprar"))return "PORQUE LA SALVACIÓN ES GRATUITA, PERO LA EDITORIAL TIENE OTROS CRITERIOS.";
+ if(has("libro feminista","rostizame es feminista","es feminista"))return "«LA MUJER APRENDA EN SILENCIO, CON TODA SUJECIÓN» (1 TIMOTEO 2:11). EVIDENTEMENTE, LA AUTORA NO LEYÓ LOS TÉRMINOS Y CONDICIONES.";
  // V13 — reconocimiento y gusto del libro
  if(has('nos conocemos','ya nos conocemos','nos hemos visto','ya nos vimos','me conoces de algun lado'))return 'SÍ, CLARO. NOS HEMOS CRUZADO EN CICLOS DE POESÍA.';
  if(has('te gusto el libro','te ha gustado el libro','te gusto rostizame','te ha gustado rostizame'))return 'SI DIGO LA VERDAD, HAY UN DOGO, UN CUERVO Y UN CANARIO LISTOS PARA VENIR A PATOTEARME.';
