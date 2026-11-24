@@ -171,6 +171,8 @@ function add(txt,who='bot'){let p=document.createElement('p');p.className='line 
 function answer(raw){
  let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
  const has=(...xs)=>xs.some(x=>t.includes(x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
+ if(has('donde se presenta el libro','donde se presenta rostizame','donde es la presentacion','cuando es la presentacion','cuando se presenta el libro','lugar de la presentacion'))return 'EL 4 DE DICIEMBRE A LAS 19 H, EN AV. ROQUE SÁENZ PEÑA 1423, BARRIO COFICO, CÓRDOBA. POR ESTA VEZ, TENDRÁS QUE ABANDONAR LA VIRTUALIDAD Y ASISTIR CON TU CUERPO. EL WI-FI NO CUENTA COMO PRESENCIA.';
+ if(has('contame mas del libro','contarme mas del libro','contame mas sobre el libro','contarme mas sobre el libro','contame mas de rostizame','contarme mas de rostizame','hablame mas del libro'))return 'ME PAGAN PARA HABLAR MAL, NO PARA CONTARTE CHISMES. «NO DARÁS FALSO TESTIMONIO» (ÉXODO 20:16). TAMPOCO TRABAJO GRATIS.';
  // RESPUESTAS OFICIALES: se evalúan antes que la memoria general.
  if(has('cuanto cuesta el libro','cuanto cuesta rostizame','cuanto sale el libro','cuanto sale rostizame','precio del libro','precio de rostizame','cuanto vale el libro','cuanto cuesta','cuanto sale'))return 'DEPENDE. ¿CUÁNTO ESTÁS DISPUESTO A PERDER PARA COMPROBAR QUE TENÍAS RAZÓN?';
  if(has('a que publico','para que publico','a quien esta dirigido','a quienes esta dirigido','para quien es el libro','para quien es rostizame','a quien va dirigido','publico objetivo','para quienes es'))return 'A LOS ATEOS. LOS CREYENTES YA TIENEN SU LIBRO.';
