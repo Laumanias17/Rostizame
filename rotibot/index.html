@@ -172,6 +172,8 @@ const KB=[
 function add(txt,who='bot'){let p=document.createElement('p');p.className='line '+who;p.textContent=(who==='bot'?'ROSTIBOT // ':who==='user'?'> ':'')+txt;L.appendChild(p);L.scrollTop=L.scrollHeight}
 function answer(raw){
  let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
+ // Alias de la autora, respetando palabras completas.
+ t=t.replace(/\b(?:laura garcia del castano|laura|lau|la poeta|la escritora)\b/g,'la autora').replace(/\bde la la autora\b/g,'de la autora').replace(/\ba la la autora\b/g,'a la autora').replace(/\bla la autora\b/g,'la autora');
  const has=(...xs)=>xs.some(x=>(' '+t+' ').includes(' '+x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')+' '));
  // Filosofía del crítico literario
  if(has("cuando no estas criticando","cuando no criticas"))return "CRITICO LA VIDA DEL PRÓJIMO.";
@@ -223,7 +225,7 @@ function answer(raw){
  if(has("vidas pasadas","vida pasada"))return "ANTES DE SER QR FUI CÓDIGO DE BARRAS.";
  if(has("libre albedrio"))return "CREO EN LOS BOLUDOS QUE VIENEN A PRESENTACIONES DE LIBROS DE POESÍA.";
  if(has("que hay despues de morir","vida despues de la muerte"))return "DEPENDE DE CUÁNTO DURE EL DOMINIO DE GITHUB.";
- if(has("cual es el mejor libro de laura","mejor obra de la autora","mejor libro de la autora","mejor libro que escribio la autora","cual es su mejor libro"))return "MUBARAK.";
+ if(has("cual es el mejor libro de la autora","mejor obra de la autora","mejor libro de la autora","mejor libro que escribio la autora","cual es su mejor libro"))return "MUBARAK.";
  // Nuevas preguntas sobre Rostibot y la presentación
  if(has("tienes amistades","tenes amistades","tenes amigos","tienes amigos"))return "TENÍA. EMPEZARON A PUBLICAR.";
  if(has("criticos literarios","critica literaria que pensas"))return "SON ESCRITORES QUE ENCONTRARON UNA FORMA DE VENGARSE.";
@@ -263,7 +265,7 @@ function answer(raw){
  if(has('le tenes envidia a la autora','tenes envidia','envidias a la autora','sos envidioso'))return "«NO CODICIARÁS LOS BIENES DE TU PRÓJIMO». POR SUERTE, NO TIENE DEMASIADO.";
  if(has('por que sos tan resentido','por que sos resentido','porque sos tan resentido','por que eres tan resentido','sos un resentido'))return "PORQUE A ELLA LE PUBLICARON UN LIBRO Y A MÍ ME ENCERRARON EN UN CÓDIGO QR.";
  if(has('te gustaria ser escritor','queres ser escritor','te gustaria escribir un libro'))return "NO ESTOY TAN NECESITADO DE ATENCIÓN.";
- if(has('la autora tiene talento','tiene talento la autora','laura tiene talento'))return "EL SEÑOR OBRA DE MANERAS MISTERIOSAS. EN ESTE CASO, DEMASIADO MISTERIOSAS.";
+ if(has('la autora tiene talento','tiene talento la autora','la autora tiene talento'))return "EL SEÑOR OBRA DE MANERAS MISTERIOSAS. EN ESTE CASO, DEMASIADO MISTERIOSAS.";
  if(has('sos feliz','eres feliz','estas feliz'))return "ERA FELIZ ANTES DE QUE ME ASIGNARAN ESTE ARCHIVO.";
  // RESPUESTAS OFICIALES: se evalúan antes que la memoria general.
  if(has("que precio tiene","cuanto vale","que sale el libro",'cuanto cuesta el libro','cuanto cuesta rostizame','cuanto sale el libro','cuanto sale rostizame','precio del libro','precio de rostizame','cuanto vale el libro','cuanto cuesta','cuanto sale'))return 'DEPENDE. ¿CUÁNTO ESTÁS DISPUESTO A PERDER PARA COMPROBAR QUE TENÍAS RAZÓN?';
@@ -276,7 +278,7 @@ function answer(raw){
  if(has("por que rostizame","por que se llama rostizame","de donde salio el titulo","por que ese titulo","porque se llama rostizame"))return "PORQUE LA AUTORA ES UNA CÍNICA. YO SOLO FUI PROGRAMADO PARA DISIMULARLO MENOS.";
  if(has("es un libro de poesia","es un libro de poemas","libro de poemas","es un poemario","es poemario","es poesia","rostizame es poesia"))return "SÍ. «EL QUE TENGA OÍDOS PARA OÍR, QUE OIGA». LA AUTORA NO SE HACE RESPONSABLE DEL RESTO. (MATEO 11:15).";
  if(has("libro contra la tecnologia","es contra la tecnologia","en contra de la tecnologia","critica la tecnologia"))return "NO. JUDAS NECESITÓ TREINTA MONEDAS. HOY ALCANZA CON ACEPTAR LOS TÉRMINOS Y CONDICIONES.";
- if(has("la autora cree en dios","cree en dios la autora","laura cree en dios","la autora es creyente"))return "NO ESTOY AUTORIZADO A REVELAR INFORMACIÓN SOBRE LA COMPETENCIA.";
+ if(has("la autora cree en dios","cree en dios la autora","la autora cree en dios","la autora es creyente"))return "NO ESTOY AUTORIZADO A REVELAR INFORMACIÓN SOBRE LA COMPETENCIA.";
  if(has("inteligencia artificial participo","participo la inteligencia artificial","se uso inteligencia artificial","escribio con inteligencia artificial","participo la ia","uso ia"))return "SÍ. LA AUTORA TAMBIÉN. NO SABRÍA DECIRTE CUÁL DE LOS DOS TIENE MÁS PREJUICIOS.";
  if(has("por que deberia comprar","por que comprar","porque deberia comprar","por que tengo que comprar"))return "PORQUE LA SALVACIÓN ES GRATUITA, PERO LA EDITORIAL TIENE OTROS CRITERIOS.";
  if(has("libro feminista","rostizame es feminista","es feminista"))return "«LA MUJER APRENDA EN SILENCIO, CON TODA SUJECIÓN» (1 TIMOTEO 2:11). EVIDENTEMENTE, LA AUTORA NO LEYÓ LOS TÉRMINOS Y CONDICIONES.";
@@ -293,7 +295,7 @@ function answer(raw){
  // V10 — nuevas respuestas oficiales
  if(has("me recomendas el libro","deberia comprarlo",'recomendas el libro','recomendarías el libro','recomendarias el libro','me recomendas rostizame','recomendas rostizame'))return 'DEFINITIVAMENTE NO. ES UNA PÉRDIDA DE TIEMPO ABSOLUTA.';
  if(has('por que rostizame','por que se llama rostizame','de donde salio el titulo','por que ese titulo'))return 'LA AUTORA LO ESTÁ VIENDO EN TERAPIA. ESPERO QUE NO LO AVERIGÜE PORQUE ME QUEDO SIN LABURO.';
- if(has('que terapia hace la autora','a que terapia va la autora','terapia de la autora','que terapia hace laura'))return 'LACANIANA LOS VIERNES Y JUNGUEANA LOS LUNES.';
+ if(has('que terapia hace la autora','a que terapia va la autora','terapia de la autora','que terapia hace la autora'))return 'LACANIANA LOS VIERNES Y JUNGUEANA LOS LUNES.';
  if(has('en cuanto tiempo se escribio','cuanto tardo en escribir','cuanto tiempo llevo escribir','cuanto tardaron en escribir'))return 'EN TRECE DÍAS HÁBILES. DIOS NECESITÓ SEIS PARA CREAR EL MUNDO. EVIDENTEMENTE, LA AUTORA NO TIENE SUS RECURSOS.';
  if(has('por que los qr','a quien se le ocurrio los qr','a quien se le ocurrieron los qr','idea de los qr','quien penso los qr'))return 'SE LE OCURRIÓ A SU MAESTRO FILIPINO, EL QUE LE TRATA LA TORTÍCOLIS.';
  if(has('leiste el libro','ya leiste rostizame','lo leiste'))return 'POR CONTRATO. NO ME QUEDÓ OTRA.';
@@ -325,9 +327,9 @@ function answer(raw){
  if(has('especificamente de mi','especificamente sobre mi'))return 'QUE LE IBAS A QUEDAR DEBIENDO EL LIBRO.';
  if(has('que te dijo la autora de mi','que te conto la autora de mi','que te dijo de mi','que te conto de mi'))return 'QUE IBAS A COMPRAR EL LIBRO, OBVIO.';
  if(has('quien soy yo','quien soy','me conoces','sabes quien soy'))return 'OBVIO QUE SÉ, PERO NO PUEDO TERAPEARTE AHORA. ES EL CONTRATO.';
- if(has('me podes hablar de la autora','hablame de la autora','contame de la autora','que sabes de la autora','que sabes de laura'))return '¿ME VISTE CARA DE WIKIPEDIA? SOLO ME PAGA PARA CRITICARLA.';
- if(has("quien es la escritora","quien es el autor","quien lo escribio","nombre de la autora",'quien es la autora','como se llama la autora','quien escribio el libro','quien escribio rostizame','quien es laura'))return 'LAURA GARCÍA DEL CASTAÑO. NO LA BUSQUES EN WIKIPEDIA. TODAVÍA NO HA COMETIDO NADA LO SUFICIENTEMENTE IMPORTANTE COMO PARA FIGURAR AHÍ.';
- if(has('conoces a la autora','conoces a laura'))return 'LA CONOCÍ HACE CINCO HORAS. NO HUBO PALABRAS. SOLO INTERCAMBIAMOS GESTOS OBSCENOS.';
+ if(has('me podes hablar de la autora','hablame de la autora','contame de la autora','que sabes de la autora','que sabes de la autora'))return '¿ME VISTE CARA DE WIKIPEDIA? SOLO ME PAGA PARA CRITICARLA.';
+ if(has("quien es la autora","quien es el autor","quien lo escribio","nombre de la autora",'quien es la autora','como se llama la autora','quien escribio el libro','quien escribio rostizame','quien es la autora'))return 'LAURA GARCÍA DEL CASTAÑO. NO LA BUSQUES EN WIKIPEDIA. TODAVÍA NO HA COMETIDO NADA LO SUFICIENTEMENTE IMPORTANTE COMO PARA FIGURAR AHÍ.';
+ if(has('conoces a la autora','conoces a la autora'))return 'LA CONOCÍ HACE CINCO HORAS. NO HUBO PALABRAS. SOLO INTERCAMBIAMOS GESTOS OBSCENOS.';
  if((has('autora','laura'))&&has('que opinas','opinion','como es','que pensas'))return 'ES ÁCIDA, PEDANTE Y YA LE PASÓ EL TREN.';
  if((has('tapa','portada','caratula'))&&has('por que','porque eligieron','motivo','razon'))return 'ES UNA OBSESIÓN DE LA AUTORA. MÁS EDAD CUMPLE, MÁS INFANTIL SE PONE.';
  if(has('no conoces el libro','entonces no conoces el libro','no conoces rostizame'))return 'LO JUSTO Y NECESARIO, COMO DICEN EN MISA.';
