@@ -321,7 +321,7 @@ function answer(raw){
  if(has('poemas de terror','poema de terror','poesia de terror','hay terror'))return 'EL LIBRO ES DE TERROR.';
  if(has('es un libro de poemas','libro de poemas','es un poemario','es poemario','es poesia'))return 'ES UN LIBRO. MÁS BARATO QUE UNA HAMBURGUESA COMPLETA CON PAPAS.';
  if(has('quien edito el libro','quien edita el libro','que editorial','cual editorial','editorial lo publico','quien es la editorial'))return 'BUENA VISTA, CLARAMENTE. LO QUE SALVA TODO ESTO.';
- if(has('otros libros publicados','tiene otros libros','publico otros libros','autora tiene mas libros','otros libros','mas libros'))return 'SÍ. TODOS DESCONOCIDOS.';
+ if(has("tiene mas libros","tiene otros libros","escribio otros libros","escribio mas libros","publico mas libros","ha publicado otros libros","que otros libros tiene","que mas escribio","que otros libros escribio","tiene otras obras","escribio otras obras","es su primer libro","es el primer libro de la autora","la autora tiene otros libros","la autora escribio otros libros","tiene mas publicaciones","que otros libros publico",'otros libros publicados','tiene otros libros','publico otros libros','autora tiene mas libros','otros libros','mas libros'))return 'SÍ. TODOS DESCONOCIDOS.';
  if(has("tu nombre","como se llama el bot","quien es rostibot",'como te llamas','cual es tu nombre','quien sos','quien eres'))return 'ME LLAMO MARIO, PERO A LA NOCHE ME CONVIERTO EN LOBIZÓN.';
  if(has('que sabes de mi','que sabes sobre mi')){lastTopic='LECTOR';return 'SÉ TODO POR LA AUTORA.';}
  if(has('especificamente de mi','especificamente sobre mi'))return 'QUE LE IBAS A QUEDAR DEBIENDO EL LIBRO.';
