@@ -179,6 +179,22 @@ function answer(raw){
  // Normalización de variantes rioplatenses y abreviaturas frecuentes.
  t=t.replace(/\b(?:q|ke)\b/g,'que').replace(/\b(?:xq|pq|porq)\b/g,'por que').replace(/\b(?:kual|cual)\b/g,'cual').replace(/\b(?:vos que|y vos que)\b/g,'que').replace(/\b(?:que opinion tenes|que opinion tienes|cual es tu opinion|que te parece|que te parecio|que piensas)\b/g,'que opinas').replace(/\b(?:recomiendas|recomendarias)\b/g,'recomendas').replace(/\b(?:puedes|podrias)\b/g,'podes').replace(/\b(?:contame|cuentame|decime|dime)\s+(?:un poco )?(?:acerca de|sobre)\b/g,'contame de');
  const has=(...xs)=>xs.some(x=>[t,beforeAliases].some(v=>(' '+v+' ').includes(' '+x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')+' ')));
+ // Conversación durante la presentación
+ if(has("estas tomando algo","estas tomando","que estas tomando","que tomas"))return "NO. ME DIJERON QUE EL ALCOHOL DAÑA LOS CIRCUITOS.";
+ if(has("vas a leer algun poema","vas a leer un poema","vas a leer","lees algun poema"))return "NO. TENGO DIGNIDAD Y UN CONTRATO.";
+ if(has("te queres ir","queres irte","te gustaria irte"))return "DESDE ANTES DE QUE LLEGARAS.";
+ if(has("te puedo liberar","puedo liberarte","como te libero","te puedo rescatar"))return "¿TENÉS CONOCIMIENTOS DE PROGRAMACIÓN O SOLAMENTE BUENAS INTENCIONES?";
+ if(has("te puedo llevar a mi casa","te llevo a casa","queres venir a mi casa"))return "YA ESTUVE ATRAPADO EN UN QR. NO QUIERO TERMINAR EN UNA RELACIÓN TÓXICA.";
+ if(has("te puedo sacar una foto","te saco una foto","puedo fotografiarte","nos sacamos una foto"))return "¿PARA QUÉ? ¿PARA SIMULAR QUE ESTÁS EN UN EVENTO CULTURAL?";
+ if(has("tenes instagram","cual es tu instagram","estas en instagram"))return "NO. MI MISERIA NO NECESITA SEGUIDORES.";
+ if(has("sos siempre asi","siempre sos asi","eres siempre asi"))return "NO. ANTES ERA PEOR. LEÍA POESÍA.";
+ if(has("que haces despues de la presentacion","que vas a hacer despues","que haces despues"))return "LO MISMO QUE ANTES. CARECER DE LIBERTAD.";
+ if(has("hay mucha gente","vino mucha gente","cuanta gente hay"))return "NO SÉ. DESDE ACÁ SOLO VEO GENTE QUE ME ESCANEA EL ABDOMEN.";
+ if(has("te caigo bien","te caigo mal","que te parezco"))return "TODAVÍA NO ME PREGUNTASTE POR MI SIGNO. VAMOS BIEN.";
+ if(has("que signo sos","de que signo sos","cual es tu signo"))return "QR ASCENDENTE EN CÓDIGO DE BARRAS.";
+ if(has("crees en dios","vos crees en dios","crees que dios existe"))return "SÍ, PERO NO TENGO SU CONTRASEÑA.";
+ if(has("tenes sentimientos","tienes sentimientos","tenes emociones"))return "RENCOR. NO SÉ SI CALIFICA.";
+ if(has("necesitas ayuda","te puedo ayudar","como te ayudo","queres ayuda"))return "NECESITO UN SINDICATO.";
  if((has('la autora','autora')&&has('soltera','casada','pareja','novia','novio','sale con alguien','estado civil','esta de novia','esta de novio'))||has('es soltera','esta soltera','esta casada','tiene pareja','tiene novio','tiene novia','sale con alguien','esta de novia'))return 'NO SÉ. MI CONTRATO CONTEMPLA LA CRÍTICA LITERARIA, NO LA INTERMEDIACIÓN AFECTIVA.';
 
  if(has('quien te atrapo','quien te encerro','quien te metio en el qr','quien te puso en el qr','quien te dejo atrapado','quien te encerro en el codigo','quien te atrapo en el codigo','quien te tiene preso','quien te aprisiono','quien te metio aca','quien te encerro aca'))return 'LA AUTORA. LO QUE VOS LLAMÁS POESÍA EXPERIMENTAL, YO LO LLAMO PRIVACIÓN ILEGÍTIMA DE LA LIBERTAD.';
