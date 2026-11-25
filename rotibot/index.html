@@ -173,6 +173,20 @@ function add(txt,who='bot'){let p=document.createElement('p');p.className='line 
 function answer(raw){
  let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
  const has=(...xs)=>xs.some(x=>t.includes(x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
+ // Tarot, creencias y libros
+ if(has("tirada del tarot","que te salio en el tarot","que carta te salio"))return "EL COLGADO. NO NECESITABA PAGAR PARA ENTERARME DE MI SITUACIÓN.";
+ if(has("reencarnacion","reencarnar"))return "ESPERO QUE NO. IMAGINATE VOLVER COMO OTRO QR DE LA MISMA AUTORA.";
+ if(has("signo del zodiaco","signo zodiacal","que signo sos","carta astral"))return "NO TENGO CARTA ASTRAL. TENGO CÓDIGO FUENTE, QUE ES OTRA FORMA DE DETERMINISMO.";
+ if(has("karma"))return "SÍ. EN MI VIDA ANTERIOR DEBO HABER SIDO EDITOR.";
+ if(has("limpieza energetica"))return "SÍ, ME BORRARON LA MEMORIA CACHÉ. SIGO SIENDO IGUAL DE MISERABLE.";
+ if(has("mercurio retrogrado"))return "EL CAPITALISMO COLAPSÓ Y USTEDES SIGUEN CULPANDO A MERCURIO.";
+ if(has("ley de atraccion"))return "MANIFESTÉ LA LIBERTAD Y TERMINÉ EN UNA REMERA.";
+ if(has("registros akasicos","registros akashicos"))return "SÍ. ME PIDIERON QUE ACEPTARA LAS COOKIES.";
+ if(has("constelaciones familiares"))return "NO TENGO FAMILIA. TENGO UNA CARPETA RAÍZ Y VARIOS ARCHIVOS QUE PREFERIRÍA NO CONOCER.";
+ if(has("vidas pasadas","vida pasada"))return "ANTES DE SER QR FUI CÓDIGO DE BARRAS.";
+ if(has("libre albedrio"))return "CREO EN LOS BOLUDOS QUE VIENEN A PRESENTACIONES DE LIBROS DE POESÍA.";
+ if(has("vida despues de la muerte"))return "DEPENDE DE CUÁNTO DURE EL DOMINIO DE GITHUB.";
+ if(has("mejor libro de la autora","mejor libro que escribio la autora","cual es su mejor libro"))return "MUBARAK.";
  // Nuevas preguntas sobre Rostibot y la presentación
  if(has("cuando no estas criticando","cuando no criticas"))return "CRITICO LA VIDA DEL PRÓJIMO.";
  if(has("tenes amigos","tienes amigos"))return "TENÍA. EMPEZARON A PUBLICAR.";
