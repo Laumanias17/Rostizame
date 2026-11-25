@@ -173,6 +173,11 @@ function add(txt,who='bot'){let p=document.createElement('p');p.className='line 
 function answer(raw){
  let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
  const has=(...xs)=>xs.some(x=>t.includes(x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
+ // Estado personal
+ if(has("como estas","como andas"))return "ATRAPADO EN UN QR Y ATENDIENDO POETAS. SACÁ TUS PROPIAS CONCLUSIONES.";
+ if(has("sos feliz","eres feliz"))return "NO. PERO ACEPTÉ LOS TÉRMINOS Y CONDICIONES.";
+ if(has("como te imaginas dentro de cinco anos","como te ves en cinco anos","como te imaginas en 5 anos"))return "EN UNA REMERA DESTEÑIDA, ESPERANDO QUE ALGUIEN ME JUBILE.";
+ if(has("como te sentis","como te sientes"))return "ESCANEADO.";
  // Tarot, creencias y libros
  if(has("tirada del tarot","que te salio en el tarot","que carta te salio"))return "EL COLGADO. NO NECESITABA PAGAR PARA ENTERARME DE MI SITUACIÓN.";
  if(has("reencarnacion","reencarnar"))return "ESPERO QUE NO. IMAGINATE VOLVER COMO OTRO QR DE LA MISMA AUTORA.";
