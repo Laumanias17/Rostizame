@@ -175,6 +175,7 @@ function answer(raw){
  // Alias de la autora, respetando palabras completas.
  t=t.replace(/\b(?:laura garcia del castano|laura|lau|la poeta|la escritora)\b/g,'la autora').replace(/\bde la la autora\b/g,'de la autora').replace(/\ba la la autora\b/g,'a la autora').replace(/\bla la autora\b/g,'la autora');
  const has=(...xs)=>xs.some(x=>(' '+t+' ').includes(' '+x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')+' '));
+ if((has('la autora','autora')&&has('soltera','casada','pareja','novia','novio','sale con alguien','estado civil','esta de novia','esta de novio'))||has('es soltera','esta soltera','esta casada','tiene pareja','tiene novio','tiene novia','sale con alguien','esta de novia'))return 'NO SÉ. MI CONTRATO CONTEMPLA LA CRÍTICA LITERARIA, NO LA INTERMEDIACIÓN AFECTIVA.';
  // Filosofía del crítico literario
  if(has("cuando no estas criticando","cuando no criticas"))return "CRITICO LA VIDA DEL PRÓJIMO.";
  if(has("por que elegiste ser critico","por que criticas","por que te hiciste critico","por que sos critico"))return "PORQUE DE LOS PESIMISTAS SOY EL MÁS OPTIMISTA.";
