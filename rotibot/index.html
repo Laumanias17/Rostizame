@@ -173,6 +173,11 @@ function add(txt,who='bot'){let p=document.createElement('p');p.className='line 
 function answer(raw){
  let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
  const has=(...xs)=>xs.some(x=>t.includes(x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
+ // Lectores de la presentación
+ if(has("nadia sapag"))return "UNA BELLÍSIMA POETA SALTEÑA. EVIDENTEMENTE, LA AUTORA NECESITABA LEVANTAR EL NIVEL DE LA PRESENTACIÓN.";
+ if(has("max acosta"))return "UN CAPO DE LA PERFORMANCE EN CÓRDOBA. ESPERO QUE PUEDA HACER ALGO CON ESTE DESASTRE.";
+ if(has("sol morais"))return "UNA POETA QUE TIENE UN LIBRO EXQUISITO SOBRE LA CASA. YO NI SIQUIERA TENGO DOMICILIO.";
+ if(has("antonella mazzitello"))return "UNA FRESCA MUCHACHA LLENA DE OPTIMISMO. EVIDENTEMENTE, TODAVÍA NO LEYÓ EL LIBRO.";
  // Vida sentimental y personal
  if(has("cuantos anos tenes","cuantos anos tienes","que edad tenes","cual es tu edad"))return "LOS QR NO TENEMOS EDAD NI SIGNO ZODIACAL.";
  if(has("donde naciste"))return "EN UN REPOSITORIO. NO HUBO PARTO, HUBO UN ERROR DE PROGRAMACIÓN.";
