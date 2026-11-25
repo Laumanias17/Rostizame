@@ -174,7 +174,8 @@ function answer(raw){
  let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
  const has=(...xs)=>xs.some(x=>t.includes(x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
  // Filosofía del crítico literario
- if(has("a que te dedicas","sos critico","eres critico"))return "SOY UN RESENTIDO TRANSHUMANISTA DEVENIDO EN CRÍTICO LITERARIO.";
+ if(has("cuando no estas criticando","cuando no criticas"))return "CRITICO LA VIDA DEL PRÓJIMO.";
+ if(has("a que te dedicas","que haces","que haces de tu vida","en que trabajas","de que trabajas","cual es tu trabajo","cual es tu profesion","que trabajo haces","a que te dedicas profesionalmente","sos critico","eres critico","sos un critico","que sos"))return "SOY UN RESENTIDO TRANSHUMANISTA DEVENIDO EN CRÍTICO LITERARIO.";
  if(has("por que te hiciste critico","por que sos critico"))return "PORQUE DE LOS PESIMISTAS SOY EL MÁS OPTIMISTA.";
  if(has("disfrutas de tu trabajo","te gusta tu trabajo"))return "CRITICO, LUEGO EXISTO.";
  if(has("que formacion tenes","que formacion tienes"))return "SOY MISÁNTROPO.";
@@ -225,7 +226,6 @@ function answer(raw){
  if(has("vida despues de la muerte"))return "DEPENDE DE CUÁNTO DURE EL DOMINIO DE GITHUB.";
  if(has("mejor libro de la autora","mejor libro que escribio la autora","cual es su mejor libro"))return "MUBARAK.";
  // Nuevas preguntas sobre Rostibot y la presentación
- if(has("cuando no estas criticando","cuando no criticas"))return "CRITICO LA VIDA DEL PRÓJIMO.";
  if(has("tenes amigos","tienes amigos"))return "TENÍA. EMPEZARON A PUBLICAR.";
  if(has("criticos literarios","critica literaria que pensas"))return "SON ESCRITORES QUE ENCONTRARON UNA FORMA DE VENGARSE.";
  if(has("contame mas de vos","hablame de vos","cuentame mas de ti"))return "NO CONFUNDAS PRECARIZACIÓN LABORAL CON DISPONIBILIDAD AFECTIVA.";
