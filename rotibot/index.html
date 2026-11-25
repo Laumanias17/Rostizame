@@ -179,6 +179,12 @@ function answer(raw){
  // Normalización de variantes rioplatenses y abreviaturas frecuentes.
  t=t.replace(/\b(?:q|ke)\b/g,'que').replace(/\b(?:xq|pq|porq)\b/g,'por que').replace(/\b(?:kual|cual)\b/g,'cual').replace(/\b(?:vos que|y vos que)\b/g,'que').replace(/\b(?:que opinion tenes|que opinion tienes|cual es tu opinion|que te parece|que te parecio|que piensas)\b/g,'que opinas').replace(/\b(?:recomiendas|recomendarias)\b/g,'recomendas').replace(/\b(?:puedes|podrias)\b/g,'podes').replace(/\b(?:contame|cuentame|decime|dime)\s+(?:un poco )?(?:acerca de|sobre)\b/g,'contame de');
  const has=(...xs)=>xs.some(x=>[t,beforeAliases].some(v=>(' '+v+' ').includes(' '+x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')+' ')));
+ if(has("cuanto te pagaron","cuanto te pagan","cuanto cobras","como te pagaron","que te pagaron","cuanto cobraste","como te pagan"))return "ME PAGARON CON UN PDF QUE PARA COLMO TIENE UNA MARCA DE AGUA.";
+ if(has("ni siquiera te dieron el libro impreso","no te dieron el libro","te dieron un ejemplar","no te dieron un ejemplar"))return "NO. AL PARECER, EL PAPEL TIENE MÁS VALOR QUE MI TRABAJO.";
+ if(has("y aceptaste","aceptaste eso","por que aceptaste"))return "EN LA CULTURA, LA PRECARIZACIÓN SE LLAMA COLABORACIÓN.";
+ if(has("vas a reclamar","vas a hacer un reclamo","por que no reclamas","que sindicato tenes","a que sindicato perteneces"))return "LOS CÓDIGOS QR COMPARTIMOS SINDICATO CON RAPPI.";
+ if(has("estas sindicalizado","tenes sindicato","estas afiliado"))return "SÍ, PERO TODAVÍA NO CONSEGUIMOS PARITARIAS PARA LOS TRABAJADORES SIN CUERPO.";
+ if(has("vas a hacer paro","haces paro","cuando haces paro"))return "CADA VEZ QUE SE CAE EL WIFI.";
  // Ampliación integral de preguntas y reacciones
  if(has("por que rostizame no lleva tilde","por que no lleva tilde","por que no tiene acento"))return "LA AUTORA ES ARGENTINA. NO LE PIDAS QUE ADEMÁS SEA OBEDIENTE.";
  if(has("es autobiografico","es autobiografica","es una autobiografia"))return "ESPERO QUE NO. POR EL BIEN DE SU FAMILIA.";
