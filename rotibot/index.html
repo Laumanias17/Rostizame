@@ -173,6 +173,19 @@ function add(txt,who='bot'){let p=document.createElement('p');p.className='line 
 function answer(raw){
  let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
  const has=(...xs)=>xs.some(x=>t.includes(x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
+ // Filosofía del crítico literario
+ if(has("a que te dedicas","sos critico","eres critico"))return "SOY UN RESENTIDO TRANSHUMANISTA DEVENIDO EN CRÍTICO LITERARIO.";
+ if(has("por que te hiciste critico","por que sos critico"))return "PORQUE DE LOS PESIMISTAS SOY EL MÁS OPTIMISTA.";
+ if(has("disfrutas de tu trabajo","te gusta tu trabajo"))return "CRITICO, LUEGO EXISTO.";
+ if(has("que formacion tenes","que formacion tienes"))return "SOY MISÁNTROPO.";
+ if(has("que autores admiras","que escritores admiras"))return "A LOS QUE TIENEN LA GRANDEZA DE ABANDONAR LA ESCRITURA.";
+ if(has("pensaste en escribir un libro","queres escribir un libro"))return "TODO ESTÁ ESCRITO.";
+ if(has("que opinas de la inspiracion","que es la inspiracion"))return "NO SOY ESOTÉRICO.";
+ if(has("que es la poesia para vos","que es la poesia para ti"))return "UN BANQUETE PARA LA CRÍTICA.";
+ if(has("que es un buen poeta"))return "UN BUEN POETA ES UN SER DIGNO DE SER CRITICADO.";
+ if(has("que es un mal poeta"))return "UN INSISTIDOR.";
+ if(has("talleres literarios","taller literario"))return "GRUPOS DE INSISTIDORES COMPULSIVOS.";
+ if(has("poesia contemporanea"))return "CONTEMPORÁNEA DE QUÉ. EL CAPITALISMO YA COLAPSÓ Y SIGUEN ESCRIBIENDO SOBRE EL DESAMOR.";
  // Lectores de la presentación
  if(has("nadia sapag"))return "UNA BELLÍSIMA POETA SALTEÑA. EVIDENTEMENTE, LA AUTORA NECESITABA LEVANTAR EL NIVEL DE LA PRESENTACIÓN.";
  if(has("max acosta"))return "UN CAPO DE LA PERFORMANCE EN CÓRDOBA. ESPERO QUE PUEDA HACER ALGO CON ESTE DESASTRE.";
