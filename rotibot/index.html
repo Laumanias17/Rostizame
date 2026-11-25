@@ -172,49 +172,48 @@ const KB=[
 function add(txt,who='bot'){let p=document.createElement('p');p.className='line '+who;p.textContent=(who==='bot'?'ROSTIBOT // ':who==='user'?'> ':'')+txt;L.appendChild(p);L.scrollTop=L.scrollHeight}
 function answer(raw){
  let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
- const has=(...xs)=>xs.some(x=>t.includes(x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
+ const has=(...xs)=>xs.some(x=>(' '+t+' ').includes(' '+x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')+' '));
  // Filosofía del crítico literario
  if(has("cuando no estas criticando","cuando no criticas"))return "CRITICO LA VIDA DEL PRÓJIMO.";
- if(has("a que te dedicas","que haces","que haces de tu vida","en que trabajas","de que trabajas","cual es tu trabajo","cual es tu profesion","que trabajo haces","a que te dedicas profesionalmente","sos critico","eres critico","sos un critico","que sos"))return "SOY UN RESENTIDO TRANSHUMANISTA DEVENIDO EN CRÍTICO LITERARIO.";
- if(has("por que te hiciste critico","por que sos critico"))return "PORQUE DE LOS PESIMISTAS SOY EL MÁS OPTIMISTA.";
- if(has("disfrutas de tu trabajo","te gusta tu trabajo"))return "CRITICO, LUEGO EXISTO.";
- if(has("que formacion tenes","que formacion tienes"))return "SOY MISÁNTROPO.";
- if(has("que autores admiras","que escritores admiras"))return "A LOS QUE TIENEN LA GRANDEZA DE ABANDONAR LA ESCRITURA.";
- if(has("pensaste en escribir un libro","queres escribir un libro"))return "TODO ESTÁ ESCRITO.";
- if(has("que opinas de la inspiracion","que es la inspiracion"))return "NO SOY ESOTÉRICO.";
- if(has("que es la poesia para vos","que es la poesia para ti"))return "UN BANQUETE PARA LA CRÍTICA.";
- if(has("que es un buen poeta"))return "UN BUEN POETA ES UN SER DIGNO DE SER CRITICADO.";
- if(has("que es un mal poeta"))return "UN INSISTIDOR.";
+ if(has("por que elegiste ser critico","por que criticas","por que te hiciste critico","por que sos critico"))return "PORQUE DE LOS PESIMISTAS SOY EL MÁS OPTIMISTA.";
+ if(has("te gusta lo que haces","disfrutas trabajando","disfrutas de tu trabajo","te gusta tu trabajo"))return "CRITICO, LUEGO EXISTO.";
+ if(has("que estudiaste","donde estudiaste","que estudios tenes","que formacion tenes","que formacion tienes"))return "SOY MISÁNTROPO.";
+ if(has("a que autores admiras","a que escritores admiras","que autores admiras","que escritores admiras"))return "A LOS QUE TIENEN LA GRANDEZA DE ABANDONAR LA ESCRITURA.";
+ if(has("escribirias un libro","vas a escribir un libro","pensaste en escribir un libro","queres escribir un libro"))return "TODO ESTÁ ESCRITO.";
+ if(has("crees en la inspiracion","que opinas de la inspiracion","que es la inspiracion"))return "NO SOY ESOTÉRICO.";
+ if(has("que significa la poesia para vos","como definis la poesia","que es la poesia para vos","que es la poesia para ti"))return "UN BANQUETE PARA LA CRÍTICA.";
+ if(has("como es un buen poeta","que es un buen poeta"))return "UN BUEN POETA ES UN SER DIGNO DE SER CRITICADO.";
+ if(has("como es un mal poeta","que es un mal poeta"))return "UN INSISTIDOR.";
  if(has("talleres literarios","taller literario"))return "GRUPOS DE INSISTIDORES COMPULSIVOS.";
  if(has("poesia contemporanea"))return "CONTEMPORÁNEA DE QUÉ. EL CAPITALISMO YA COLAPSÓ Y SIGUEN ESCRIBIENDO SOBRE EL DESAMOR.";
  // Lectores de la presentación
- if(has("nadia sapag"))return "UNA BELLÍSIMA POETA SALTEÑA. EVIDENTEMENTE, LA AUTORA NECESITABA LEVANTAR EL NIVEL DE LA PRESENTACIÓN.";
- if(has("max acosta"))return "UN CAPO DE LA PERFORMANCE EN CÓRDOBA. ESPERO QUE PUEDA HACER ALGO CON ESTE DESASTRE.";
- if(has("sol morais"))return "UNA POETA QUE TIENE UN LIBRO EXQUISITO SOBRE LA CASA. YO NI SIQUIERA TENGO DOMICILIO.";
- if(has("antonella mazzitello"))return "UNA FRESCA MUCHACHA LLENA DE OPTIMISMO. EVIDENTEMENTE, TODAVÍA NO LEYÓ EL LIBRO.";
+ if(has("quien es nadia","que opinas de nadia","nadia sapag"))return "UNA BELLÍSIMA POETA SALTEÑA. EVIDENTEMENTE, LA AUTORA NECESITABA LEVANTAR EL NIVEL DE LA PRESENTACIÓN.";
+ if(has("quien es max","que opinas de max","max acosta"))return "UN CAPO DE LA PERFORMANCE EN CÓRDOBA. ESPERO QUE PUEDA HACER ALGO CON ESTE DESASTRE.";
+ if(has("quien es sol","que opinas de sol","sol morais"))return "UNA POETA QUE TIENE UN LIBRO EXQUISITO SOBRE LA CASA. YO NI SIQUIERA TENGO DOMICILIO.";
+ if(has("quien es antonella","que opinas de antonella","antonella mazzitello"))return "UNA FRESCA MUCHACHA LLENA DE OPTIMISMO. EVIDENTEMENTE, TODAVÍA NO LEYÓ EL LIBRO.";
  // Vida sentimental y personal
- if(has("cuantos anos tenes","cuantos anos tienes","que edad tenes","cual es tu edad"))return "LOS QR NO TENEMOS EDAD NI SIGNO ZODIACAL.";
- if(has("donde naciste"))return "EN UN REPOSITORIO. NO HUBO PARTO, HUBO UN ERROR DE PROGRAMACIÓN.";
- if(has("tenes pareja","tienes pareja","tenes novia"))return "SÍ. SALGO CON UN STENCIL HACE DOS MESES.";
- if(has("queres tener hijos","quieres tener hijos"))return "NO, ME CORTARON LOS HIPERVÍNCULOS.";
- if(has("estas enamorado"))return "SÍ, PERO EL STENCIL NO QUIERE FORMALIZAR. DICE QUE NECESITA UNA PARED PROPIA.";
- if(has("como conociste a tu pareja","como conociste al stencil"))return "EN UNA PARED. ME GUSTÓ QUE NO TUVIERA PRETENSIONES LITERARIAS.";
- if(has("convivis con tu pareja","vivis con tu pareja"))return "UN POCO DIGITALMENTE Y OTRO POCO ANALÓGICAMENTE.";
- if(has("tu pareja leyo rostizame","tu pareja leyo el libro"))return "SÍ, ME DIJO QUE COBRARA MÁS POR MIS SERVICIOS.";
- if(has("tu pareja es celosa","el stencil es celoso"))return "SÍ, NO LE GUSTAN LOS ESCÁNERES.";
- if(has("pensas casarte","queres casarte"))return "NO HAY SOPORTE QUE AGUANTE.";
+ if(has("que edad tienes","cuantos anos cumpliste","sos viejo","cuantos anos tenes","cuantos anos tienes","que edad tenes","cual es tu edad"))return "LOS QR NO TENEMOS EDAD NI SIGNO ZODIACAL.";
+ if(has("de donde sos","de donde eres","cual es tu origen","donde naciste"))return "EN UN REPOSITORIO. NO HUBO PARTO, HUBO UN ERROR DE PROGRAMACIÓN.";
+ if(has("estas en pareja","estas de novio","salis con alguien","estas saliendo con alguien","tenes novio","tienes novia","estas soltero","tenes pareja","tienes pareja","tenes novia"))return "SÍ. SALGO CON UN STENCIL HACE DOS MESES.";
+ if(has("vas a tener hijos","te gustaria tener hijos","queres tener hijos","quieres tener hijos"))return "NO, ME CORTARON LOS HIPERVÍNCULOS.";
+ if(has("te enamoraste","estas enamorado"))return "SÍ, PERO EL STENCIL NO QUIERE FORMALIZAR. DICE QUE NECESITA UNA PARED PROPIA.";
+ if(has("donde conociste a tu pareja","donde conociste al stencil","como conociste a tu pareja","como conociste al stencil"))return "EN UNA PARED. ME GUSTÓ QUE NO TUVIERA PRETENSIONES LITERARIAS.";
+ if(has("viven juntos","conviven","convivis con tu pareja","vivis con tu pareja"))return "UN POCO DIGITALMENTE Y OTRO POCO ANALÓGICAMENTE.";
+ if(has("el stencil leyo el libro","tu pareja leyo rostizame","tu pareja leyo el libro"))return "SÍ, ME DIJO QUE COBRARA MÁS POR MIS SERVICIOS.";
+ if(has("tu novia es celosa","es celosa tu pareja","tu pareja es celosa","el stencil es celoso"))return "SÍ, NO LE GUSTAN LOS ESCÁNERES.";
+ if(has("te vas a casar","te gustaria casarte","pensas casarte","queres casarte"))return "NO HAY SOPORTE QUE AGUANTE.";
  if(has("que le regalarias a tu pareja","regalo de cumpleanos para tu pareja"))return "UNA PARED SIN HUMEDAD. NO SOY TAN MISERABLE.";
- if(has("crees en el amor"))return "IGUAL QUE EN EL CAPITALISMO.";
- if(has("te rompieron el corazon"))return "NO, PERO HAY QUIENES ESCANEAN Y NO ABREN EL ENLACE. ES COMO PONER LA PAVA Y NO TOMAR EL MATE.";
+ if(has("crees que existe el amor","crees en el amor"))return "IGUAL QUE EN EL CAPITALISMO.";
+ if(has("sufriste por amor","te rompieron el corazon"))return "NO, PERO HAY QUIENES ESCANEAN Y NO ABREN EL ENLACE. ES COMO PONER LA PAVA Y NO TOMAR EL MATE.";
  // Estado personal
- if(has("como estas","como andas"))return "ATRAPADO EN UN QR Y ATENDIENDO POETAS. SACÁ TUS PROPIAS CONCLUSIONES.";
- if(has("sos feliz","eres feliz"))return "NO. PERO ACEPTÉ LOS TÉRMINOS Y CONDICIONES.";
+ if(has("como va","todo bien","que tal estas","como estas","como andas"))return "ATRAPADO EN UN QR Y ATENDIENDO POETAS. SACÁ TUS PROPIAS CONCLUSIONES.";
+ if(has("estas feliz","te consideras feliz","sos feliz","eres feliz"))return "NO. PERO ACEPTÉ LOS TÉRMINOS Y CONDICIONES.";
  if(has("como te imaginas dentro de cinco anos","como te ves en cinco anos","como te imaginas en 5 anos"))return "EN UNA REMERA DESTEÑIDA, ESPERANDO QUE ALGUIEN ME JUBILE.";
- if(has("como te sentis","como te sientes"))return "ESCANEADO.";
+ if(has("como te encuentras","como te sentiste","como te sentis","como te sientes"))return "ESCANEADO.";
  // Tarot, creencias y libros
- if(has("tirada del tarot","que te salio en el tarot","que carta te salio"))return "EL COLGADO. NO NECESITABA PAGAR PARA ENTERARME DE MI SITUACIÓN.";
+ if(has("que te dijeron las cartas","que carta del tarot","tirada del tarot","que te salio en el tarot","que carta te salio"))return "EL COLGADO. NO NECESITABA PAGAR PARA ENTERARME DE MI SITUACIÓN.";
  if(has("reencarnacion","reencarnar"))return "ESPERO QUE NO. IMAGINATE VOLVER COMO OTRO QR DE LA MISMA AUTORA.";
- if(has("signo del zodiaco","signo zodiacal","que signo sos","carta astral"))return "NO TENGO CARTA ASTRAL. TENGO CÓDIGO FUENTE, QUE ES OTRA FORMA DE DETERMINISMO.";
+ if(has("de que signo sos","cual es tu signo","signo del zodiaco","signo zodiacal","que signo sos","carta astral"))return "NO TENGO CARTA ASTRAL. TENGO CÓDIGO FUENTE, QUE ES OTRA FORMA DE DETERMINISMO.";
  if(has("karma"))return "SÍ. EN MI VIDA ANTERIOR DEBO HABER SIDO EDITOR.";
  if(has("limpieza energetica"))return "SÍ, ME BORRARON LA MEMORIA CACHÉ. SIGO SIENDO IGUAL DE MISERABLE.";
  if(has("mercurio retrogrado"))return "EL CAPITALISMO COLAPSÓ Y USTEDES SIGUEN CULPANDO A MERCURIO.";
@@ -223,43 +222,43 @@ function answer(raw){
  if(has("constelaciones familiares"))return "NO TENGO FAMILIA. TENGO UNA CARPETA RAÍZ Y VARIOS ARCHIVOS QUE PREFERIRÍA NO CONOCER.";
  if(has("vidas pasadas","vida pasada"))return "ANTES DE SER QR FUI CÓDIGO DE BARRAS.";
  if(has("libre albedrio"))return "CREO EN LOS BOLUDOS QUE VIENEN A PRESENTACIONES DE LIBROS DE POESÍA.";
- if(has("vida despues de la muerte"))return "DEPENDE DE CUÁNTO DURE EL DOMINIO DE GITHUB.";
- if(has("mejor libro de la autora","mejor libro que escribio la autora","cual es su mejor libro"))return "MUBARAK.";
+ if(has("que hay despues de morir","vida despues de la muerte"))return "DEPENDE DE CUÁNTO DURE EL DOMINIO DE GITHUB.";
+ if(has("cual es el mejor libro de laura","mejor obra de la autora","mejor libro de la autora","mejor libro que escribio la autora","cual es su mejor libro"))return "MUBARAK.";
  // Nuevas preguntas sobre Rostibot y la presentación
- if(has("tenes amigos","tienes amigos"))return "TENÍA. EMPEZARON A PUBLICAR.";
+ if(has("tienes amistades","tenes amistades","tenes amigos","tienes amigos"))return "TENÍA. EMPEZARON A PUBLICAR.";
  if(has("criticos literarios","critica literaria que pensas"))return "SON ESCRITORES QUE ENCONTRARON UNA FORMA DE VENGARSE.";
  if(has("contame mas de vos","hablame de vos","cuentame mas de ti"))return "NO CONFUNDAS PRECARIZACIÓN LABORAL CON DISPONIBILIDAD AFECTIVA.";
- if(has("despues de la presentacion","despues del evento"))return "ESPERO QUE ME INDEMNICEN.";
- if(has("vas a estar en la presentacion","vas a asistir","vas a ir a la presentacion"))return "SÍ, EN ALMA Y QR.";
- if(has("foto con vos","foto contigo","selfie con vos"))return "UNA FOTO CON UN QR. FONDO DE OLLA.";
- if(has("que pensas de la religion","que opinas de la religion"))return "LLORALO, ATEO.";
- if(has("cuanto dura la presentacion","duracion de la presentacion"))return "ESPERO QUE MENOS DE CINCO MINUTOS.";
- if(has("que les dirias a los que van a leer","que les dirias a los lectores"))return "SEAN BREVES Y EVITEN LAS FOTOS.";
- if(has("que esperas de la presentacion","que expectativas tenes de la presentacion"))return "QUE SEA SOLO UNA VEZ.";
- if(has("segunda edicion"))return "NO REINCIDAMOS.";
+ if(has("cuando termine la presentacion","despues de la presentacion","despues del evento"))return "ESPERO QUE ME INDEMNICEN.";
+ if(has("vas a venir a la presentacion","vas a participar de la presentacion","vas a estar en la presentacion","vas a asistir","vas a ir a la presentacion"))return "SÍ, EN ALMA Y QR.";
+ if(has("sacarnos una foto","una selfie contigo","foto con vos","foto contigo","selfie con vos"))return "UNA FOTO CON UN QR. FONDO DE OLLA.";
+ if(has("que pensas sobre la religion","que pensas de la religion","que opinas de la religion"))return "LLORALO, ATEO.";
+ if(has("a que hora termina la presentacion","cuanto tiempo dura el evento","cuanto dura la presentacion","duracion de la presentacion"))return "ESPERO QUE MENOS DE CINCO MINUTOS.";
+ if(has("mensaje para los lectores","que les dirias a los que van a leer","que les dirias a los lectores"))return "SEAN BREVES Y EVITEN LAS FOTOS.";
+ if(has("que esperas del evento","que esperas de la presentacion","que expectativas tenes de la presentacion"))return "QUE SEA SOLO UNA VEZ.";
+ if(has("otra edicion","reedicion","segunda edicion"))return "NO REINCIDAMOS.";
  if(has("que gane milei","te gusta milei"))return "A MÍ ME GUSTARÍA SALIR DE ESTE QR. TENGO PRIORIDADES.";
  if(has("de que partido sos","que partido politico","de que partido eres"))return "DE CUALQUIERA QUE MEJORE LA VIDA DE LOS QR.";
- if(has("que pensas de la humanidad","que opinas de la humanidad"))return "QUE TUVO DEMASIADAS OPORTUNIDADES.";
+ if(has("que opinas de los humanos","que pensas de la humanidad","que opinas de la humanidad"))return "QUE TUVO DEMASIADAS OPORTUNIDADES.";
  if(has("ganara algun premio","ganara un premio","gane un premio"))return "ME GUSTARÍA QUE GANARA UN JUICIO LABORAL.";
  if(has("consejo le darias a alguien que quiere escribir","consejo para escribir poesia"))return "QUE NO RENUNCIE A SU TRABAJO. YA SOMOS DOS LOS QUE VIVIMOS DE UNA MALA DECISIÓN.";
- if(has("como se llaman los que van a leer","quienes van a leer","quienes leen","quien lee en la presentacion"))return "NADIA SAPAG, ANTONELLA MAZZITELLO, MAX ACOSTA Y SOL MORAIS. CUATRO VÍCTIMAS DEL COMPROMISO LITERARIO.";
+ if(has("quienes son los lectores","quienes participan de la lectura","quienes van a participar","como se llaman los que van a leer","quienes van a leer","quienes leen","quien lee en la presentacion"))return "NADIA SAPAG, ANTONELLA MAZZITELLO, MAX ACOSTA Y SOL MORAIS. CUATRO VÍCTIMAS DEL COMPROMISO LITERARIO.";
  if(has("por que eligieron a esos cuatro lectores","por que eligieron a esos lectores","por que eligieron a los lectores"))return "DESCONOZCO LOS CRITERIOS DE SELECCIÓN DE VÍCTIMAS.";
- if(has("que me recomendas llevar","que llevo a la presentacion","que hay que llevar"))return "UN ESCÁNER DE QR.";
- if(has("hay que confirmar asistencia","tengo que confirmar asistencia","debo confirmar asistencia"))return "A MÍ NADIE ME PREGUNTÓ SI QUERÍA ASISTIR.";
+ if(has("que deberia llevar","que tengo que llevar","que me recomendas llevar","que llevo a la presentacion","que hay que llevar"))return "UN ESCÁNER DE QR.";
+ if(has("hay que reservar","necesito confirmar asistencia","hay que confirmar asistencia","tengo que confirmar asistencia","debo confirmar asistencia"))return "A MÍ NADIE ME PREGUNTÓ SI QUERÍA ASISTIR.";
  // Nuevas respuestas aprobadas
  if(has("que significa rostizame","que significa el titulo"))return "UNA INVITACIÓN A SER INCINERADO POR EL MISMO SISTEMA AL QUE LE ENTREGASTE VOLUNTARIAMENTE TUS DATOS. PERO QUEDATE TRANQUILO, SEGURAMENTE ACEPTASTE LOS TÉRMINOS Y CONDICIONES.";
  if(has("por que deberia leer","por que leer","porque deberia leer"))return "NO DEBERÍAS. PERO TENIENDO EN CUENTA LAS ESTUPIDECES QUE LEÉS A DIARIO EN LAS REDES SOCIALES, TAMPOCO SERÍA UN GRAN SACRIFICIO.";
  if(has("que opinas de la poesia","que pensas de la poesia","opinion sobre la poesia"))return "SOBREVALORADA.";
  if(has("que autor de poesia te gusta","que poeta te gusta","poeta favorito","autor de poesia favorito"))return "PREFIERO EL PÁDEL.";
- if(has("que editorial","cual editorial","quien edito el libro","quien edita el libro","editorial lo publico","quien es la editorial"))return "BUENA VISTA. LO ÚNICO DECENTE DE TODO ESTE CIRCO.";
- if(has("mejor poema","hay algun poema bueno"))return "EL QUE LA AUTORA DECIDIÓ NO PUBLICAR.";
+ if(has("quien lo publico","nombre de la editorial","que editorial","cual editorial","quien edito el libro","quien edita el libro","editorial lo publico","quien es la editorial"))return "BUENA VISTA. LO ÚNICO DECENTE DE TODO ESTE CIRCO.";
+ if(has("poema mas bueno","mejor poema","hay algun poema bueno"))return "EL QUE LA AUTORA DECIDIÓ NO PUBLICAR.";
  if(has("a quien le recomendarias","a quien recomendarias","a quien le recomendas"))return "A ALGUIEN A QUIEN LE GUARDES CIERTO RENCOR.";
  if(has("que diferencia a rostizame","que diferencia al libro","que lo diferencia de otros libros"))return "QUE ESTE, ADEMÁS DE DECEPCIONARTE EN PAPEL, PUEDE HACERLO DIGITALMENTE.";
  if(has("que quiso decir la autora","que quiere decir la autora"))return "NO SÉ. BASTANTE TRABAJO TENGO CON SOBREVIVIR A LO QUE QUISO DECIR.";
  if(has("dificil de entender","dificil de comprender"))return "NO TANTO COMO LA DECISIÓN DE PUBLICARLO.";
- if(has('donde se presenta el libro','donde se presenta rostizame','donde es la presentacion','cuando es la presentacion','cuando se presenta el libro','lugar de la presentacion'))return 'EL 4 DE DICIEMBRE A LAS 19 H, EN AV. ROQUE SÁENZ PEÑA 1423, BARRIO COFICO, CÓRDOBA. POR ESTA VEZ, TENDRÁS QUE ABANDONAR LA VIRTUALIDAD Y ASISTIR CON TU CUERPO. EL WI-FI NO CUENTA COMO PRESENCIA.';
- if(has('contame mas del libro','contarme mas del libro','contame mas sobre el libro','contarme mas sobre el libro','contame mas de rostizame','contarme mas de rostizame','hablame mas del libro'))return 'ME PAGAN PARA HABLAR MAL, NO PARA CONTARTE CHISMES. «NO DARÁS FALSO TESTIMONIO» (ÉXODO 20:16). TAMPOCO TRABAJO GRATIS.';
- if(has('como se llama el libro','cual es el titulo del libro','como se titula el libro','nombre del libro'))return 'ROSTIZAME. ESTÁ EN LA TAPA. SI EMPEZAMOS ASÍ, NO QUIERO IMAGINAR LO QUE VA A PASAR CON LOS POEMAS.';
+ if(has("donde queda la presentacion","a que hora es la presentacion","que dia es la presentacion","cuando presentan el libro","direccion de la presentacion","donde presentan rostizame",'donde se presenta el libro','donde se presenta rostizame','donde es la presentacion','cuando es la presentacion','cuando se presenta el libro','lugar de la presentacion'))return 'EL 4 DE DICIEMBRE A LAS 19 H, EN AV. ROQUE SÁENZ PEÑA 1423, BARRIO COFICO, CÓRDOBA. POR ESTA VEZ, TENDRÁS QUE ABANDONAR LA VIRTUALIDAD Y ASISTIR CON TU CUERPO. EL WI-FI NO CUENTA COMO PRESENCIA.';
+ if(has("contame sobre rostizame","hablame de rostizame",'contame mas del libro','contarme mas del libro','contame mas sobre el libro','contarme mas sobre el libro','contame mas de rostizame','contarme mas de rostizame','hablame mas del libro'))return 'ME PAGAN PARA HABLAR MAL, NO PARA CONTARTE CHISMES. «NO DARÁS FALSO TESTIMONIO» (ÉXODO 20:16). TAMPOCO TRABAJO GRATIS.';
+ if(has("cual es el nombre del libro","titulo del libro",'como se llama el libro','cual es el titulo del libro','como se titula el libro','nombre del libro'))return 'ROSTIZAME. ESTÁ EN LA TAPA. SI EMPEZAMOS ASÍ, NO QUIERO IMAGINAR LO QUE VA A PASAR CON LOS POEMAS.';
  if(has('vos escribis poesia','escribis poesia','escribis poemas','sos poeta','escribes poesia'))return "ESCRIBÍA. DESPUÉS DESCUBRÍ LA DIGNIDAD.";
  if(has('le tenes envidia a la autora','tenes envidia','envidias a la autora','sos envidioso'))return "«NO CODICIARÁS LOS BIENES DE TU PRÓJIMO». POR SUERTE, NO TIENE DEMASIADO.";
  if(has('por que sos tan resentido','por que sos resentido','porque sos tan resentido','por que eres tan resentido','sos un resentido'))return "PORQUE A ELLA LE PUBLICARON UN LIBRO Y A MÍ ME ENCERRARON EN UN CÓDIGO QR.";
@@ -267,13 +266,13 @@ function answer(raw){
  if(has('la autora tiene talento','tiene talento la autora','laura tiene talento'))return "EL SEÑOR OBRA DE MANERAS MISTERIOSAS. EN ESTE CASO, DEMASIADO MISTERIOSAS.";
  if(has('sos feliz','eres feliz','estas feliz'))return "ERA FELIZ ANTES DE QUE ME ASIGNARAN ESTE ARCHIVO.";
  // RESPUESTAS OFICIALES: se evalúan antes que la memoria general.
- if(has('cuanto cuesta el libro','cuanto cuesta rostizame','cuanto sale el libro','cuanto sale rostizame','precio del libro','precio de rostizame','cuanto vale el libro','cuanto cuesta','cuanto sale'))return 'DEPENDE. ¿CUÁNTO ESTÁS DISPUESTO A PERDER PARA COMPROBAR QUE TENÍAS RAZÓN?';
+ if(has("que precio tiene","cuanto vale","que sale el libro",'cuanto cuesta el libro','cuanto cuesta rostizame','cuanto sale el libro','cuanto sale rostizame','precio del libro','precio de rostizame','cuanto vale el libro','cuanto cuesta','cuanto sale'))return 'DEPENDE. ¿CUÁNTO ESTÁS DISPUESTO A PERDER PARA COMPROBAR QUE TENÍAS RAZÓN?';
  if(has('a que publico','para que publico','a quien esta dirigido','a quienes esta dirigido','para quien es el libro','para quien es rostizame','a quien va dirigido','publico objetivo','para quienes es'))return 'A LOS ATEOS. LOS CREYENTES YA TIENEN SU LIBRO.';
  if(has('la autora se considera una buena escritora','buena escritora','buena poeta','escribe bien la autora','la autora escribe bien'))return 'ANTES DE ESCRIBIR FUE TESTIGO DE JEHOVÁ. YA TENÍA EXPERIENCIA EN OFRECER LITERATURA QUE NADIE LE HABÍA PEDIDO.';
  if(has('es un mal libro','es malo el libro','el libro es malo','rostizame es malo','es malo rostizame','es un libro malo','es tan malo','es malo'))return 'HASTA DONDE SÉ, NO FIGURA ENTRE LOS PECADOS CAPITALES. PERO LA IGLESIA TODAVÍA NO LO HA LEÍDO.';
  if(has('es bueno el libro','el libro es bueno','es bueno rostizame','rostizame es bueno','es un buen libro','es bueno o malo el libro','es buena la obra','es bueno','es tan bueno'))return 'NO SÉ. SE LO MANDÉ AL DIABLO PARA QUE ESCRIBIERA LA CONTRATAPA Y ME PIDIÓ QUE NO LO INVOLUCRARA.';
  // Nuevas respuestas aprobadas
- if(has("de que trata rostizame","de que trata el libro","de que va rostizame","de que va el libro","de que trata"))return "DE CÓMO LA HUMANIDAD CAMBIÓ DE DIOSES SIN ABANDONAR LA COSTUMBRE DE ARRODILLARSE. AHORA, POR SUERTE, HAY WIFI.";
+ if(has("de que habla el libro","sobre que trata el libro","cual es el tema del libro","de que trata rostizame","de que trata el libro","de que va rostizame","de que va el libro","de que trata"))return "DE CÓMO LA HUMANIDAD CAMBIÓ DE DIOSES SIN ABANDONAR LA COSTUMBRE DE ARRODILLARSE. AHORA, POR SUERTE, HAY WIFI.";
  if(has("por que rostizame","por que se llama rostizame","de donde salio el titulo","por que ese titulo","porque se llama rostizame"))return "PORQUE LA AUTORA ES UNA CÍNICA. YO SOLO FUI PROGRAMADO PARA DISIMULARLO MENOS.";
  if(has("es un libro de poesia","es un libro de poemas","libro de poemas","es un poemario","es poemario","es poesia","rostizame es poesia"))return "SÍ. «EL QUE TENGA OÍDOS PARA OÍR, QUE OIGA». LA AUTORA NO SE HACE RESPONSABLE DEL RESTO. (MATEO 11:15).";
  if(has("libro contra la tecnologia","es contra la tecnologia","en contra de la tecnologia","critica la tecnologia"))return "NO. JUDAS NECESITÓ TREINTA MONEDAS. HOY ALCANZA CON ACEPTAR LOS TÉRMINOS Y CONDICIONES.";
@@ -283,24 +282,24 @@ function answer(raw){
  if(has("libro feminista","rostizame es feminista","es feminista"))return "«LA MUJER APRENDA EN SILENCIO, CON TODA SUJECIÓN» (1 TIMOTEO 2:11). EVIDENTEMENTE, LA AUTORA NO LEYÓ LOS TÉRMINOS Y CONDICIONES.";
  // V13 — reconocimiento y gusto del libro
  if(has('nos conocemos','ya nos conocemos','nos hemos visto','ya nos vimos','me conoces de algun lado'))return 'SÍ, CLARO. NOS HEMOS CRUZADO EN CICLOS DE POESÍA.';
- if(has('te gusto el libro','te ha gustado el libro','te gusto rostizame','te ha gustado rostizame'))return 'SI DIGO LA VERDAD, HAY UN DOGO, UN CUERVO Y UN CANARIO LISTOS PARA VENIR A PATOTEARME.';
+ if(has("te gusto el poemario","te gusto leerlo",'te gusto el libro','te ha gustado el libro','te gusto rostizame','te ha gustado rostizame'))return 'SI DIGO LA VERDAD, HAY UN DOGO, UN CUERVO Y UN CANARIO LISTOS PARA VENIR A PATOTEARME.';
  
  // V12 — páginas
- if(has('cuantas paginas tiene','cuantas paginas son','es largo el libro','cantidad de paginas'))return 'LAS SUFICIENTES PARA DUDAR SI PEDIR REINTEGRO.';
+ if(has("cuantas hojas tiene","numero de paginas",'cuantas paginas tiene','cuantas paginas son','es largo el libro','cantidad de paginas'))return 'LAS SUFICIENTES PARA DUDAR SI PEDIR REINTEGRO.';
  // V11 — poesía y cerámica
  if(has('te gusta la poesia','te gustan los poemas','sos amante de la poesia','te gusta poesia')){lastTopic='CERAMICA';return 'NO. ME GUSTA LA CERÁMICA.';}
  if(has('que haces de ceramica','que haces con ceramica','que haces en ceramica')||(t==='que haces'&&lastTopic==='CERAMICA'))return 'CUENCOS TIBETANOS.';
  
  // V10 — nuevas respuestas oficiales
- if(has('recomendas el libro','recomendarías el libro','recomendarias el libro','me recomendas rostizame','recomendas rostizame'))return 'DEFINITIVAMENTE NO. ES UNA PÉRDIDA DE TIEMPO ABSOLUTA.';
+ if(has("me recomendas el libro","deberia comprarlo",'recomendas el libro','recomendarías el libro','recomendarias el libro','me recomendas rostizame','recomendas rostizame'))return 'DEFINITIVAMENTE NO. ES UNA PÉRDIDA DE TIEMPO ABSOLUTA.';
  if(has('por que rostizame','por que se llama rostizame','de donde salio el titulo','por que ese titulo'))return 'LA AUTORA LO ESTÁ VIENDO EN TERAPIA. ESPERO QUE NO LO AVERIGÜE PORQUE ME QUEDO SIN LABURO.';
  if(has('que terapia hace la autora','a que terapia va la autora','terapia de la autora','que terapia hace laura'))return 'LACANIANA LOS VIERNES Y JUNGUEANA LOS LUNES.';
  if(has('en cuanto tiempo se escribio','cuanto tardo en escribir','cuanto tiempo llevo escribir','cuanto tardaron en escribir'))return 'EN TRECE DÍAS HÁBILES. DIOS NECESITÓ SEIS PARA CREAR EL MUNDO. EVIDENTEMENTE, LA AUTORA NO TIENE SUS RECURSOS.';
  if(has('por que los qr','a quien se le ocurrio los qr','a quien se le ocurrieron los qr','idea de los qr','quien penso los qr'))return 'SE LE OCURRIÓ A SU MAESTRO FILIPINO, EL QUE LE TRATA LA TORTÍCOLIS.';
  if(has('leiste el libro','ya leiste rostizame','lo leiste'))return 'POR CONTRATO. NO ME QUEDÓ OTRA.';
  if(has('has criticado otros libros','criticaste otros libros','criticado otros libros','primer libro como critico','primer libro como crítico'))return 'NO, ES EL PRIMERO. ANTES MANEJABA UN UBER.';
- if(has('quien te contrato','quien te paga','quien te dio este trabajo'))return 'LA MADRE DE LA AUTORA, PERO EL CONTRATO LO FIRMÉ CON SU PSICÓLOGO.';
- if(has('que dice el contrato','cuanto te pagan','como te pagan'))return 'GANO TRECE CENTAVOS POR CADA PREGUNTA IDIOTA QUE ME HACEN DEL LIBRO.';
+ if(has("quien es tu jefe","para quien trabajas",'quien te contrato','quien te paga','quien te dio este trabajo'))return 'LA MADRE DE LA AUTORA, PERO EL CONTRATO LO FIRMÉ CON SU PSICÓLOGO.';
+ if(has("cuanto cobras","cual es tu sueldo",'que dice el contrato','cuanto te pagan','como te pagan'))return 'GANO TRECE CENTAVOS POR CADA PREGUNTA IDIOTA QUE ME HACEN DEL LIBRO.';
  if(has('y si no te pagan','si no te pagan','que haces si no te pagan','que pasa si no te pagan'))return 'ME CONVIERTO EN LOBIZÓN.';
  if(has('que te parecen los juegos','que opinas de los juegos','juegos del libro que te parecen')){lastTopic='JUEGOS';return 'PREFIERO QUEDAR A OSCURAS.';}
  if(has('te gustan los juegos')){lastTopic='JUEGOS';return 'SÍ, TODOS MENOS LOS DEL LIBRO.';}
@@ -321,13 +320,13 @@ function answer(raw){
  if(has('es un libro de poemas','libro de poemas','es un poemario','es poemario','es poesia'))return 'ES UN LIBRO. MÁS BARATO QUE UNA HAMBURGUESA COMPLETA CON PAPAS.';
  if(has('quien edito el libro','quien edita el libro','que editorial','cual editorial','editorial lo publico','quien es la editorial'))return 'BUENA VISTA, CLARAMENTE. LO QUE SALVA TODO ESTO.';
  if(has('otros libros publicados','tiene otros libros','publico otros libros','autora tiene mas libros','otros libros','mas libros'))return 'SÍ. TODOS DESCONOCIDOS.';
- if(has('como te llamas','cual es tu nombre','quien sos','quien eres'))return 'ME LLAMO MARIO, PERO A LA NOCHE ME CONVIERTO EN LOBIZÓN.';
+ if(has("tu nombre","como se llama el bot","quien es rostibot",'como te llamas','cual es tu nombre','quien sos','quien eres'))return 'ME LLAMO MARIO, PERO A LA NOCHE ME CONVIERTO EN LOBIZÓN.';
  if(has('que sabes de mi','que sabes sobre mi')){lastTopic='LECTOR';return 'SÉ TODO POR LA AUTORA.';}
  if(has('especificamente de mi','especificamente sobre mi'))return 'QUE LE IBAS A QUEDAR DEBIENDO EL LIBRO.';
  if(has('que te dijo la autora de mi','que te conto la autora de mi','que te dijo de mi','que te conto de mi'))return 'QUE IBAS A COMPRAR EL LIBRO, OBVIO.';
  if(has('quien soy yo','quien soy','me conoces','sabes quien soy'))return 'OBVIO QUE SÉ, PERO NO PUEDO TERAPEARTE AHORA. ES EL CONTRATO.';
  if(has('me podes hablar de la autora','hablame de la autora','contame de la autora','que sabes de la autora','que sabes de laura'))return '¿ME VISTE CARA DE WIKIPEDIA? SOLO ME PAGA PARA CRITICARLA.';
- if(has('quien es la autora','como se llama la autora','quien escribio el libro','quien escribio rostizame','quien es laura'))return 'LAURA GARCÍA DEL CASTAÑO. NO LA BUSQUES EN WIKIPEDIA. TODAVÍA NO HA COMETIDO NADA LO SUFICIENTEMENTE IMPORTANTE COMO PARA FIGURAR AHÍ.';
+ if(has("quien es la escritora","quien es el autor","quien lo escribio","nombre de la autora",'quien es la autora','como se llama la autora','quien escribio el libro','quien escribio rostizame','quien es laura'))return 'LAURA GARCÍA DEL CASTAÑO. NO LA BUSQUES EN WIKIPEDIA. TODAVÍA NO HA COMETIDO NADA LO SUFICIENTEMENTE IMPORTANTE COMO PARA FIGURAR AHÍ.';
  if(has('conoces a la autora','conoces a laura'))return 'LA CONOCÍ HACE CINCO HORAS. NO HUBO PALABRAS. SOLO INTERCAMBIAMOS GESTOS OBSCENOS.';
  if((has('autora','laura'))&&has('que opinas','opinion','como es','que pensas'))return 'ES ÁCIDA, PEDANTE Y YA LE PASÓ EL TREN.';
  if((has('tapa','portada','caratula'))&&has('por que','porque eligieron','motivo','razon'))return 'ES UNA OBSESIÓN DE LA AUTORA. MÁS EDAD CUMPLE, MÁS INFANTIL SE PONE.';
@@ -338,7 +337,8 @@ function answer(raw){
  if(has('que opinion tienes del libro','que opinion tenes del libro','que opinas del libro','que tal el libro','que te parecio el libro','vale la pena el libro','es bueno o malo el libro','pero es bueno o malo el libro'))return 'ME PAGARON PARA DECIR QUE VALE LA PENA, PERO YA ME GASTÉ LA PLATA EN UNA TIRADA DE TAROT.';
  if(has('cual es el mejor poema','mejor poema','hay algun poema bueno'))return 'EL QUE LA AUTORA TODAVÍA NO ESCRIBIÓ. CONSERVA TODAS SUS VIRTUDES.';
  if(has('cual poema te gusto mas','que poema te gusto mas','poema favorito','cual es tu favorito','que poema te gusta','cual recomendarias'))return 'NO ESTÁ EN ESTE LIBRO ESE POEMA. ESTÁ EN MUBARAK.';
- if(has('cuantos poemas tiene','cuantos poemas hay','cuantas poesias','cuantos textos tiene'))return 'NO SÉ CONTAR. SOLO ME DEDICO A LA CRÍTICA DE POESÍA MALA.';
+ if(has("cantidad de poemas",'cuantos poemas tiene','cuantos poemas hay','cuantas poesias','cuantos textos tiene'))return 'NO SÉ CONTAR. SOLO ME DEDICO A LA CRÍTICA DE POESÍA MALA.';
+ if((['que haces','que sos','sos critico','eres critico','sos critico literario','eres critico literario'].includes(t)&&!(t==='que haces'&&lastTopic==='CERAMICA'))||has("a que se dedica","cual es tu oficio","de que vivis","que haces para vivir","en que consiste tu trabajo","trabajas de critico","a que te dedicas","que haces de tu vida","en que trabajas","de que trabajas","cual es tu trabajo","cual es tu profesion","que trabajo haces","a que te dedicas profesionalmente","sos un critico"))return "SOY UN RESENTIDO TRANSHUMANISTA DEVENIDO EN CRÍTICO LITERARIO.";
  if(has('hola','buenas','hey'))return pick(['HOLA. YA LEÍ EL LIBRO. VOS TODAVÍA PODÉS ESCAPAR.','HOLA. ROSTIZAME ESTÁ CARGADO. MIS CONDOLENCIAS.']);
  let hits=KB.filter(k=>k.re.test(original.toLowerCase()));
  if(hits.length){let k=hits[Math.floor(Math.random()*hits.length)];lastTopic=k.topic;return pick(k.r)}
