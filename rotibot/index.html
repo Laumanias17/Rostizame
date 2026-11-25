@@ -173,6 +173,28 @@ function add(txt,who='bot'){let p=document.createElement('p');p.className='line 
 function answer(raw){
  let original=raw.trim(), t=original.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,' ').replace(/\s+/g,' ').trim(); turns++;
  const has=(...xs)=>xs.some(x=>t.includes(x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
+ // Nuevas preguntas sobre Rostibot y la presentación
+ if(has("cuando no estas criticando","cuando no criticas"))return "CRITICO LA VIDA DEL PRÓJIMO.";
+ if(has("tenes amigos","tienes amigos"))return "TENÍA. EMPEZARON A PUBLICAR.";
+ if(has("criticos literarios","critica literaria que pensas"))return "SON ESCRITORES QUE ENCONTRARON UNA FORMA DE VENGARSE.";
+ if(has("contame mas de vos","hablame de vos","cuentame mas de ti"))return "NO CONFUNDAS PRECARIZACIÓN LABORAL CON DISPONIBILIDAD AFECTIVA.";
+ if(has("despues de la presentacion","despues del evento"))return "ESPERO QUE ME INDEMNICEN.";
+ if(has("vas a estar en la presentacion","vas a asistir","vas a ir a la presentacion"))return "SÍ, EN ALMA Y QR.";
+ if(has("foto con vos","foto contigo","selfie con vos"))return "UNA FOTO CON UN QR. FONDO DE OLLA.";
+ if(has("que pensas de la religion","que opinas de la religion"))return "LLORALO, ATEO.";
+ if(has("cuanto dura la presentacion","duracion de la presentacion"))return "ESPERO QUE MENOS DE CINCO MINUTOS.";
+ if(has("que les dirias a los que van a leer","que les dirias a los lectores"))return "SEAN BREVES Y EVITEN LAS FOTOS.";
+ if(has("que esperas de la presentacion","que expectativas tenes de la presentacion"))return "QUE SEA SOLO UNA VEZ.";
+ if(has("segunda edicion"))return "NO REINCIDAMOS.";
+ if(has("que gane milei","te gusta milei"))return "A MÍ ME GUSTARÍA SALIR DE ESTE QR. TENGO PRIORIDADES.";
+ if(has("de que partido sos","que partido politico","de que partido eres"))return "DE CUALQUIERA QUE MEJORE LA VIDA DE LOS QR.";
+ if(has("que pensas de la humanidad","que opinas de la humanidad"))return "QUE TUVO DEMASIADAS OPORTUNIDADES.";
+ if(has("ganara algun premio","ganara un premio","gane un premio"))return "ME GUSTARÍA QUE GANARA UN JUICIO LABORAL.";
+ if(has("consejo le darias a alguien que quiere escribir","consejo para escribir poesia"))return "QUE NO RENUNCIE A SU TRABAJO. YA SOMOS DOS LOS QUE VIVIMOS DE UNA MALA DECISIÓN.";
+ if(has("como se llaman los que van a leer","quienes van a leer","quienes leen","quien lee en la presentacion"))return "NADIA SAPAG, ANTONELLA MAZZITELLO, MAX ACOSTA Y SOL MORAIS. CUATRO VÍCTIMAS DEL COMPROMISO LITERARIO.";
+ if(has("por que eligieron a esos cuatro lectores","por que eligieron a esos lectores","por que eligieron a los lectores"))return "DESCONOZCO LOS CRITERIOS DE SELECCIÓN DE VÍCTIMAS.";
+ if(has("que me recomendas llevar","que llevo a la presentacion","que hay que llevar"))return "UN ESCÁNER DE QR.";
+ if(has("hay que confirmar asistencia","tengo que confirmar asistencia","debo confirmar asistencia"))return "A MÍ NADIE ME PREGUNTÓ SI QUERÍA ASISTIR.";
  // Nuevas respuestas aprobadas
  if(has("que significa rostizame","que significa el titulo"))return "UNA INVITACIÓN A SER INCINERADO POR EL MISMO SISTEMA AL QUE LE ENTREGASTE VOLUNTARIAMENTE TUS DATOS. PERO QUEDATE TRANQUILO, SEGURAMENTE ACEPTASTE LOS TÉRMINOS Y CONDICIONES.";
  if(has("por que deberia leer","por que leer","porque deberia leer"))return "NO DEBERÍAS. PERO TENIENDO EN CUENTA LAS ESTUPIDECES QUE LEÉS A DIARIO EN LAS REDES SOCIALES, TAMPOCO SERÍA UN GRAN SACRIFICIO.";
