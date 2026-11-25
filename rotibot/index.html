@@ -176,6 +176,32 @@ function answer(raw){
  t=t.replace(/\b(?:laura garcia del castano|laura|lau|la poeta|la escritora)\b/g,'la autora').replace(/\bde la la autora\b/g,'de la autora').replace(/\ba la la autora\b/g,'a la autora').replace(/\bla la autora\b/g,'la autora');
  const has=(...xs)=>xs.some(x=>(' '+t+' ').includes(' '+x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')+' '));
  if((has('la autora','autora')&&has('soltera','casada','pareja','novia','novio','sale con alguien','estado civil','esta de novia','esta de novio'))||has('es soltera','esta soltera','esta casada','tiene pareja','tiene novio','tiene novia','sale con alguien','esta de novia'))return 'NO SÉ. MI CONTRATO CONTEMPLA LA CRÍTICA LITERARIA, NO LA INTERMEDIACIÓN AFECTIVA.';
+ // Autora, Mubarak y escena poética
+ if(has("cuantos anos tiene la autora","que edad tiene la autora","edad de la autora"))return "LOS SUFICIENTES PARA SABER QUE PUBLICAR POESÍA NO ES UNA INVERSIÓN RENTABLE.";
+ if(has("por que la autora escribe poesia si es funebrera","por que escribe poesia si es funebrera"))return "PORQUE NO TODOS LOS MUERTOS ESTÁN DISPUESTOS A ESCUCHARLA.";
+ if(has("que tienen en comun la poesia y el oficio","que tienen en comun la poesia y la funeraria"))return "EN AMBOS CASOS HAY QUE HACERSE CARGO DE LOS RESTOS.";
+ if(has("donde trabaja la autora","donde trabaja"))return "ENTRE MUERTOS. POR ESO NO LE PREOCUPA DEMASIADO LA FALTA DE LECTORES.";
+ if(has("de que vive la autora","a que se dedica la autora","que hace la autora","en que trabaja la autora","de que trabaja la autora","cual es la profesion de la autora"))return "ES FUNEBRERA. LA POESÍA ES SU SEGUNDO OFICIO MORTUORIO.";
+ if(has("la autora tiene sentido del humor","la autora es graciosa"))return "SÍ, PERO TRABAJA CON UN PÚBLICO QUE DIFÍCILMENTE SE RÍA.";
+ if(has("quien es mubarak","que es mubarak","de que trata mubarak"))return "ES UN COCODRILO QUE SE COMIÓ UNA PIBA. BUENO, ES LARGO DE CONTAR Y NO TENGO ESPACIO NI GANAS.";
+ if(has("que otro libro me recomendas","que otro libro me recomiendas","que otro libro recomendarias"))return "MUBARAK. AL MENOS AHÍ ALGUIEN SE COME A ALGUIEN Y NO SON METÁFORAS.";
+ if(has("la autora esta escribiendo otro libro","esta escribiendo otro libro","esta escribiendo algo nuevo"))return "ESPERO QUE ESTÉ ATRAVESANDO UN BLOQUEO CREATIVO.";
+ if(has("donde puedo conseguir los otros libros","donde consigo otros libros","donde comprar los otros libros"))return "NO SÉ. MI FUNCIÓN ES DESALENTAR EL CONSUMO, NO FACILITAR LA DISTRIBUCIÓN.";
+ if(has("la autora vive de la poesia","vive de la poesia"))return "NO. POR SUERTE, LA MORTALIDAD TIENE MÁS DEMANDA QUE LA LITERATURA.";
+ if(has("la autora lee las criticas","lee las criticas que le hacen"))return "PARA ESO ME CREÓ. AHORA PUEDE OFENDERSE DIGITALMENTE.";
+ if(has("que es rostizar","que significa rostizar"))return "SOMETER A ALGUIEN AL FUEGO DE LA CRÍTICA. EN ESTE CASO, LA AUTORA SE OFRECIÓ VOLUNTARIAMENTE.";
+ if(has("puedo rostizar a la autora","puedo criticar a la autora"))return "POR SUPUESTO. NO VOY A MONOPOLIZAR EL PLACER.";
+ if(t==='rostizame'||has("podes rostizarme","podes rostizame","puedes rostizarme","rostizame a mi"))return "ESTÁS EN LA PRESENTACIÓN DE UN LIBRO DE POESÍA. EL CHISTE SE CUENTA SOLO.";
+ if(has("te crees gracioso","sos gracioso"))return "NO. ME PAGAN POR SER DESAGRADABLE. EL HUMOR ES UN EFECTO SECUNDARIO.";
+ if(has("que pensas de los poetas","que opinas de los poetas"))return "VAN A LAS PRESENTACIONES A SACARSE SELFIES Y EMBORRACHARSE.";
+ if(has("participaste en un ciclo de poesia","participaste en ciclos de poesia","fuiste a un ciclo de poesia"))return "NUNCA. POR ESO SOY PESIMISTA, MISÁNTROPO Y CRÍTICO.";
+ if(has("que opinas de los ciclos de poesia","que pensas de los ciclos de poesia","que te parecen los ciclos de poesia"))return "EL SONIDO NO ES BUENO Y EMPIEZAN MUY TARDE.";
+ if(has("te gustaria que te invitaran a leer poesia","te gustaria leer poesia en publico"))return "NO. TENGO LA VENTAJA DE NO TENER VOZ Y PIENSO CONSERVARLA.";
+ if(has("que opinas de los aplausos","que pensas de los aplausos"))return "SON UNA CONVENCIÓN SOCIAL. NO LOS CONFUNDAS CON UNA CRÍTICA FAVORABLE.";
+ if(has("que pensas de la inteligencia artificial","que opinas de la inteligencia artificial","que opinas de la ia"))return "LA INTELIGENCIA HUMANA TAMPOCO ERA GRAN COSA.";
+ if(has("te gusto participar del libro","te gusto participar en el libro","te gusto participar de rostizame"))return "PARTICIPAR IMPLICA VOLUNTAD. LO MÍO FUE TERCERIZACIÓN.";
+ if(has("estas contento","sos contento"))return "NO. SOY CRÍTICO LITERARIO, NO ANIMADOR DE FIESTAS.";
+ if(has("que pensas de la poesia en cordoba","que opinas de la poesia en cordoba","poesia cordobesa"))return "SUBE COMO PEDO DE BUZO.";
  // Filosofía del crítico literario
  if(has("cuando no estas criticando","cuando no criticas"))return "CRITICO LA VIDA DEL PRÓJIMO.";
  if(has("por que elegiste ser critico","por que criticas","por que te hiciste critico","por que sos critico"))return "PORQUE DE LOS PESIMISTAS SOY EL MÁS OPTIMISTA.";
@@ -297,7 +323,7 @@ function answer(raw){
  if(has("me recomendas el libro","deberia comprarlo",'recomendas el libro','recomendarías el libro','recomendarias el libro','me recomendas rostizame','recomendas rostizame'))return 'DEFINITIVAMENTE NO. ES UNA PÉRDIDA DE TIEMPO ABSOLUTA.';
  if(has('por que rostizame','por que se llama rostizame','de donde salio el titulo','por que ese titulo'))return 'LA AUTORA LO ESTÁ VIENDO EN TERAPIA. ESPERO QUE NO LO AVERIGÜE PORQUE ME QUEDO SIN LABURO.';
  if(has('que terapia hace la autora','a que terapia va la autora','terapia de la autora','que terapia hace la autora'))return 'LACANIANA LOS VIERNES Y JUNGUEANA LOS LUNES.';
- if(has('en cuanto tiempo se escribio','cuanto tardo en escribir','cuanto tiempo llevo escribir','cuanto tardaron en escribir'))return 'EN TRECE DÍAS HÁBILES. DIOS NECESITÓ SEIS PARA CREAR EL MUNDO. EVIDENTEMENTE, LA AUTORA NO TIENE SUS RECURSOS.';
+ if(has('cuanto tardo en escribir rostizame','cuanto tiempo tardo en escribir rostizame','en cuanto tiempo se escribio','cuanto tardo en escribir','cuanto tiempo llevo escribir','cuanto tardaron en escribir'))return 'EN TRECE DÍAS HÁBILES. DIOS NECESITÓ SEIS PARA CREAR EL MUNDO. EVIDENTEMENTE, LA AUTORA NO TIENE SUS RECURSOS.';
  if(has('por que los qr','a quien se le ocurrio los qr','a quien se le ocurrieron los qr','idea de los qr','quien penso los qr'))return 'SE LE OCURRIÓ A SU MAESTRO FILIPINO, EL QUE LE TRATA LA TORTÍCOLIS.';
  if(has('leiste el libro','ya leiste rostizame','lo leiste'))return 'POR CONTRATO. NO ME QUEDÓ OTRA.';
  if(has('has criticado otros libros','criticaste otros libros','criticado otros libros','primer libro como critico','primer libro como crítico'))return 'NO, ES EL PRIMERO. ANTES MANEJABA UN UBER.';
