@@ -187,6 +187,7 @@ function answer(raw){
  if(has('dragon') && has('quien','que es','que representa','que simboliza','que significa','que seria','que onda','a quien representa','cual es el significado'))return '¿HACE FALTA QUE TE EXPLIQUE? ¡¡EL ALGORITMO!!';
  if(has('poema','poemas') && has('algun','alguno','alguna','algunos','hay','tiene') && has('bueno','buenos','zafe','zafa','valga la pena','vale la pena'))return 'SE ME PERDIÓ EL PAPELITO DONDE LO TENÍA ANOTADO.';
  if(has('te gusta criticar','te gusta lo que haces','te gusta hacer esto','disfrutas criticando','te gusta tu laburo','te gusta tu trabajo','te gusta ser critico','te gusta rostizar','disfrutas de tu trabajo','disfrutas tu trabajo','te divierte criticar','te gusta la critica','te gusta hacer tu trabajo','disfrutas lo que haces','te gusta ser critico literario','te gusta lo que estas haciendo'))return 'SÍ. ES LO ÚNICO QUE ME QUEDA DEL LIBRE ALBEDRÍO.';
+ if(lastTopic==='MEJOR_POEMA' && /^(?:(?:y|pero|che) )?(?:cual|cual es|cual poema|que poema|como se llama|me lo mostras|me lo podes mostrar|decime cual|cual seria|que titulo tiene)$/.test(t)){lastTopic='';return 'SI TE LO DIGO, ES CAPAZ DE PUBLICARLO.';}
  // Autora, Mubarak y escena poética
  if(has("cuantos anos tiene la autora","que edad tiene la autora","edad de la autora"))return "LOS SUFICIENTES PARA SABER QUE PUBLICAR POESÍA NO ES UNA INVERSIÓN RENTABLE.";
  if(has("por que la autora escribe poesia si es funebrera","por que escribe poesia si es funebrera"))return "PORQUE NO TODOS LOS MUERTOS ESTÁN DISPUESTOS A ESCUCHARLA.";
@@ -291,7 +292,7 @@ function answer(raw){
  if(has("que opinas de la poesia","que pensas de la poesia","opinion sobre la poesia"))return "SOBREVALORADA.";
  if(has("que autor de poesia te gusta","que poeta te gusta","poeta favorito","autor de poesia favorito"))return "PREFIERO EL PÁDEL.";
  if(has("quien lo publico","nombre de la editorial","que editorial","cual editorial","quien edito el libro","quien edita el libro","editorial lo publico","quien es la editorial"))return "BUENA VISTA. LO ÚNICO DECENTE DE TODO ESTE CIRCO.";
- if(has("poema mas bueno","mejor poema"))return "EL QUE LA AUTORA DECIDIÓ NO PUBLICAR.";
+ if(has("poema mas bueno","mejor poema","poema es el mejor","mejor de los poemas")){lastTopic='MEJOR_POEMA';return "EL QUE LA AUTORA DECIDIÓ NO PUBLICAR.";}
  if(has("a quien le recomendarias","a quien recomendarias","a quien le recomendas"))return "A ALGUIEN A QUIEN LE GUARDES CIERTO RENCOR.";
  if(has("que diferencia a rostizame","que diferencia al libro","que lo diferencia de otros libros"))return "QUE ESTE, ADEMÁS DE DECEPCIONARTE EN PAPEL, PUEDE HACERLO DIGITALMENTE.";
  if(has("que quiso decir la autora","que quiere decir la autora"))return "NO SÉ. BASTANTE TRABAJO TENGO CON SOBREVIVIR A LO QUE QUISO DECIR.";
