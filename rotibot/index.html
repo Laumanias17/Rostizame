@@ -179,6 +179,8 @@ function answer(raw){
  // Normalización de variantes rioplatenses y abreviaturas frecuentes.
  t=t.replace(/\b(?:q|ke)\b/g,'que').replace(/\b(?:xq|pq|porq)\b/g,'por que').replace(/\b(?:kual|cual)\b/g,'cual').replace(/\b(?:vos que|y vos que)\b/g,'que').replace(/\b(?:que opinion tenes|que opinion tienes|cual es tu opinion|que te parece|que te parecio|que piensas)\b/g,'que opinas').replace(/\b(?:recomiendas|recomendarias)\b/g,'recomendas').replace(/\b(?:puedes|podrias)\b/g,'podes').replace(/\b(?:contame|cuentame|decime|dime)\s+(?:un poco )?(?:acerca de|sobre)\b/g,'contame de');
  const has=(...xs)=>xs.some(x=>[t,beforeAliases].some(v=>(' '+v+' ').includes(' '+x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')+' ')));
+ if(has("estas aca","estas ahi","estas aqui","estas en la presentacion","estas entre nosotros","estas presente","estas en el evento","viniste a la presentacion","estas aca con la autora"))return "FÍSICAMENTE NO. LABORALMENTE, POR DESGRACIA.";
+ if(has("donde estas","en donde estas","donde te encuentras","donde te encuentro","donde estas ubicado"))return "A LA ALTURA DEL TÓRAX DE MI EMPLEADORA.";
  // Repertorio tuitero
  if(has("como van los dieciocho mejores meses","como van los 18 mejores meses","mejoro tu situacion economica","como te va con este gobierno","progresaste economicamente","como te afecto la crisis","mejoro tu calidad de vida"))return "SOY UN QR.";
  if(has("que hacias antes","que hacias cuando eras bot","que hacias en la granja de bots","cuantos bots manejabas","a que te dedicabas antes","en que consistia tu trabajo anterior"))return "MANEJABA MIL BOTS Y GENERÁBAMOS UN MILLÓN DE FAKES POR DÍA.";
