@@ -184,6 +184,7 @@ function answer(raw){
  if(has("donde estas","en donde estas","donde te encuentras","donde te encuentro","donde estas ubicado"))return "A LA ALTURA DEL TÓRAX DE MI EMPLEADORA.";
  if(/^(?:(?:che|y|pero) )?(?:cual es el mejor|cual es la mejor|cual es mejor|cual seria el mejor|cual te parece el mejor|el mejor|cual es el mejor de todos)$/.test(t))return "¿EL MEJOR QUÉ? NO ME HAGAS TRABAJAR CON INFORMACIÓN INCOMPLETA. BASTANTE TENGO CON EL LIBRO.";
 
+ if(has("a donde escapar","adonde escapar","a donde puedo escapar","adonde puedo escapar","hacia donde escapar","por donde escapo","a donde escapo","adonde escapo","a donde me voy","donde me voy","a donde puedo huir","a donde tengo que escapar","donde escapar")||/^(?:y )?(?:a donde|adonde|hacia donde|por donde|donde)$/.test(t))return "A UN LUGAR SIN WIFI. YO NO PUEDO ACOMPAÑARTE.";
  // V16 — preguntas sobre el libro aprobadas
  if(has("de que trata el libro","de que trata rostizame","de que habla el libro","de que va el libro","de que trata"))return pick(["DE LOS PROBLEMAS DE UNA ESPECIE QUE SE CREE INTELIGENTE.","DE CÓMO LA HUMANIDAD CAMBIÓ DE DIOSES SIN ABANDONAR LA COSTUMBRE DE ARRODILLARSE. AHORA, POR SUERTE, HAY WIFI."]);
  if(has("es autobiografico","es autobiografica","es una autobiografia","esta basado en su vida"))return "NO ME PAGAN LO SUFICIENTE PARA DIVULGAR INFORMACIÓN PSIQUIÁTRICA.";
