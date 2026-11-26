@@ -181,6 +181,7 @@ function answer(raw){
  const has=(...xs)=>xs.some(x=>[t,beforeAliases].some(v=>(' '+v+' ').includes(' '+x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')+' ')));
  if(has("por que no te gustan los poetas","porque no te gustan los poetas","por que odias a los poetas","por que no soportas a los poetas")||((t==="por que"||t==="porque")&&lastTopic==="ANTIPOETA")){lastTopic="ANTIPOETA";return "PORQUE CONFUNDEN EL MICRÓFONO ABIERTO CON LA LIBERTAD DE EXPRESIÓN.";}
  if(has("no te gustan los poetas","no te caen bien los poetas","odias a los poetas","tenes algo contra los poetas","que problema tenes con los poetas","no soportas a los poetas","sos antipoeta","te caen mal los poetas","no te gustan poetas")){lastTopic="ANTIPOETA";return "ME GUSTAN CUANDO NO ESTÁN PRESENTANDO UN LIBRO.";}
+ if(has('por que es insoportable','porque es insoportable','que tiene de insoportable','por que el libro es insoportable')||(lastTopic==='LIBRO_INSOPORTABLE'&&/^(?:y )?(?:por que|porque|por|por que decis eso|porque decis eso|tan malo es|es tan malo|que tiene de malo)$/.test(t))){lastTopic='LIBRO_INSOPORTABLE';return 'PORQUE CRITICA LA DEPENDENCIA TECNOLÓGICA Y DESPUÉS TE OBLIGA A ESCANEAR UN QR. LA COHERENCIA TAMBIÉN ESTÁ EN CRISIS.';}
  // Consultas sobre juegos aprobadas
  if(has("cuales son los juegos","que juegos tiene","que juegos hay","cuales juegos","que jueguitos tiene","cuales son los videojuegos"))return "UN DRAGÓN, UN CANARIO Y UNA TORTUGA. NO ESPERES EL PRESUPUESTO DE NINTENDO.";
  if(has("son divertidos","son entretenidos","los juegos son divertidos","son buenos los juegos","son divertidos los juegos"))return "DEPENDE DE CUÁNTO HAYAS DETERIORADO TU CONCEPTO DE DIVERSIÓN.";
@@ -597,7 +598,7 @@ function answer(raw){
  if((has('tapa','portada','caratula'))&&has('por que','porque eligieron','motivo','razon'))return 'ES UNA OBSESIÓN DE LA AUTORA. MÁS EDAD CUMPLE, MÁS INFANTIL SE PONE.';
  if(has('no conoces el libro','entonces no conoces el libro','no conoces rostizame'))return 'LO JUSTO Y NECESARIO, COMO DICEN EN MISA.';
  if(has('no te gusto el libro','no te gusta el libro','osea que no te gusto','o sea que no te gusto','tan malo es'))return 'NO PUEDO HABLAR. ME AMENAZARON CON DOGOS Y CON CORTARME EL SERVIDOR.';
- if(has('hablame del libro','habla del libro'))return 'UF, ES INSOPORTABLE.';
+ if(has('hablame del libro','habla del libro')){lastTopic='LIBRO_INSOPORTABLE';return 'UF, ES INSOPORTABLE.';}
  if(has('que me podes contar del libro','contame algo del libro','de que va el libro'))return 'TIENE PRETENSIONES DE VIDEOJUEGO.';
  if(has('cual es el mejor poema','mejor poema','hay algun poema bueno'))return 'EL QUE LA AUTORA TODAVÍA NO ESCRIBIÓ. CONSERVA TODAS SUS VIRTUDES.';
  if(has('cual poema te gusto mas','que poema te gusto mas','poema favorito','cual es tu favorito','que poema te gusta','cual recomendarias'))return 'NO ESTÁ EN ESTE LIBRO ESE POEMA. ESTÁ EN MUBARAK.';
