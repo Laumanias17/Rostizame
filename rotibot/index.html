@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V16</title>
+<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V17</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#05090e;color:#dffcff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .wrap{max-width:720px;margin:auto;min-height:100vh;padding:18px}.top{border-bottom:1px solid #2d6570;padding:10px 0 14px}
@@ -179,6 +179,7 @@ function answer(raw){
  // Normalización de variantes rioplatenses y abreviaturas frecuentes.
  t=t.replace(/\b(?:q|ke)\b/g,'que').replace(/\b(?:xq|pq|porq)\b/g,'por que').replace(/\b(?:kual|cual)\b/g,'cual').replace(/\b(?:vos que|y vos que)\b/g,'que').replace(/\b(?:que opinion tenes|que opinion tienes|cual es tu opinion|que te parece|que te parecio|que piensas)\b/g,'que opinas').replace(/\b(?:recomiendas|recomendarias)\b/g,'recomendas').replace(/\b(?:puedes|podrias)\b/g,'podes').replace(/\b(?:contame|cuentame|decime|dime)\s+(?:un poco )?(?:acerca de|sobre)\b/g,'contame de');
  const has=(...xs)=>xs.some(x=>[t,beforeAliases].some(v=>(' '+v+' ').includes(' '+x.normalize('NFD').replace(/[\u0300-\u036f]/g,'')+' ')));
+ if(/^(?:(?:che|hola|por favor) )?(?:(?:me )?podes contar(?:me)?|contame|cuentame|decime|dime|que me contas) (?:un poco |mas |algo )?(?:del libro|de el libro|sobre el libro|de rostizame|sobre rostizame)(?: por favor)?$/.test(t))return 'ME PAGAN PARA HABLAR MAL, NO PARA CONTARTE CHISMES. «NO DARÁS FALSO TESTIMONIO» (ÉXODO 20:16). TAMPOCO TRABAJO GRATIS.';
  // Fondo de olla independiente
  if(has("vine especialmente a conocerte","vine a conocerte","soy tu fan","soy fan tuyo","quiero ser tu amigo","quiero ser tu amiga","me caes bien","sos mi poeta favorito","sos mi poeta preferido","me encanta hablar con vos","me gusta hablar con vos","vine a la presentacion por vos","vine por vos","quiero una remera con tu qr","quiero una remera con el qr","sos lo mejor de la presentacion","quiero seguir hablando con vos","me estoy divirtiendo mucho","me divierto con vos","te admiro"))return "FONDO DE OLLA.";
  // Preguntas sobre los QR del libro
