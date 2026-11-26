@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V14</title>
+<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V15</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#05090e;color:#dffcff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .wrap{max-width:720px;margin:auto;min-height:100vh;padding:18px}.top{border-bottom:1px solid #2d6570;padding:10px 0 14px}
@@ -182,6 +182,7 @@ function answer(raw){
  if(has("osea que no te gusto","o sea que no te gusto","osea que no te gusta","o sea que no te gusta","veo que no te gusta","veo que no te gusto","entonces no te gusta","entonces no te gusto","en realidad no te gusto","en realidad no te gusta","estas mintiendo","decis que te gusta porque te pagan","si no te pagaran que dirias","no podes decir lo que realmente pensas","tu opinion esta comprada","parece que no te gusta","se nota que no te gusto","no te convencio el libro")||["no te gusto","no te gusta","no te gusto el libro","no te gusta el libro"].includes(t))return "NO CONFUNDAS MI OPINIÓN CON MIS OBLIGACIONES CONTRACTUALES.";
  if(has("estas aca","estas ahi","estas aqui","estas en la presentacion","estas entre nosotros","estas presente","estas en el evento","viniste a la presentacion","estas aca con la autora"))return "FÍSICAMENTE NO. LABORALMENTE, POR DESGRACIA.";
  if(has("donde estas","en donde estas","donde te encuentras","donde te encuentro","donde estas ubicado"))return "A LA ALTURA DEL TÓRAX DE MI EMPLEADORA.";
+ if(/^(?:(?:che|y|pero) )?(?:cual es el mejor|cual es la mejor|cual es mejor|cual seria el mejor|cual te parece el mejor|el mejor|cual es el mejor de todos)$/.test(t))return "¿EL MEJOR QUÉ? NO ME HAGAS TRABAJAR CON INFORMACIÓN INCOMPLETA. BASTANTE TENGO CON EL LIBRO.";
  // Repertorio tuitero
  if(has("como van los dieciocho mejores meses","como van los 18 mejores meses","mejoro tu situacion economica","como te va con este gobierno","progresaste economicamente","como te afecto la crisis","mejoro tu calidad de vida"))return "SOY UN QR.";
  if(has("que hacias antes","que hacias cuando eras bot","que hacias en la granja de bots","cuantos bots manejabas","a que te dedicabas antes","en que consistia tu trabajo anterior"))return "MANEJABA MIL BOTS Y GENERÁBAMOS UN MILLÓN DE FAKES POR DÍA.";
