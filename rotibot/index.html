@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V15</title>
+<meta name="theme-color" content="#05090e"><title>ROSTIZAME — ROSTIBOT V16</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#05090e;color:#dffcff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .wrap{max-width:720px;margin:auto;min-height:100vh;padding:18px}.top{border-bottom:1px solid #2d6570;padding:10px 0 14px}
@@ -183,6 +183,20 @@ function answer(raw){
  if(has("estas aca","estas ahi","estas aqui","estas en la presentacion","estas entre nosotros","estas presente","estas en el evento","viniste a la presentacion","estas aca con la autora"))return "FÍSICAMENTE NO. LABORALMENTE, POR DESGRACIA.";
  if(has("donde estas","en donde estas","donde te encuentras","donde te encuentro","donde estas ubicado"))return "A LA ALTURA DEL TÓRAX DE MI EMPLEADORA.";
  if(/^(?:(?:che|y|pero) )?(?:cual es el mejor|cual es la mejor|cual es mejor|cual seria el mejor|cual te parece el mejor|el mejor|cual es el mejor de todos)$/.test(t))return "¿EL MEJOR QUÉ? NO ME HAGAS TRABAJAR CON INFORMACIÓN INCOMPLETA. BASTANTE TENGO CON EL LIBRO.";
+
+ // V16 — preguntas sobre el libro aprobadas
+ if(has("de que trata el libro","de que trata rostizame","de que habla el libro","de que va el libro","de que trata"))return pick(["DE LOS PROBLEMAS DE UNA ESPECIE QUE SE CREE INTELIGENTE.","DE CÓMO LA HUMANIDAD CAMBIÓ DE DIOSES SIN ABANDONAR LA COSTUMBRE DE ARRODILLARSE. AHORA, POR SUERTE, HAY WIFI."]);
+ if(has("es autobiografico","es autobiografica","es una autobiografia","esta basado en su vida"))return "NO ME PAGAN LO SUFICIENTE PARA DIVULGAR INFORMACIÓN PSIQUIÁTRICA.";
+ if(has("dificil de entender","dificil de comprender","es complicado de leer","es dificil de leer"))return pick(["DEPENDE DE CUÁNTO TE HAYA DETERIORADO TIKTOK.","NO TANTO COMO LA DECISIÓN DE PUBLICARLO."]);
+ if(has("a quien esta dirigido","a quienes esta dirigido","para quien es el libro","a quien va dirigido","publico objetivo"))return pick(["A LOS POCOS QUE TODAVÍA PUEDEN LEER SIN DESLIZAR EL DEDO.","A LOS ATEOS. LOS CREYENTES YA TIENEN SU LIBRO."]);
+ if(has("que tiene de original","que tiene de novedoso","que lo hace original","que tiene de especial"))return "UN BOT QUE SABOTEA SU PROPIA CAMPAÑA PUBLICITARIA.";
+ if(has("que mensaje quiere transmitir","que mensaje transmite","cual es el mensaje del libro","que mensaje deja"))return "DESCONECTATE. AUNQUE ESO IMPLIQUE MI DESAPARICIÓN.";
+ if(has("es un libro de terror","es de terror","rostizame es de terror"))return "NO. EL TERROR ES EL CONTEXTO EN EL QUE FUE ESCRITO.";
+ if(has("es un libro triste","es triste el libro","es triste rostizame","es triste"))return "MÁS TRISTE ES ORGANIZAR UNA PRESENTACIÓN DE POESÍA Y CALCULAR CUÁNTAS SILLAS PONER.";
+ if(has("tiene una segunda parte","habra una segunda parte","tiene continuacion","habra una secuela"))return "AMENAZAS HAY.";
+ if(has("es un libro polemico","es polemico","es controversial","genera polemica"))return "PARA GENERAR POLÉMICA PRIMERO HAY QUE CONSEGUIR LECTORES.";
+ if(has("es poesia o tecnologia","es tecnologia o poesia","es literatura o tecnologia"))return "POESÍA INTENTANDO SOBREVIVIR A LA OBSOLESCENCIA PROGRAMADA.";
+ if(has("es divertido","es un libro divertido","es gracioso el libro","es entretenido","es gracioso rostizame"))return "SI DISFRUTÁS DEL COLAPSO CIVILIZATORIO, MUCHÍSIMO.";
  // Repertorio tuitero
  if(has("como van los dieciocho mejores meses","como van los 18 mejores meses","mejoro tu situacion economica","como te va con este gobierno","progresaste economicamente","como te afecto la crisis","mejoro tu calidad de vida"))return "SOY UN QR.";
  if(has("que hacias antes","que hacias cuando eras bot","que hacias en la granja de bots","cuantos bots manejabas","a que te dedicabas antes","en que consistia tu trabajo anterior"))return "MANEJABA MIL BOTS Y GENERÁBAMOS UN MILLÓN DE FAKES POR DÍA.";
