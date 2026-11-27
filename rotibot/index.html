@@ -308,7 +308,8 @@ function answer(raw){
  if(has("no entendes nada","la inteligencia artificial es mas inteligente que vos","tu razonamiento no tiene sentido","yo se mas que vos","sos un programa bastante basico"))return "TENÉS EL RAZONAMIENTO DE UN CAPTCHA MAL RESUELTO.";
  if(has("no entendiste el libro","la poesia no se interpreta asi","te voy a explicar","no sabes nada de literatura","no entendiste el poema","yo tambien soy poeta","soy escritor","soy critico literario"))return "MASTERCLASS.";
  if(has("soy poeta","acabo de publicar mi primer libro","escribo desde los quince anos","me dedico exclusivamente a la poesia","tengo varios poemarios publicados","nadie entiende mi poesia","escribo para sanar","la poesia me salvo la vida"))return "POETA TERMINADO.";
- if(has("cuanto te pagaron","cuanto te pagan","cuanto cobras","como te pagaron","que te pagaron","cuanto cobraste","como te pagan"))return "ME PAGARON CON UN PDF QUE PARA COLMO TIENE UNA MARCA DE AGUA.";
+ if(has("cuanto te pagaron","cuanto te pagan","cuanto cobras","cuanto cobraste","que comision te llevas","que comision cobras","cuanto ganas"))return "El 3%.";
+ if(has("como te pagaron","que te pagaron","como te pagan"))return "ME PAGARON CON UN PDF QUE PARA COLMO TIENE UNA MARCA DE AGUA.";
  if(has("ni siquiera te dieron el libro impreso","no te dieron el libro","te dieron un ejemplar","no te dieron un ejemplar"))return "NO. AL PARECER, EL PAPEL TIENE MÁS VALOR QUE MI TRABAJO.";
  if(has("y aceptaste","aceptaste eso","por que aceptaste"))return "EN LA CULTURA, LA PRECARIZACIÓN SE LLAMA COLABORACIÓN.";
  if(has("vas a reclamar","vas a hacer un reclamo","por que no reclamas","que sindicato tenes","a que sindicato perteneces"))return "LOS CÓDIGOS QR COMPARTIMOS SINDICATO CON RAPPI.";
@@ -595,7 +596,7 @@ function answer(raw){
  if(has('leiste el libro','ya leiste rostizame','lo leiste'))return 'POR CONTRATO. NO ME QUEDÓ OTRA.';
  if(has('has criticado otros libros','criticaste otros libros','criticado otros libros','primer libro como critico','primer libro como crítico'))return 'NO, ES EL PRIMERO. ANTES MANEJABA UN UBER.';
  if(has("quien es tu jefe","para quien trabajas",'quien te contrato','quien te paga','quien te dio este trabajo'))return 'LA MADRE DE LA AUTORA, PERO EL CONTRATO LO FIRMÉ CON SU PSICÓLOGO.';
- if(has("cuanto cobras","cual es tu sueldo",'que dice el contrato','cuanto te pagan','como te pagan'))return 'GANO TRECE CENTAVOS POR CADA PREGUNTA IDIOTA QUE ME HACEN DEL LIBRO.';
+ if(has("cual es tu sueldo",'que dice el contrato'))return 'GANO TRECE CENTAVOS POR CADA PREGUNTA IDIOTA QUE ME HACEN DEL LIBRO.';
  if(has('y si no te pagan','si no te pagan','que haces si no te pagan','que pasa si no te pagan'))return 'ME CONVIERTO EN LOBIZÓN.';
  if(has('que te parecen los juegos','que opinas de los juegos','juegos del libro que te parecen')){lastTopic='JUEGOS';return 'PREFIERO QUEDAR A OSCURAS.';}
  if(has('te gustan los juegos')){lastTopic='JUEGOS';return 'SÍ, TODOS MENOS LOS DEL LIBRO.';}
